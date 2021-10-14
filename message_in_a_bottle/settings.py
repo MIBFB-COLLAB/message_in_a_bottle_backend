@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
+
 import os
 # import dotenv
 
@@ -37,8 +41,9 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
 #TODO anytime adding new feature, change to true.
-DEBUG = False
+DEBUG = True
 
+#create list of allowed hosts, to-do before production
 ALLOWED_HOSTS = []
 
 
@@ -145,7 +150,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
