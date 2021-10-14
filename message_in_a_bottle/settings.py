@@ -37,7 +37,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
 #TODO anytime adding new feature, change to true.
-DEBUG = True
+DEBUG = False
 
 #create list of allowed hosts, to-do before production
 ALLOWED_HOSTS = []
