@@ -77,7 +77,6 @@ WSGI_APPLICATION = 'message_in_a_bottle.wsgi.application'
 
 DATABASES = {
     'default': {
-    # TODO: remove commented lines if not needed, or update as applicable
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
