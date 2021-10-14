@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # TODO: understand this syntax
+    'message_in_a_bottle.quickstart'
 ]
 
 MIDDLEWARE = [
