@@ -7,4 +7,6 @@ class Story(models.Model):
     longitude = models.FloatField()
     message = models.TextField()
     # optional name of user (can be anonymous)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default='Anonymous')
+    title = models.CharField(max_length=50, default='My Story')
+    location = models.CharField(max_length=50, default='')
