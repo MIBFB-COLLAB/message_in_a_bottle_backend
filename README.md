@@ -102,7 +102,7 @@ gem install rails --version 5.2.5
    python -m pip install -r requirements.txt
    ```
 5. Setup the database
-    ```sh
+  ```sh
   psql
 
   CREATE DATABASE <project name>;
@@ -115,7 +115,7 @@ gem install rails --version 5.2.5
 
   GRANT ALL PRIVILEGES ON DATABASE <project name TO <user name>;
 
-   ```
+  ```
 6. Add PostgreSQL database info to settings.py file
 
 7. python manage.py migrate
@@ -141,43 +141,37 @@ The GET stories endpoint has two options for retrieving stories near you. You ma
 | longitude    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires latitude |
 
 Request:
-GET `/api/v1/stories?location=pheonix,az`
+GET `/api/v1/stories?location=phoenix,az`
 
 Response:
 ```json
 {
   "data": {
-  "id": null,
-  "type": "stories",
-  "attributes": {
-    "input": {
-      "location": "pheonix,az"
-      },
+    "input_location": "phoenix,az",
     "stories":[
-        {
-        "id": 1,
-        "type": "story",
-        "attributes": {
-          "title": "my cool story",
-          "message": "This one time I saw a bird",
-          "latitude": 13.201,
-          "longitude": 9.2673,
-          "distance_in_miles": 1.2
-          }
-        },
-        {
-        "id": 1,
-        "type": "story",
-        "attributes": {
-          "title": "my cool story",
-          "message": "This one time I saw a bird",
-          "latitude": 13.201,
-          "longitude": 9.2673,
-          "distance_in_miles": 1.2
-          }
+      {
+      "id": 1,
+      "type": "story",
+      "attributes": {
+        "title": "my cool story",
+        "message": "This one time I saw a bird",
+        "latitude": 13.201,
+        "longitude": 9.2673,
+        "distance_in_miles": 1.2
         }
-      ]
-    }
+      },
+      {
+      "id": 1,
+      "type": "story",
+      "attributes": {
+        "title": "my cool story",
+        "message": "This one time I saw a bird",
+        "latitude": 13.201,
+        "longitude": 9.2673,
+        "distance_in_miles": 1.2
+        }
+      }
+    ]
   }
 }
 ```
