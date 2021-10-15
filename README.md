@@ -37,7 +37,7 @@
 
 ## About The Project
 
-Message in a Bottle is an application where users can discover stories about the communities around them. This app was designed as a way to interact with cities, neighborhoods, and the people that inhabit them. The Message in a Bottle backend is built with a Django framework, that stores story and user data through PostgresQL. We expose this data to our frontend team to build out the user interface.
+Message in a Bottle is an application where users can discover stories about the communities around them. This app was designed as a way to interact with cities, neighborhoods, and the people that inhabit them. The Message in a Bottle backend is built with a Django framework that stores story and user data through PostgreSQL. We expose this data to our frontend team to build out the user interface.
 
 ### Learning Goals
 
@@ -47,15 +47,14 @@ Message in a Bottle is an application where users can discover stories about the
 * Python TDD practices
 
 
-
 ## Tools Used
 
 | Development | Testing       | Gems            |
 |   :----:    |    :----:     |    :----:       |
-| Python 3.8.2|               |              |
+| Python 3.8.2| Pytest        |              |
 | Django      |               |  |
 | CircleCI    | FactoryBot    |          |
-| Atom        | Faker         |        |
+| PostgreSQL  | Faker         |        |
 | Git/Github  |       |      |
 | Heroku      |          |                 |
 
@@ -85,23 +84,41 @@ gem install rails --version 5.2.5
 
 
 
-## Installation
+## Run Locally
 
 1. Fork this repo
 2. Clone your new repo
    ```sh
-   git clone https://github.com/#{your_github_username}/message_in_a_bottle_backend.git
+   git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
    ```
-3. Install dependencies
+3. Create and Invoke your virtual environment
+  ```sh
+  python3 -m virtualenv venv
+
+  source <virtual env>/bin/activate
+  ```
+4. Install dependencies
    ```sh
-   pip
+   python -m pip install -r requirements.txt
    ```
-4. Setup the database
+5. Setup the database
     ```sh
   psql
-   ```
-5.
 
+  CREATE DATABASE <project name>;
+
+  CREATE USER <user name> WITH PASSWORD <password>;
+
+  ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
+  ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
+  ALTER ROLE myprojectuser SET timezone TO 'UTC';
+
+  GRANT ALL PRIVILEGES ON DATABASE <project name TO <user name>;
+
+   ```
+6. Add PostgreSQL database info to settings.py file
+
+7. python manage.py migrate
 
 
 ## How To Use
