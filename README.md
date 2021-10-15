@@ -136,6 +136,7 @@ Domain: 'https://message-in-a-bottle-api.herokuapp.com'
 The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
 
 | Query Params | Required? | Example | Notes |
+|   :----:     |   :----:  | :----:  | :----: |
 | location     | No        |`/api/v1/stories?location=pheonix,az`| |
 | latitude     | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires longitude|
 | longitude    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires latitude |
