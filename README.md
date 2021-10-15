@@ -41,10 +41,10 @@ Message in a Bottle is an application where users can discover stories about the
 
 ### Learning Goals
 
-* Building and testing a RESTful API
-* Active Record/SQL queries
-* Serializing data to follow proper JSON contracts
-* CRUD functionality
+* Building a RESTful API with a Django/Python backend
+* Collaborating with a Front End team
+* Geolocation calls and tracking
+* Python TDD practices
 
 
 
@@ -106,30 +106,38 @@ gem install rails --version 5.2.5
 
 ## How To Use
 
-To experience the UI our frontend team built please [visit](link). Otherwise you may hit our endpoints through http request helpers such as Postman.
+To experience the UI our frontend team built please [visit](link). Otherwise you may hit our endpoints through an http request helper such as Postman.
 
 
 
 ### Endpoint Documentation
-[User Endpoint](https://peaceful-reef-61917.herokuapp.com/api/v1/users/133)
+
+Domain: 'https://message-in-a-bottle-api.herokuapp.com'
+
+[Stories Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
+The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
+
+| Query Params | Required? | Example | Notes |
+| location     | No        |`/api/v1/stories?location=pheonix,az`| |
+| latitude     | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires longitude|
+| longitude    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires latitude |
+
 Request:
-for stories near specific city:
-`/api/v1/stories?location=pheonix,az`
-OR
-for stories near current location:
-`/api/v1/stories?lat=12.345&long=4.5968`
+GET `/api/v1/stories?location=pheonix,az`
 
 Response:
 ```json
 {
   "data": {
-  "id": "null",
+  "id": null,
   "type": "stories",
   "attributes": {
-    "input": "Pheonix, AZ",
-    "stories": [
-      {
+    "input": {
+      "location": "pheonix,az"
+      },
+    "stories":[
+        {
         "id": 1,
         "type": "story",
         "attributes": {
@@ -137,102 +145,152 @@ Response:
           "message": "This one time I saw a bird",
           "latitude": 13.201,
           "longitude": 9.2673,
-
+          "distance_in_miles": 1.2
+          }
+        },
+        {
+        "id": 1,
+        "type": "story",
+        "attributes": {
+          "title": "my cool story",
+          "message": "This one time I saw a bird",
+          "latitude": 13.201,
+          "longitude": 9.2673,
+          "distance_in_miles": 1.2
+          }
         }
-      }
-      ]"Melanie Swaniawski",
-    "email": "shameka_goyette@bartell.co"
+      ]
     }
   }
 }
 ```
 
-[Recommeded Art Endpoint](https://peaceful-reef-61917.herokuapp.com/api/v1/users/133/recommendations)
+[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1/directions)
 <br>
 Request:
-`/api/v1/users/:id/recommendations`
+GET `/api/v1/stories/:id/directions?lat=1230&long=1209.3`
 
 Response:
 ```json
 {
   "data": [
     {
-      "id": 168,
-      "type": "recommended_art",
+      "id": null,
+      "type": "directions",
       "attributes": {
-        "title": "Virgin of the Rocks",
-        "image": "https://d32dm0rphc51dk.cloudfront.net/Jv-e1fhDjg61OYhhsMoiQg/{image_version}.jpg",
-        "user_id": 133
+        "direction": "Turn left on Bob St.",
+        "distance": ".8 miles"
+      }
+    },
+    {
+      "id": null,
+      "type": "directions",
+      "attributes": {
+        "direction": "Turn right on Starry Road",
+        "distance": ".2 miles"
       }
     }
   ]
 }
 ```
 
-[Rated Art Index Endpoint](https://peaceful-reef-61917.herokuapp.com/api/v1/users/133/rated_arts)
+[Create Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
 Request:
-`/api/v1/users/:id/rated_arts`
+POST `/api/v1/stories`
 
-Response:
+Request Body:
 ```json
 {
-  "data": [
-      {
-        "id": 175,
-        "type": "rated_art",
-        "attributes": {
-          "title": "La Grande Odalisque",
-          "image": "https://d32dm0rphc51dk.cloudfront.net/crVj8GvGliFrpExNfHWl4Q/medium.jpg",
-          "liked": true,
-          "user_id": 145
-        }
-      },
-      {
-        "id": 184,
-        "type": "rated_art",
-        "attributes": {
-          "title": "L'Embarquement pour Cythère (The Embarkation for Cythera)",
-          "image": "https://d32dm0rphc51dk.cloudfront.net/Ux_L_UKjxgR-gJ6XZYVgVg/medium.jpg",
-          "liked": true,
-          "user_id": 145
-        }
-      }
-   ]
+  "title": "A new title",
+  "message": "I'm coming up",
+  "latitude": 1239.2,
+  "longitude": 29.758
 }
 ```
-
-[Rated Art Show Endpoint](https://peaceful-reef-61917.herokuapp.com/api/v1/users/145/rated_arts/174)
-<br>
-Request:
-`/api/v1/users/:id/rated_arts/:art_id`
 
 Response:
 ```json
 {
   "data": {
-    "id": 106,
-    "type": "rated_art",
+    "id": 2,
+    "type": "new_story",
     "attributes": {
-      "title": "The Tête à Tête",
-      "image": "https://d32dm0rphc51dk.cloudfront.net/5KJ7_u7BPqeltkfEnyijIw/medium.jpg",
-      "liked": true,
-      "user_id": 145
+      "title": "A new title",
+      "message": "I'm coming up",
+      "latitude": 1239.2,
+      "longitude": 29.758
     }
   }
 }
 ```
 
+[Update Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+<br>
+Request:
+PUT `/api/v1/stories/:id`
+
+Request Body:
+```json
+{
+  "title": "My Fixed Title",
+  "message": "Hello World.",
+  "latitude": 1239.2,
+  "longitude": 29.758
+}
+```
+
+Response:
+```json
+{
+  "data": {
+    "id": 1,
+    "type": "updated_story",
+    "attributes": {
+      "title": "My Fixed Title",
+      "message": "Hello World.",
+      "latitude": 1239.2,
+      "longitude": 29.758
+    }
+  }
+}
+```
+
+[Delete Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+<br>
+Request:
+DELETE `/api/v1/stories/:id`
+
 
 
 ## Database Schema
-![artspiration_be_schema](https://user-images.githubusercontent.com/80797707/134600560-be2d2a0d-290d-4757-b28f-1eb24a929f03.jpg)
+![message_in_a_bottle_schema](https://user-images.githubusercontent.com/80797707/134600560-be2d2a0d-290d-4757-b28f-1eb24a929f03.jpg)
 
 
 
 ## Contributing
 
 👤  **Marla Schulz**
+- [GitHub](https://github.com/marlitas)
+- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+
+👤  **Taylor Voraglu**
+- [GitHub](https://github.com/marlitas)
+- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+
+👤  **Matt Kragen**
+- [GitHub](https://github.com/marlitas)
+- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+
+👤  **Mae Duphone**
+- [GitHub](https://github.com/marlitas)
+- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+
+👤  **Fara Akha**
+- [GitHub](https://github.com/marlitas)
+- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+
+👤  **Justin A**
 - [GitHub](https://github.com/marlitas)
 - [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
 
