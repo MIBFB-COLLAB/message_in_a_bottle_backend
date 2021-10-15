@@ -20,4 +20,7 @@ jobs:
       - run:
           command: |
             pytest --version
-          name: Test
+          name: Check pytest version
+      - run:
+          command: pytest
+          name: Run test suite
