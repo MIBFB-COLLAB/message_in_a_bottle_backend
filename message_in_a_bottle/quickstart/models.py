@@ -10,3 +10,18 @@ class Story(models.Model):
     name = models.CharField(max_length=50, default='Anonymous')
     title = models.CharField(max_length=50, default='My Story')
     location = models.CharField(max_length=50, default='')
+    
+    def create_dict(story):
+        return {
+            key: story.id,
+            title: story.title,
+            shapePoints: [
+                story.latitude,
+                story.longitude
+            ]
+        }
+
+    #My rough attempt to map out story attributes to mapquest body request needs.
+    #Need to confirm how database calls are made.
+    def stories():
+        map(create_dict, Story.objects.all())
