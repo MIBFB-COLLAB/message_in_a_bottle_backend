@@ -31,5 +31,8 @@ jobs:
             pytest --version
           name: Check pytest version
       - run:
+          command: settings.configure()
+          name: Configure settings
+      - run:
           command: pytest
           name: Run test suite
