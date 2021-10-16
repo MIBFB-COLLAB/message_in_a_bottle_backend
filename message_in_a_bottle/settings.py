@@ -55,7 +55,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://www.test-cors.org',
+    # 'https://www.test-cors.org',
     'https://message-in-a-bottle-fe-app.herokuapp.com',
 ]
 
