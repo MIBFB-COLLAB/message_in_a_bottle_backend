@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'message_in_a_bottle.quickstart'
+    'message_in_a_bottle.quickstart',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
