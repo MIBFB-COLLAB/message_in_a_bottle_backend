@@ -31,8 +31,8 @@ jobs:
             pytest --version
           name: Check pytest version
       - run:
-          command: settings.configure()
-          name: Configure settings
+          command: export DJANGO_SETTINGS_MODULE=message_in_a_bottle.settings
+          name: Set path for pytest
       - run:
           command: pytest
           name: Run test suite
