@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # TODO: anytime adding new features, change to True.
 DEBUG = False
 
-#create list of allowed hosts, to-do before production
+#TODO: create list of allowed hosts, before production
 ALLOWED_HOSTS = []
 
 

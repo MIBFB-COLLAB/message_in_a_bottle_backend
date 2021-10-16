@@ -15,7 +15,7 @@ def story_list(request):
     if request.method == 'GET':
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse({'data': serializer.data}, safe=False)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = StorySerializer(data=data)
