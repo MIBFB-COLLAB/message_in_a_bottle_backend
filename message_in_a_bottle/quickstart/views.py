@@ -2,8 +2,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from snippets.models import Story
-from snippets.serializers import StorySerializer
+from message_in_a_bottle.quickstart.models import Story
+from message_in_a_bottle.quickstart.serializers import StorySerializer
 
 # Create your views here.
 # TODO: remove @csrf_exempt line after tutorial / troubleshooting completed
