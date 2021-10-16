@@ -8,7 +8,7 @@ from snippets.serializers import StorySerializer
 # Create your views here.
 # TODO: remove @csrf_exempt line after tutorial / troubleshooting completed
 @csrf_exempt
-def snippet_list(request):
+def story_list(request):
     """
     List all stories, or create a new story.
     """
@@ -16,7 +16,6 @@ def snippet_list(request):
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
         return JsonResponse(serializer.data, safe=False)
-
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = StorySerializer(data=data)
@@ -27,19 +26,18 @@ def snippet_list(request):
 
 # TODO: remove @csrf_exempt line after tutorial / troubleshooting completed
 @csrf_exempt
-def snippet_detail(request, pk):
+def story_detail(request, pk):
     """
     Retrieve, update or delete a story.
     """
     try:
-        story = Snippet.objects.get(pk=pk)
-    except Snippet.DoesNotExist:
+        story = Story.objects.get(pk=pk)
+    except Story.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
         serializer = StorySerializer(story)
         return JsonResponse(serializer.data)
-
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = StorySerializer(story, data=data)
@@ -47,7 +45,6 @@ def snippet_detail(request, pk):
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
-
     elif request.method == 'DELETE':
         story.delete()
         return HttpResponse(status=204)
