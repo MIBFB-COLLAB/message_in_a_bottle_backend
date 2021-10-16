@@ -1,4 +1,4 @@
-from message_in_a_bottle.quickstart.models import Story
+from message_in_a_bottle.api.models import Story
 
 def test_create_dict():
     story = {
