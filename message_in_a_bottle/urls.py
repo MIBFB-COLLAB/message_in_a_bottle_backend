@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', include('message_in_a_bottle.quickstart.urls')),
+    path('', include('message_in_a_bottle.api.urls')),
 ]
