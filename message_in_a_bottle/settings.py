@@ -26,7 +26,7 @@ from decouple import config
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
-# TODO: anytime adding new features, change to True.
+# TODO: anytime adding new features, change to True
 DEBUG = False
 
 #TODO: create list of allowed hosts, before production

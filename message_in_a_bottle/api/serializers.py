@@ -5,6 +5,3 @@ class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = ['id', 'latitude', 'longitude', 'message', 'name', 'title', 'location']
-
-    def dict_response(self):
-        return { 'data': self.data }
