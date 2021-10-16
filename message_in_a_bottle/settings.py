@@ -10,26 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-# import dotenv
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 from decouple import config
-
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
-# TODO: anytime adding new features, change to True
 DEBUG = False
 
-#TODO: create list of allowed hosts, before production
+# TODO: create list of allowed hosts, before production
+# Note.. may be unnecessary based on CORS configs??
 ALLOWED_HOSTS = []
 
 
@@ -42,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'message_in_a_bottle.api',
     'rest_framework',
+    'message_in_a_bottle.api',
 ]
 
 MIDDLEWARE = [
