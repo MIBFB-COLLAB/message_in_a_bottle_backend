@@ -1,3 +1,4 @@
+import pdb
 from django.db import models
 # from django.db.models import Model
 
@@ -10,7 +11,7 @@ class Story(models.Model):
     name = models.CharField(max_length=50, default='Anonymous')
     title = models.CharField(max_length=50, default='My Story')
     location = models.CharField(max_length=50, default='')
-    
+
     def create_dict(story):
         return {
             key: story.id,
