@@ -14,11 +14,11 @@ class Story(models.Model):
 
     def create_dict(story):
         return {
-            "key": story.id,
-            "title": story.title,
+            "key": story['id'],
+            "title": story['title'],
             "shapePoints": [
-                story.latitude,
-                story.longitude
+                story['latitude'],
+                story['longitude']
             ]
         }
 
