@@ -20,15 +20,10 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
       - run:
           command: |
-            pytest --version
-          name: Check pytest version
-      - run:
-          command: export DJANGO_SETTINGS_MODULE=message_in_a_bottle.settings
-          name: Set path for pytest
-      - run:
-          command: pytest
-          name: Run test suite
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            pytest
+          name: Activate virtual env, install requirements, and run test suite
