@@ -24,7 +24,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
 DEBUG = False
 
-# TODO: create list of allowed hosts, before production
+# TODO: create list of allowed hosts, before production??
 # Unsure if this is only required for 'web-based' views (not API-only views)
 ALLOWED_HOSTS = []
 
@@ -65,6 +65,7 @@ CORS_ALLOW_METHODS = [
     'GET',
     'POST',
     'PUT',
+    'PATCH',
     'DELETE',
     'OPTIONS',
 ]
