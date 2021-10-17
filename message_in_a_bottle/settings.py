@@ -25,7 +25,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 # TODO: create list of allowed hosts, before production
-# Note.. may be unnecessary based on CORS configs??
+# Unsure if this is only required for 'web-based' views (not API-only views)
 ALLOWED_HOSTS = []
 
 
