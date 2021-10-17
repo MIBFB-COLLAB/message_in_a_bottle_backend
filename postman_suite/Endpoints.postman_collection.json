@@ -144,8 +144,7 @@
 						}
 					],
 					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {},
-						"followOriginalHttpMethod": false
+						"disabledSystemHeaders": {}
 					},
 					"request": {
 						"method": "POST",
@@ -197,8 +196,7 @@
 						}
 					],
 					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {},
-						"followOriginalHttpMethod": false
+						"disabledSystemHeaders": {}
 					},
 					"request": {
 						"method": "POST",
