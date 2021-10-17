@@ -1,4 +1,4 @@
-import pdb
+# import pdb
 from django.db import models
 # from django.db.models import Model
 
@@ -13,6 +13,7 @@ class Story(models.Model):
     location = models.CharField(max_length=50, default='')
 
     def create_dict(story):
+        import pdb; pdb.set_trace()
         return {
             "key": story['id'],
             "title": story['title'],
@@ -22,7 +23,8 @@ class Story(models.Model):
             ]
         }
 
+
     #My rough attempt to map out story attributes to mapquest body request needs.
     #Need to confirm how database calls are made.
-    def stories():
-        map(create_dict, Story.objects.all())
+    def map_stories():
+        return list(map(Story.create_dict, Story.objects.all()))
