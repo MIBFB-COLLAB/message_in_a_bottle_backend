@@ -1,50 +1,60 @@
-# from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
+# from django.shortcuts import render
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-# Create your views here.
-# TODO: remove @csrf_exempt line after testing / troubleshooting complete
-@csrf_exempt
-def story_list(request):
+class StoryList(APIView):
     """
-    List all stories, or create a new story.
+    List all stories.
+    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
-    if request.method == 'GET':
+    def get(self, request, format=None):
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
-        return JsonResponse({'data': serializer.data}, safe=False)
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = StorySerializer(data=data)
+        return Response({'data':serializer.data})
+    """
+    Create a story.
+    """
+    def post(self, request, format=None):
+        serializer = StorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'data': serializer.data}, status=201)
-        return JsonResponse({'errors': serializer.errors}, status=400)
+            return Response({'data':serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-# TODO: remove @csrf_exempt line after testing / troubleshooting complete
-@csrf_exempt
-def story_detail(request, pk):
-    """
-    Retrieve, update or delete a story.
-    """
-    try:
-        story = Story.objects.get(pk=pk)
-    except Story.DoesNotExist:
-        return HttpResponse(status=404)
+class StoryDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Story.objects.get(pk=pk)
+        except Story.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    """
+    Retrieve a story instance.
+    """
+    def get(self, request, pk, format=None):
+        story = self.get_object(pk)
         serializer = StorySerializer(story)
-        return JsonResponse({'data': serializer.data})
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = StorySerializer(story, data=data)
+        return Response({'data':serializer.data})
+
+    """
+    Update a story instance.
+    """
+    def put(self, request, pk, format=None):
+        story = self.get_object(pk)
+        serializer = StorySerializer(story, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'data': serializer.data})
-        return JsonResponse({'errors': serializer.errors}, status=400)
-    elif request.method == 'DELETE':
+            return Response({'data':serializer.data})
+        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    """
+    Delete a story instance.
+    """
+    def delete(self, request, pk, format=None):
+        story = self.get_object(pk)
         story.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)

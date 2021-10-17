@@ -1,7 +1,8 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from message_in_a_bottle.api import views
 
 urlpatterns = [
-    path('api/v1/stories/', views.story_list),
-    path('api/v1/stories/<int:pk>/', views.story_detail),
+    path('stories', views.StoryList.as_view()),
+    path('stories/<int:pk>', views.StoryDetail.as_view()),
 ]

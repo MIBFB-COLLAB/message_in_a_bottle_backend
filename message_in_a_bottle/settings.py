@@ -24,8 +24,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
 DEBUG = False
 
-# TODO: create list of allowed hosts, before production
-# Note.. may be unnecessary based on CORS configs??
+# TODO: create list of allowed hosts, before production??
+# Unsure if this is only required for 'web-based' views (not API-only views)
 ALLOWED_HOSTS = []
 
 
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# TODO: remove localhost once MVP is complete
 CORS_ALLOWED_ORIGINS = [
     # 'https://www.test-cors.org',
     'http://localhost:3000',
@@ -64,6 +65,7 @@ CORS_ALLOW_METHODS = [
     'GET',
     'POST',
     'PUT',
+    'PATCH',
     'DELETE',
     'OPTIONS',
 ]
