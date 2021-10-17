@@ -3,20 +3,25 @@ from message_in_a_bottle.api.serializers import StorySerializer
 # from django.shortcuts import render
 from django.http import Http404
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-
 class StoryList(APIView):
     """
-    List all stories, or create a new story.
+    List all stories.
     """
     def get(self, request, format=None):
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
         return Response({'data':serializer.data})
 
+class StoryCreate(CreateAPIView):
+    """
+    Create a story.
+    """
     def post(self, request, format=None):
+        print(request.data)
         serializer = StorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
