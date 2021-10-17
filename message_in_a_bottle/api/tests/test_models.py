@@ -1,5 +1,5 @@
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'message_in_a_bottle.settings'
+# import os
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'message_in_a_bottle.settings'
 
 from message_in_a_bottle.api.models import Story
 
