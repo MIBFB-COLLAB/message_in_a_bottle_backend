@@ -6,7 +6,7 @@ from django.test import TestCase
 class TestModels(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.story = Story.objects.create(title= 'My Story', message= 'I said hi.', latitude= 41.599143847185175, longitude= -87.89309819798746)
+        Story.objects.create(title= 'My Story', message= 'I said hi.', latitude= 41.599143847185175, longitude= -87.89309819798746)
 
     def test_create_dict(self):
         TestModels.setUpTestData()
@@ -24,7 +24,7 @@ class TestModels(TestCase):
         story = Story.objects.all()[0]
 
         assert len(Story.objects.all()) == 1
-        
+
         assert Story.map_stories() ==[{
                 'key': story.id,
                 'title': story.title,
