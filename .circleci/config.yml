@@ -23,7 +23,7 @@ jobs:
       - image: circleci/postgres:9.6-alpine
         environment:
           POSTGRES_USER: defaultuser
-          POSTGRES_DB: postgres
+          POSTGRES_DB: message_in_a_bottle
     environment:
       PGHOST: 127.0.0.1
       PGUSER: defaultuser
