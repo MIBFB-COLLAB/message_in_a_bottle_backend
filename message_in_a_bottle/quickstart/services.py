@@ -8,8 +8,8 @@ def get_stories(lat, long, stories):
     data = {
       "origin": {
         "latLng": {
-          "lat": 39.74822614190254,
-          "lng": -104.99898275758112
+          "lat": lat,
+          "lng": long
         }
       },
       "options": {

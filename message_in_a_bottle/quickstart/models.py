@@ -13,18 +13,15 @@ class Story(models.Model):
     location = models.CharField(max_length=50, default='')
 
     def create_dict(story):
-        import pdb; pdb.set_trace()
         return {
-            "key": story['id'],
-            "title": story['title'],
+            "key": story.id,
+            "title": story.title,
             "shapePoints": [
-                story['latitude'],
-                story['longitude']
+                story.latitude,
+                story.longitude
             ]
         }
 
-
-    #My rough attempt to map out story attributes to mapquest body request needs.
-    #Need to confirm how database calls are made.
     def map_stories():
-        return list(map(Story.create_dict, Story.objects.all()))
+        stories = map(Story.create_dict, Story.objects.all())
+        return list(stories)

@@ -9,22 +9,26 @@ class TestModels(TestCase):
         cls.story = Story.objects.create(title= 'My Story', message= 'I said hi.', latitude= 41.599143847185175, longitude= -87.89309819798746)
 
     def test_create_dict(self):
-        story = {
-            "id": 1,
-            "title": 'My Cool Story',
-            "message": 'I once saw a really pretty flower.',
-            "latitude": 123.456892,
-            "longitude": -19.982791
-        }
+        TestModels.setUpTestData()
+        story = Story.objects.all()[0]
 
         assert Story.create_dict(story) == {
-            "key": 1,
-            "title": 'My Cool Story',
+            "key": story.id,
+            "title": story.title,
             "shapePoints": [
-                123.456892, -19.982791
+                story.latitude, story.longitude
             ]
         }
 
     def test_map_stories(self):
-        self.story
-        assert Story.map_stories() ==[]
+        story = Story.objects.all()[0]
+
+        assert len(Story.objects.all()) == 1
+        
+        assert Story.map_stories() ==[{
+                'key': story.id,
+                'title': story.title,
+                'shapePoints': [
+                    story.latitude, story.longitude
+                ]}
+            ]
