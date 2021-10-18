@@ -4,53 +4,43 @@ from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
 
 @pytest.mark.django_db
-def test_get_existing_story():
-    story = {
-        'title': 'My Cool Story',
-        'message': 'I once saw a really pretty flower.',
-        'latitude': 123.456892,
-        'longitude': -19.982791
-    }
-    assert Story.objects.count() == 0
+class TestGetStory():
+    def test_db_setup(self):
+        assert Story.objects.count() == 0
+        self.story_dict = {
+            'title': 'My Cool Story',
+            'message': 'I once saw a really pretty flower.',
+            'latitude': 123.456892,
+            'longitude': -19.982791
+        }
+        self.new_story = Story.objects.create(
+            title = self.story_dict['title'],
+            message = self.story_dict['message'],
+            latitude = self.story_dict['latitude'],
+            longitude = self.story_dict['longitude']
+        )
+        assert Story.objects.count() == 1
 
-    Story.objects.create(
-        title=story['title'],
-        message=story['message'],
-        latitude=story['latitude'],
-        longitude=story['longitude']
-    )
-    assert Story.objects.count() == 1
+    def test_get_existing_story(self):
+        TestGetStory.test_db_setup(self)
 
-    id = Story.objects.latest('id').id
-    route = f'/api/v1/stories/{id}'
+        self.valid_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.valid_id}'
 
-    client = APIClient()
-    response = client.get(route)
-    serializer = StorySerializer(Story.objects.get(pk=id))
+        client = APIClient()
+        response = client.get(self.route)
+        serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
 
-    assert response.status_code == 200
-    assert response.data['data'] == serializer.data
+        assert response.status_code == 200
+        assert response.data['data'] == serializer.data
 
-@pytest.mark.django_db
-def test_get_non_existent_story():
-    story = {
-        'title': 'My Cool Story',
-        'message': 'I once saw a really pretty flower.',
-        'latitude': 123.456892,
-        'longitude': -19.982791
-    }
+    def test_get_non_existent_story(self):
+        TestGetStory.test_db_setup(self)
 
-    Story.objects.create(
-        title=story['title'],
-        message=story['message'],
-        latitude=story['latitude'],
-        longitude=story['longitude']
-    )
+        self.invalid_id = Story.objects.latest('id').id + 1
+        self.route = f'/api/v1/stories/{self.invalid_id}'
 
-    id = Story.objects.latest('id').id + 1
-    route = f'/api/v1/stories/{id}'
+        client = APIClient()
+        response = client.get(self.route)
 
-    client = APIClient()
-    response = client.get(route)
-
-    assert response.status_code == 404
+        assert response.status_code == 404
