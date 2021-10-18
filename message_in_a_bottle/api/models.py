@@ -5,10 +5,10 @@ from django.db import models
 class Story(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
-    message = models.TextField(max_length=1000)
     # optional name of user (can be anonymous)
     name = models.CharField(max_length=50, default='Anonymous')
     title = models.CharField(max_length=50, default='My Story')
+    message = models.TextField(max_length=1000)
     location = models.CharField(max_length=50, default='')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
