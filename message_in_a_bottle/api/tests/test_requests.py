@@ -1,10 +1,11 @@
 import pytest
 from rest_framework.test import APIClient
+from django.urls import reverse
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
 
 @pytest.mark.django_db
-class TestGetStory():
+class TestGetStory:
     def test_db_setup(self):
         assert Story.objects.count() == 0
         self.story_dict = {
