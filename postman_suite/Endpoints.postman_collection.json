@@ -62,7 +62,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['data']['id']).to.eql(1);",
+									"    pm.expect(jsonData['data']['id']).to.eql(Number(pm.environment.get(\"story_id\")));",
 									"    // TODO: reset 'attributes' var when we change serializer to return table columns within an 'attributes' object",
 									"    var attributes = jsonData['data'];",
 									"    pm.expect(attributes['latitude']).not.to.be.null;",
@@ -86,7 +86,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/stories/1",
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}",
 							"host": [
 								"{{base_url}}"
 							],
@@ -94,7 +94,7 @@
 								"api",
 								"v1",
 								"stories",
-								"1"
+								"{{story_id}}"
 							]
 						}
 					},
