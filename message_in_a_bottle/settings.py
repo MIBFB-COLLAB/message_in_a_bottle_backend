@@ -59,6 +59,7 @@ CORS_ALLOWED_ORIGINS = [
     # 'https://www.test-cors.org',
     'http://localhost:3000',
     'https://message-in-a-bottle-fe-app.herokuapp.com',
+    'https://app-message-in-a-bottle.herokuapp.com',
 ]
 
 CORS_ALLOW_METHODS = [
