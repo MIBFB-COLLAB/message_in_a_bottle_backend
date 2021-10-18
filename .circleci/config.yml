@@ -17,6 +17,16 @@ workflows:
 
 jobs:
   build:
+    parallelism: 1
+    docker:
+      - image: circleci/python:3.9.7
+      - image: circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: defaultuser
+          POSTGRES_DB: postgres
+    environment:
+      PGHOST: 127.0.0.1
+      PGUSER: defaultuser
     executor: python/default
     steps:
       - checkout
