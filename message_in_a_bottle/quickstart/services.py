@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -23,5 +24,5 @@ class MapService():
           },
         "remoteDataList": stories
           }
-        response = requests.post(url, params=params, data=data)
-        stories = response.json()
+        response = requests.post(url, params=params, data=json.dumps(data, indent = 1))
+        return response.json()

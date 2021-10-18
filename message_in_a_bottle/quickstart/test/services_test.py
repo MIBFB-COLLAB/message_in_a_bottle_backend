@@ -41,4 +41,17 @@ class TestServices(TestCase):
             }
         ]
 
-        assert MapService.get_stories(lat, long, stories) == True
+        response = MapService.get_stories(lat, long, stories)
+
+        assert response['resultsCount'] == 3
+        assert 'origin' in response.keys()
+        assert 'searchResults' in response.keys()
+        assert len(response['searchResults']) == 3
+
+        assert 'name' in response['searchResults'][0]
+        assert 'distance' in response['searchResults'][0]
+        assert 'distanceUnit' in response['searchResults'][0]
+        assert 'shapePoints' in response['searchResults'][0]
+
+        assert response['searchResults'][0]['name'] == 'Union Station'
+        assert response['searchResults'][0]['distanceUnit'] == 'm'
