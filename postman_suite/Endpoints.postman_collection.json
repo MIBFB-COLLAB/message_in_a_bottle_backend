@@ -177,7 +177,7 @@
 					"response": []
 				},
 				{
-					"name": "Error Handling for Invalid Story",
+					"name": "Error Handling for Empty JSON Body",
 					"event": [
 						{
 							"listen": "test",
@@ -208,6 +208,57 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Error Handling for Story with >1k Chars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful POST Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['errors']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['message']).to.eql(['Ensure this field has no more than 1000 characters.']);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Here's Johnny!\",\n    \"message\":\"allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy\",\n    \"name\":\"Jack Torrance\",\n    \"latitude\":125.456892,\n    \"longitude\":-18.982791\n}",
 							"options": {
 								"raw": {
 									"language": "json"
