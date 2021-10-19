@@ -131,7 +131,7 @@ To experience the UI our frontend team built please [visit](link). Otherwise you
 
 Domain: 'https://message-in-a-bottle-api.herokuapp.com'
 
-[Stories Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
+[Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
 The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
 
@@ -154,21 +154,27 @@ Response:
       "type": "story",
       "attributes": {
         "title": "my cool story",
-        "message": "This one time I saw a bird",
+        "message": "I went on a walk.",
+        "name": "anonymous",
+        "created_at": "2021-10-18T23:28:51.897746Z",
+        "updated_at": "2021-10-18T23:28:51.897746Z",
         "latitude": 13.201,
         "longitude": 9.2673,
         "distance_in_miles": 1.2
         }
       },
       {
-      "id": 1,
+      "id": 2,
       "type": "story",
       "attributes": {
-        "title": "my cool story",
-        "message": "This one time I saw a bird",
-        "latitude": 13.201,
-        "longitude": 9.2673,
-        "distance_in_miles": 1.2
+        "title": "story",
+        "message": "I went skydiving.",
+        "name": "anonymous",
+        "created_at": "2021-10-08T23:28:51.897746Z",
+        "updated_at": "2021-10-08T23:28:51.897746Z",
+        "latitude": 13.563,
+        "longitude": 10.2673,
+        "distance_in_miles": 3
         }
       }
     ]
@@ -176,6 +182,31 @@ Response:
 }
 ```
 
+[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1)
+<br>
+    Request:
+GET `/api/v1/stories/:id?lat=12093&long=-19283`
+
+Response:
+```json
+{
+  "data": {
+    "id": 1,
+    "type": "story",
+    "attributes": {
+      "title": "my cool story",
+      "message": "This one time I saw a bird",
+      "name": "anonymous",
+      "created_at": "2021-10-08T23:28:51.897746Z",
+      "updated_at": "2021-10-08T23:28:51.897746Z",
+      "latitude": 13.201,
+      "longitude": 9.2673,
+      "distance_in_miles": 1.2
+      }
+   }
+}
+```
+    
 [Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1/directions)
 <br>
 Request:
@@ -189,7 +220,7 @@ Response:
       "id": null,
       "type": "directions",
       "attributes": {
-        "direction": "Turn left on Bob St.",
+        "narrative": "Turn left on Bob St.",
         "distance": ".8 miles"
       }
     },
@@ -197,7 +228,7 @@ Response:
       "id": null,
       "type": "directions",
       "attributes": {
-        "direction": "Turn right on Starry Road",
+        "narrative": "Turn right on Starry Road",
         "distance": ".2 miles"
       }
     }
@@ -225,10 +256,13 @@ Response:
 {
   "data": {
     "id": 2,
-    "type": "new_story",
+    "type": "story",
     "attributes": {
       "title": "A new title",
       "message": "I'm coming up",
+      "name": "Anonymous",
+      "created_at": "2021-10-08T23:28:51.897746Z",
+      "updated_at": "2021-10-08T23:28:51.897746Z",
       "latitude": 1239.2,
       "longitude": 29.758
     }
@@ -246,6 +280,7 @@ Request Body:
 {
   "title": "My Fixed Title",
   "message": "Hello World.",
+  "name": "sally",
   "latitude": 1239.2,
   "longitude": 29.758
 }
@@ -256,10 +291,13 @@ Response:
 {
   "data": {
     "id": 1,
-    "type": "updated_story",
+    "type": "story",
     "attributes": {
       "title": "My Fixed Title",
       "message": "Hello World.",
+      "name": "Sally",
+      "created_at": "2021-10-08T23:28:51.897746Z",
+      "updated_at": "2021-10-18T23:28:51.897746Z",
       "latitude": 1239.2,
       "longitude": 29.758
     }
