@@ -1,5 +1,5 @@
 import pytest
-from message_in_a_bottle.quickstart.models import Story
+from message_in_a_bottle.api.models import Story
 from django.test import TestCase
 
 @pytest.mark.django_db

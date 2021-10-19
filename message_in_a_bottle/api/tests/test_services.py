@@ -1,5 +1,5 @@
 import pytest
-from message_in_a_bottle.quickstart.services import MapService
+from message_in_a_bottle.api.services import MapService
 from django.test import TestCase
 
 class TestServices(TestCase):

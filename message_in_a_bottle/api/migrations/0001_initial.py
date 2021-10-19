@@ -18,9 +18,7 @@ class Migration(migrations.Migration):
                 ('latitude', models.FloatField()),
                 ('longitude', models.FloatField()),
                 ('message', models.TextField()),
-                ('name', models.CharField(default='Anonymous', max_length=50)),
-                ('title', models.CharField(default='My Story', max_length=50)),
-                ('location', models.CharField(default='', max_length=50)),
+                ('name', models.CharField(default='Anonymous', max_length=50))
             ],
         ),
     ]
