@@ -1,5 +1,6 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
+from message_in_a_bottle.api.services import MapService
 # from django.shortcuts import render
 from django.http import Http404
 from rest_framework.views import APIView
@@ -12,7 +13,9 @@ class StoryList(APIView):
     TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, format=None):
-        stories = Story.objects.all()
+        stories = Story.map_stories()
+        response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
+        import pdb; pdb.set_trace()
         serializer = StorySerializer(stories, many=True)
         return Response({'data':serializer.data})
     """
