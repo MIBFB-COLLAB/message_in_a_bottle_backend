@@ -14,10 +14,8 @@ import os
 from dotenv import load_dotenv
 
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -29,10 +27,10 @@ load_dotenv()
 SECRET_KEY = os.environ['SECRET_KEY']
 MAPQUEST_KEY = os.environ['MAPQUEST_KEY']
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
-# TODO: anytime adding new features, change to True.
 DEBUG = False
 
-#create list of allowed hosts, to-do before production
+# TODO: create list of allowed hosts, before production??
+# Unsure if this is only required for 'web-based' views (not API-only views)
 ALLOWED_HOSTS = []
 
 
@@ -42,21 +40,55 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
+    'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
-    'message_in_a_bottle.quickstart'
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'message_in_a_bottle.api',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# TODO: remove localhost once MVP is complete
+CORS_ALLOWED_ORIGINS = [
+    # 'https://www.test-cors.org',
+    'http://localhost:3000',
+    'https://message-in-a-bottle-fe-app.herokuapp.com',
+    'https://app-message-in-a-bottle.herokuapp.com',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'message_in_a_bottle.urls'
 
@@ -84,14 +116,12 @@ WSGI_APPLICATION = 'message_in_a_bottle.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'quickstart',
+        'NAME': 'message_in_a_bottle',
         'USER': 'defaultuser',
         'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
