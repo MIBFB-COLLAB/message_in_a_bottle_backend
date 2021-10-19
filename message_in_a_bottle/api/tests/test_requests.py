@@ -35,8 +35,7 @@ class TestGetStory(TestCase):
         serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
 
         assert response.status_code == 200
-        # TODO: Uncomment the next line once we refactor serializer method
-        # assert response.data['data'] == serializer.data
+        assert response.data['data'] == serializer.reformat(serializer.data)
 
     def test_get_non_existent_story(self):
         TestGetStory.test_db_setup()
