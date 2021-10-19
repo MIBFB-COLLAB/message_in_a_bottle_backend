@@ -9,16 +9,16 @@
 
 <p align="center">
   <a href="https://github.com/marlitas/rails_engine/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/marlitas/rails_engine?style=for-the-badge" alt="contributors_badge">
+    <img src="https://img.shields.io/github/contributors/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="contributors_badge">
   </a>
   <a href="https://github.com/marlitas/rails_engine/network/members">
-    <img src="https://img.shields.io/github/forks/marlitas/rails_engine?style=for-the-badge" alt="forks_badge">
+    <img src="https://img.shields.io/github/forks/MIBFB-COLLAB/message_in_a_bottle_backendrails_engine?style=for-the-badge" alt="forks_badge">
   </a>
   <a href="https://github.com/marlitas/rails_engine/stargazers">
-    <img src="https://img.shields.io/github/stars/marlitas/rails_engine?style=for-the-badge" alt="stars_badge">
+    <img src="https://img.shields.io/github/stars/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="stars_badge">
   </a>
   <a href="https://github.com/marlitas/rails_engine/issues">
-    <img src="https://img.shields.io/github/issues/marlitas/rails_engine?style=for-the-badge" alt="issues_badge">
+    <img src="https://img.shields.io/github/issues/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="issues_badge">
 
 
 <!-- CONTENTS -->
