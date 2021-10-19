@@ -36,5 +36,5 @@ jobs:
             source venv/bin/activate
             pip install -r requirements.txt
             export DJANGO_SETTINGS_MODULE=message_in_a_bottle.settings
-            pytest
+            pytest --cov
           name: Activate virtual env, install requirements, and run test suite
