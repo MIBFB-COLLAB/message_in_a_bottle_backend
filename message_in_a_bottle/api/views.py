@@ -38,7 +38,7 @@ class StoryDetail(APIView):
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
         serializer = StorySerializer(story)
-        return Response({'data':serializer.data})
+        return Response({'data': serializer.reformat(serializer.data)})
 
     """
     Update a story instance.

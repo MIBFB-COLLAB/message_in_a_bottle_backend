@@ -26,16 +26,18 @@ class TestStorySerializer(TestCase):
         TestStorySerializer.test_db_setup()
         self.story = Story.objects.latest('id')
 
+        serializer = StorySerializer(self.story)
+
         assert type(self.story) == Story
-        assert StorySerializer.reformat(self.story) == {
+        assert serializer.reformat(self.story.__dict__) == {
             'id': self.story.id,
-            'type': 'Story',
+            'type': self.story.__class__.__name__,
             'attributes': {
                 'name': self.story.name,
                 'title': self.story.title,
                 'message': self.story.message,
                 'latitude': self.story.latitude,
-                'longitude': self.story.message,
+                'longitude': self.story.longitude,
                 'location': self.story.location,
                 'created_at': self.story.created_at,
                 'updated_at': self.story.updated_at

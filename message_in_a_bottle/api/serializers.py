@@ -6,18 +6,18 @@ class StorySerializer(serializers.ModelSerializer):
         model = Story
         fields = ['id', 'latitude', 'longitude', 'message', 'name', 'title', 'location', 'created_at', 'updated_at']
 
-    def reformat(story):
+    def reformat(self, story):
         return {
-            'id': story.id,
-            'type': story.__class__.__name__,
+            'id': story['id'],
+            'type': 'Story',
             'attributes': {
-                'name': story.name,
-                'title': story.title,
-                'message': story.message,
-                'latitude': story.latitude,
-                'longitude': story.message,
-                'location': story.location,
-                'created_at': story.created_at,
-                'updated_at': story.updated_at
+                'name': story['name'],
+                'title': story['title'],
+                'message': story['message'],
+                'latitude': story['latitude'],
+                'longitude': story['longitude'],
+                'location': story['location'],
+                'created_at': story['created_at'],
+                'updated_at': story['updated_at']
             }
         }
