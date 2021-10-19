@@ -1,3 +1,4 @@
+# import pdb
 from django.db import models
 # from django.db.models import Model
 
@@ -15,10 +16,14 @@ class Story(models.Model):
 
     def create_dict(story):
         return {
-            'key': story['id'],
-            'title': story['title'],
+            'key': story.id,
+            'title': story.title,
             'shapePoints': [
-                story['latitude'],
-                story['longitude']
+                story.latitude,
+                story.longitude
             ]
         }
+
+    def map_stories():
+        stories = map(Story.create_dict, Story.objects.all())
+        return list(stories)

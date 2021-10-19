@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 
+from dotenv import load_dotenv
+
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 from decouple import config
-SECRET_KEY = config('SECRET_KEY')
+load_dotenv()
 
+#SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ['SECRET_KEY']
+MAPQUEST_KEY = os.environ['MAPQUEST_KEY']
 # SECURITY WARNING: don't run with debug turned on in production! Is debug like pry?
 DEBUG = False
 
@@ -90,7 +95,7 @@ ROOT_URLCONF = 'message_in_a_bottle.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
