@@ -109,3 +109,20 @@ class TestGetStory(TestCase):
         response = client.post(self.route, dict, format='json')
 
         assert original_length == len(Story.objects.all())
+
+    def test_story_saves_valid_lat_long(self):
+        TestGetStory.test_db_setup()
+        dict = {
+            "title": "I'm valid",
+            "message": "Keep me I'm valid!",
+            "latitude": 45.8762,
+            "longitude": 96.12893,
+            "location": 'place'
+        }
+        original_length = len(Story.objects.all())
+        self.route = f'/api/v1/stories'
+
+        client = APIClient()
+        response = client.post(self.route, dict, format='json')
+
+        assert len(Story.objects.all()) == original_length + 1
