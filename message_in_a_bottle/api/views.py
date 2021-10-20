@@ -1,6 +1,6 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
-# from django.shortcuts import render
+from django.core.exceptions import ValidationError
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,11 +19,24 @@ class StoryList(APIView):
     Create a story.
     """
     def post(self, request, format=None):
-        serializer = StorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        story = Story.objects.create(
+            title = request.data['title'],
+            message = request.data['message'],
+            latitude = request.data['latitude'],
+            longitude = request.data['longitude'],
+            location = request.data['location']
+        )
+        try:
+            story.full_clean()
+        except ValidationError:
+            story.delete()
+            error = 'Latitude or Longitude is invalid'
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = StorySerializer(story)
+            # import pdb; pdb.set_trace()
+            # if serializer.is_valid():
             return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
-        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):

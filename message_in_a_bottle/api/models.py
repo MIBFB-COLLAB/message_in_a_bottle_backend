@@ -1,6 +1,5 @@
-# import pdb
 from django.db import models
-# from django.db.models import Model
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Story(models.Model):
@@ -13,6 +12,18 @@ class Story(models.Model):
     location = models.CharField(max_length=50, default='')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def clean(self):
+        if not -90 <= self.latitude <= 90:
+            raise ValidationError('Latitude is invalid')
+        if not -180 <= self.longitude <= 180:
+            raise ValidationError('Longitude is invalid')
+
+    # def clean(self, story):
+    #     if not -90 <= story.latitude <= 90:
+    #         return 'Latitude is invalid'
+    #     if not -180 <= story.longitude <= 180:
+    #         return 'Longitude is invalid'
 
     def create_dict(story):
         return {
