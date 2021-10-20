@@ -13,8 +13,8 @@ class TestModels(TestCase):
         story = Story.objects.all()[0]
 
         assert Story.create_dict(story) == {
-            "key": story.id,
-            "title": story.title,
+            "key": str(story.id),
+            "name": story.title,
             "shapePoints": [
                 story.latitude, story.longitude
             ]
@@ -26,9 +26,9 @@ class TestModels(TestCase):
         assert len(Story.objects.all()) == 1
 
         assert Story.map_stories() ==[{
-                'key': story.id,
-                'title': story.title,
-                'shapePoints': [
-                    story.latitude, story.longitude
-                ]}
-            ]
+            'key': str(story.id),
+            'name': story.title,
+            'shapePoints': [
+                story.latitude, story.longitude
+            ]}
+        ]
