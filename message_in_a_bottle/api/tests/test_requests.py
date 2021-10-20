@@ -95,8 +95,17 @@ class TestGetStory(TestCase):
 
     def test_story_does_not_save_invalid_lat_long(self):
         TestGetStory.test_db_setup()
+        dict = {
+            "title": "I'm invalid",
+            "message": "Delete me I'm invalid!",
+            "latitude": 450.8762,
+            "longitude": 960.12893,
+            "location": 'place'
+        }
         original_length = len(Story.objects.all())
         self.route = f'/api/v1/stories'
 
         client = APIClient()
-        response = client.post(self.route)
+        response = client.post(self.route, dict, format='json')
+
+        assert original_length == len(Story.objects.all())

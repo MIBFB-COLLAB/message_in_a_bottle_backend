@@ -6,6 +6,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.exceptions import ValidationError
 
 class StoryList(APIView):
     """
@@ -21,15 +22,17 @@ class StoryList(APIView):
     Create a story.
     """
     def post(self, request, format=None):
+        story = Story.objects.create(title = request.data['title'], message = request.data['message'], latitude = request.data['latitude'], longitude = request.data['longitude'], location = '')
+        try:
+            story.full_clean()
+            story.save()
+        except ValidationError:
+            story.delete()
+            error = "Latitude or Longitude is invalid"
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
         serializer = StorySerializer(data=request.data)
         if serializer.is_valid():
-            try:
-                serialilzer.full_clean()
-                serializer.save()
-            except ValidationError:
-                serializer.delete()
-                error = "Latitude or Longitude is invalid"
-                return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
             return Response({'data':serializer.data}, status=status.HTTP_201_CREATED)
 
 

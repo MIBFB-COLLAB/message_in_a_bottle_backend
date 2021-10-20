@@ -18,7 +18,7 @@ class Story(models.Model):
     def clean(self):
         if not -90 <= self.latitude <= 90:
             raise ValidationError(('Latitude is invalid'))
-        if not -180 <= long <= 180:
+        if not -180 <= self.longitude <= 180:
             raise ValidationError(('Longitude is invalid'))
 
     def create_dict(story):
