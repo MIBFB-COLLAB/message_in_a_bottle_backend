@@ -22,7 +22,7 @@ class StoryList(APIView):
         serializer = StorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'data':serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
         return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
@@ -38,7 +38,7 @@ class StoryDetail(APIView):
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
         serializer = StorySerializer(story)
-        return Response({'data': serializer.reformat(serializer.data)})
+        return Response({'data':serializer.reformat(serializer.data)})
 
     """
     Update a story instance.
