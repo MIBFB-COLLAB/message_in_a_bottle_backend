@@ -27,7 +27,7 @@ class StoryList(APIView):
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
             return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            error = 'Invalid latitude or longitude'
+            error = {'coordinates': ['Invalid latitude or longitude.']}
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):

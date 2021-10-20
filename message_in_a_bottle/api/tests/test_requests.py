@@ -14,8 +14,7 @@ class TestStoryRequests(TestCase):
             'title': 'My Cool Story',
             'message': 'I once saw a really pretty flower.',
             'longitude': 123.456892,
-            'latitude': -19.982791,
-            'location': 'A sample location'
+            'latitude': -19.982791
         }
         cls.new_story = Story.objects.create(
             title = cls.story_dict['title'],
@@ -72,4 +71,4 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors == 'Invalid latitude or longitude'
+        assert errors['coordinates'] == ['Invalid latitude or longitude.']

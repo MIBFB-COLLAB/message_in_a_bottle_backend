@@ -12,17 +12,17 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def valid_coords(story):
-        if 'latitude' in story and 'longitude' in story:
-            if not -90 <= story['latitude'] <= 90:
-                return False
-            elif not -180 <= story['longitude'] <= 180:
+    def valid_coords(request_dict):
+        if 'latitude' in request_dict and 'longitude' in request_dict:
+            if not (-90 <= request_dict['latitude'] <= 90) or not (-180 <= request_dict['longitude'] <= 180):
                 return False
             else:
                 return True
         else:
             return False
 
+    # TODO: rename this function to be more specific to MapQuest Service
+    # ('create_dict' implies creating a dict of all Story object attributes, IMO)
     def create_dict(story):
         return {
             'key': story.id,

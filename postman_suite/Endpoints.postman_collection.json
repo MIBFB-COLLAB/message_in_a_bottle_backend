@@ -175,6 +175,57 @@
 					"response": []
 				},
 				{
+					"name": "Error Handling for Invalid Lat/Lon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Uncuccessful POST Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['errors']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\",\n    \"latitude\":125.456892,\n    \"longitude\":-18.982791\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Error Handling for Empty JSON Body",
 					"event": [
 						{
@@ -188,8 +239,7 @@
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData['errors']).not.to.be.null;",
-									"    // Empty JSON body should produce errors for the 3 required fields (lat, long, message):",
-									"    pm.expect(Object.keys(jsonData['errors']).length).to.eql(3);",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
 									"});",
 									""
 								],
@@ -256,7 +306,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Here's Johnny!\",\n    \"message\":\"allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy\",\n    \"name\":\"Jack Torrance\",\n    \"latitude\":125.456892,\n    \"longitude\":-18.982791\n}",
+							"raw": "{\n    \"title\":\"Here's Johnny!\",\n    \"message\":\"allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy\",\n    \"name\":\"Jack Torrance\",\n    \"longitude\":125.456892,\n    \"latitude\":-18.982791\n}",
 							"options": {
 								"raw": {
 									"language": "json"
