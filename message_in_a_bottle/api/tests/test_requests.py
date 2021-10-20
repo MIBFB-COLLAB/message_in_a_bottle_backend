@@ -64,16 +64,12 @@ class TestStoryRequests(TestCase):
         assert response.data['data'] == serializer.reformat(serializer.data)
         assert Story.objects.count() == 2
 
-    # def test_create_empty_story(self):
-    #     self.required_keys = ['latitude', 'longitude', 'message']
-    #     self.route = '/api/v1/stories'
-    #
-    #     client = APIClient()
-    #     response = client.post(self.route, {}, format='json')
-    #     errors = response.data['errors']
-    #
-    #     assert response.status_code == 400
-    #     assert len(errors.keys()) == 3
-    #
-    #     for r in self.required_keys:
-    #         assert r in errors
+    def test_create_empty_story(self):
+        self.route = '/api/v1/stories'
+
+        client = APIClient()
+        response = client.post(self.route, {}, format='json')
+        errors = response.data['errors']
+
+        assert response.status_code == 400
+        assert errors == 'Invalid latitude or longitude'

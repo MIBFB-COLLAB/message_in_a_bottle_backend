@@ -19,24 +19,16 @@ class StoryList(APIView):
     Create a story.
     """
     def post(self, request, format=None):
-        story = Story.objects.create(
-            title = request.data['title'],
-            message = request.data['message'],
-            latitude = request.data['latitude'],
-            longitude = request.data['longitude'],
-            location = request.data['location']
-        )
-        try:
-            story.full_clean()
-        except ValidationError:
-            story.delete()
-            error = 'Latitude or Longitude is invalid'
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+        coords_check = Story.valid_coords(request.data)
+        if coords_check:
+            serializer = StorySerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
+            return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            serializer = StorySerializer(story)
-            # import pdb; pdb.set_trace()
-            # if serializer.is_valid():
-            return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
+            error = 'Invalid latitude or longitude'
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):
@@ -44,15 +36,14 @@ class StoryDetail(APIView):
             return Story.objects.get(pk=pk)
         except Story.DoesNotExist:
             raise Http404
-
     """
     Retrieve a story instance.
+    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
         serializer = StorySerializer(story)
         return Response({'data':serializer.reformat(serializer.data)})
-
     """
     Update a story instance.
     """
@@ -63,7 +54,6 @@ class StoryDetail(APIView):
             serializer.save()
             return Response({'data':serializer.data})
         return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
     """
     Delete a story instance.
     """

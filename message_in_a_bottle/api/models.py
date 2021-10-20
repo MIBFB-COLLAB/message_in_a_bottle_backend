@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Story(models.Model):
@@ -13,17 +12,16 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
-        if not -90 <= self.latitude <= 90:
-            raise ValidationError('Latitude is invalid')
-        if not -180 <= self.longitude <= 180:
-            raise ValidationError('Longitude is invalid')
-
-    # def clean(self, story):
-    #     if not -90 <= story.latitude <= 90:
-    #         return 'Latitude is invalid'
-    #     if not -180 <= story.longitude <= 180:
-    #         return 'Longitude is invalid'
+    def valid_coords(story):
+        if 'latitude' in story and 'longitude' in story:
+            if not -90 <= story['latitude'] <= 90:
+                return False
+            elif not -180 <= story['longitude'] <= 180:
+                return False
+            else:
+                return True
+        else:
+            return False
 
     def create_dict(story):
         return {
