@@ -90,5 +90,5 @@ class TestGetStory(TestCase):
         assert response.status_code == 200
         assert response.data['data'].__class__.__name__ == 'dict'
         assert 'input_location' in response.data['data'].keys()
-        assert 'stories' in response.data.keys()
+        assert 'stories' in response.data['data'].keys()
         assert response.data['data']['stories'].__class__.__name__ == 'list'

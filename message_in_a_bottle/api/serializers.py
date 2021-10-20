@@ -9,10 +9,8 @@ class StorySerializer(serializers.ModelSerializer):
     def stories_index_serializer(response):
         stories = map(StorySerializer.reformat_response, response)
         dict = {
-            'data': {
-                'input_location': 'This is a temporary location!',
-                'stories': list(stories)
-            }
+            'input_location': 'This is a temporary location!',
+            'stories': list(stories)
         }
         return dict
 
