@@ -154,10 +154,6 @@ Response:
       "type": "story",
       "attributes": {
         "title": "my cool story",
-        "message": "I went on a walk.",
-        "name": "anonymous",
-        "created_at": "2021-10-18T23:28:51.897746Z",
-        "updated_at": "2021-10-18T23:28:51.897746Z",
         "latitude": 13.201,
         "longitude": 9.2673,
         "distance_in_miles": 1.2
@@ -168,10 +164,6 @@ Response:
       "type": "story",
       "attributes": {
         "title": "story",
-        "message": "I went skydiving.",
-        "name": "anonymous",
-        "created_at": "2021-10-08T23:28:51.897746Z",
-        "updated_at": "2021-10-08T23:28:51.897746Z",
         "latitude": 13.563,
         "longitude": 10.2673,
         "distance_in_miles": 3
