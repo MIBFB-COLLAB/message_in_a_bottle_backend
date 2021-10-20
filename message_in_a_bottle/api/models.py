@@ -27,3 +27,9 @@ class Story(models.Model):
     def map_stories():
         stories = map(Story.create_dict, Story.objects.all())
         return list(stories)
+
+    def validate_latitude(lat):
+        return -90 <= lat <= 90
+
+    def validate_longitude(long):
+        return -180 <= long <= 180

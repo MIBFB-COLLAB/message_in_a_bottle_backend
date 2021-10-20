@@ -32,3 +32,15 @@ class TestModels(TestCase):
                 story.latitude, story.longitude
             ]}
         ]
+
+    def test_validate_latitude(self):
+        assert Story.validate_latitude(30.8917) == True
+        assert Story.validate_latitude(12345.999) == False
+        assert Story.validate_latitude(-91.999) == False
+        assert Story.validate_latitude(-15.81726) == True
+
+    def test_validate_longitude(self):
+        assert Story.validate_longitude(120.8917) == True
+        assert Story.validate_longitude(12345.999) == False
+        assert Story.validate_longitude(-182.999) == False
+        assert Story.validate_longitude(-98.81726) == True
