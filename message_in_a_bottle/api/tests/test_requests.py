@@ -92,3 +92,11 @@ class TestGetStory(TestCase):
         assert 'input_location' in response.data['data'].keys()
         assert 'stories' in response.data['data'].keys()
         assert response.data['data']['stories'].__class__.__name__ == 'list'
+
+    def test_story_does_not_save_invalid_lat_long(self):
+        TestGetStory.test_db_setup()
+        original_length = len(Story.objects.all())
+        self.route = f'/api/v1/stories'
+
+        client = APIClient()
+        response = client.post(self.route)

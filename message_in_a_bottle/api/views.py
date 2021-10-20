@@ -23,9 +23,15 @@ class StoryList(APIView):
     def post(self, request, format=None):
         serializer = StorySerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            try:
+                serialilzer.full_clean()
+                serializer.save()
+            except ValidationError:
+                serializer.delete()
+                error = "Latitude or Longitude is invalid"
+                return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'data':serializer.data}, status=status.HTTP_201_CREATED)
-        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class StoryDetail(APIView):
     def get_object(self, pk):
