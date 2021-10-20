@@ -153,7 +153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\",\n    \"latitude\":125.456892,\n    \"longitude\":-18.982791\n}",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\",\n    \"longitude\":125.456892,\n    \"latitude\":-18.982791\n}",
 							"options": {
 								"raw": {
 									"language": "json"
