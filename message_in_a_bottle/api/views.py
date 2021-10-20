@@ -16,7 +16,6 @@ class StoryList(APIView):
         stories = Story.map_stories()
         response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
         serializer = StorySerializer.stories_index_serializer(response['searchResults'])
-        # import pdb; pdb.set_trace()
         return Response({'data':serializer})
     """
     Create a story.
