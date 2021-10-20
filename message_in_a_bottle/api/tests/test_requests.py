@@ -92,6 +92,23 @@ class TestGetStory(TestCase):
         assert 'input_location' in response.data['data'].keys()
         assert 'stories' in response.data['data'].keys()
         assert response.data['data']['stories'].__class__.__name__ == 'list'
+        assert response.data['data']['stories']
+
+    def test_error_no_stories_in_range(self):
+        TestGetStory.test_db_setup()
+        self.lat = 34.134529719319424
+        self.long = -118.29851756023974
+        self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
+
+        client = APIClient()
+        response = client.get(self.route)
+
+        assert response.status_code == 200
+        assert response.data['data'].__class__.__name__ == 'dict'
+        assert 'input_location' in response.data['data'].keys()
+        assert 'stories' in response.data['data'].keys()
+        assert response.data['data']['stories'].__class__.__name__ == 'list'
+        assert not response.data['data']['stories']
 
     def test_story_does_not_save_invalid_lat_long(self):
         TestGetStory.test_db_setup()

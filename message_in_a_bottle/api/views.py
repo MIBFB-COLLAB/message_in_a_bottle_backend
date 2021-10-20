@@ -16,7 +16,10 @@ class StoryList(APIView):
     def get(self, request, format=None):
         stories = Story.map_stories()
         response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
-        serializer = StorySerializer.stories_index_serializer(response['searchResults'])
+        if response['resultsCount'] == 0:
+            serializer = StorySerializer.stories_index_serializer([])
+        else:
+            serializer = StorySerializer.stories_index_serializer(response['searchResults'])
         return Response({'data':serializer})
     """
     Create a story.

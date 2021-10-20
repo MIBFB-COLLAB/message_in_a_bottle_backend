@@ -15,13 +15,14 @@ class StorySerializer(serializers.ModelSerializer):
         return dict
 
     def reformat_response(story):
-        return {
-            'id': story['key'],
-            'type': 'story',
-            'attributes': {
-                'title': story['name'],
-                'distance_in_miles': story['distance'],
-                'latitude': story['shapePoints'][0],
-                'longitude': story['shapePoints'][1]
+        if story:
+            return {
+                'id': story['key'],
+                'type': 'story',
+                'attributes': {
+                    'title': story['name'],
+                    'distance_in_miles': story['distance'],
+                    'latitude': story['shapePoints'][0],
+                    'longitude': story['shapePoints'][1]
+                }
             }
-        }
