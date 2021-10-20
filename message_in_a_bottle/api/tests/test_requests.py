@@ -72,3 +72,14 @@ class TestStoryRequests(TestCase):
 
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
+
+    def delete_existing_story(self):
+        TestStoryRequests.test_db_setup()
+
+        self.story_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.story_id}'
+
+        client = APIClient()
+        response = client.delete(self.route)
+
+        assert response.status_code == 204
