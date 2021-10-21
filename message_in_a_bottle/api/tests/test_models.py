@@ -9,11 +9,11 @@ class TestModels(TestCase):
     def setUpTestData(cls):
         Story.objects.create(title= 'My Story', message= 'I said hi.', latitude= 41.599143847185175, longitude= -87.89309819798746)
 
-    def test_create_dict(self):
+    def test_mapquest_data_dict(self):
         TestModels.setUpTestData()
         story = Story.objects.all()[0]
 
-        assert Story.create_dict(story) == {
+        assert Story.mapquest_data_dict(story) == {
             "key": str(story.id),
             "name": story.title,
             "shapePoints": [

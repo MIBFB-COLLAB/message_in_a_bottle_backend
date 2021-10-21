@@ -51,7 +51,6 @@ class TestGetStory(TestCase):
             longitude = -104.67452255667705
         )
 
-        cls.new_story
         assert Story.objects.count() == 5
 
     def test_get_existing_story(self):

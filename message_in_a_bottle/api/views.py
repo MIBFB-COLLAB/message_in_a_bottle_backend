@@ -28,17 +28,16 @@ class StoryList(APIView):
     Create a story.
     """
     def post(self, request, format=None):
-        story = Story.objects.create(title = request.data['title'], message = request.data['message'], latitude = request.data['latitude'], longitude = request.data['longitude'], location = request.data['location'])
-        try:
-            story.full_clean()
-        except ValidationError:
-            story.delete()
-            error = "Latitude or Longitude is invalid"
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
-        else:
+        coords_check = Story.valid_coords(request.data)
+        if coords_check:
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
-                return Response({'data':serializer.data}, status=status.HTTP_201_CREATED)
+                serializer.save()
+                return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
+            return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            error = {'coordinates': ['Invalid latitude or longitude.']}
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class StoryDetail(APIView):

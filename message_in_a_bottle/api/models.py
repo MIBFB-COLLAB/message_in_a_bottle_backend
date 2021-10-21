@@ -15,11 +15,14 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
-        if not -90 <= self.latitude <= 90:
-            raise ValidationError(('Latitude is invalid'))
-        if not -180 <= self.longitude <= 180:
-            raise ValidationError(('Longitude is invalid'))
+    def valid_coords(request_dict):
+        if 'latitude' in request_dict and 'longitude' in request_dict:
+            if not (-90 <= request_dict['latitude'] <= 90) or not (-180 <= request_dict['longitude'] <= 180):
+                return False
+            else:
+                return True
+        else:
+            return False
 
     def valid_user_coords(query_params):
         if query_params:
@@ -32,7 +35,7 @@ class Story(models.Model):
         else:
             return False
 
-    def create_dict(story):
+    def mapquest_data_dict(story):
         return {
             'key': str(story.id),
             'name': story.title,
@@ -43,5 +46,5 @@ class Story(models.Model):
         }
 
     def map_stories():
-        stories = map(Story.create_dict, Story.objects.all())
+        stories = map(Story.mapquest_data_dict, Story.objects.all())
         return list(stories)
