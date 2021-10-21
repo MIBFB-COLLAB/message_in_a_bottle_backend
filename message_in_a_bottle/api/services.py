@@ -18,8 +18,8 @@ class MapService():
             }
           },
           "options": {
-            "maxMatches": 5,
-            "radius": 10,
+            "maxMatches": 100,
+            "radius": 25,
             "units": "m"
           },
         "remoteDataList": stories

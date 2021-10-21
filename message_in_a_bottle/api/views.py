@@ -1,19 +1,28 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
+from message_in_a_bottle.api.services import MapService
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.exceptions import ValidationError
 
 class StoryList(APIView):
     """
     List all stories.
-    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, format=None):
-        stories = Story.objects.all()
-        serializer = StorySerializer(stories, many=True)
-        return Response({'data':serializer.data})
+        if Story.valid_user_coords(request.query_params):
+            stories = Story.map_stories()
+            response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
+            if response['resultsCount'] == 0:
+                serializer = StorySerializer.stories_index_serializer([])
+            else:
+                serializer = StorySerializer.stories_index_serializer(response['searchResults'])
+            return Response({'data':serializer}, status=status.HTTP_200_OK)
+        else:
+            error = 'Invalid latitude and longitude'
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
     """
