@@ -141,7 +141,7 @@ The GET stories endpoint has two options for retrieving stories near you. You ma
 | long    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires lat |
 
 Request:
-GET `/api/v1/stories?lat=12.3456&long=4.5968`
+GET `/api/v1/stories?latitude=12.3456&longitude=4.5968`
 
 Response:
 ```json
@@ -177,7 +177,7 @@ Response:
 [Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1)
 <br>
     Request:
-GET `/api/v1/stories/:id?lat=12093&long=-19283`
+GET `/api/v1/stories/:id?latitude=12093&longitude=-19283`
 
 Response:
 ```json
@@ -198,11 +198,11 @@ Response:
    }
 }
 ```
-    
+
 [Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1/directions)
 <br>
 Request:
-GET `/api/v1/stories/:id/directions?lat=1230&long=1209.3`
+GET `/api/v1/stories/:id/directions?latitude=1230&longitude=1209.3`
 
 Response:
 ```json
