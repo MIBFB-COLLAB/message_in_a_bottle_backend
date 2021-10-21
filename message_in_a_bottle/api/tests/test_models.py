@@ -38,8 +38,8 @@ class TestModels(TestCase):
         valid_coords = {'lat': 23.563729, 'long': -145.782}
         invalid_coords = {'lat': 230.563729, 'long': -1450.782}
 
-        assert Story.validate_user_coords(valid_coords) == True
-        assert Story.validate_user_coords(invalid_coords) == False
+        assert Story.valid_user_coords(valid_coords) == True
+        assert Story.valid_user_coords(invalid_coords) == False
 
     def test_validation_error_raised_lat_or_long(self):
         story = Story(title= 'My Story', message= 'I said hi.', latitude= 123.599143847185175, longitude= -200.89309819798746)

@@ -33,10 +33,10 @@ class TestServices(TestCase):
             },
             {
             "key": "4",
-            "name": "DIA",
+            "name": "Griffith Observatory",
             "shapePoints": [
-                39.865426458967676,
-                -104.67452255667705
+                34.13912518423296,
+                -118.31225791576566
                 ]
             }
         ]
