@@ -416,7 +416,7 @@
 					"response": []
 				},
 				{
-					"name": "Invalid Update for Existing Story Copy",
+					"name": "Invalid Update for Existing Story",
 					"event": [
 						{
 							"listen": "prerequest",

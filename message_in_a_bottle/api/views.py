@@ -1,6 +1,5 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
-from django.core.exceptions import ValidationError
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
