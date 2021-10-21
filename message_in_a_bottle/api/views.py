@@ -47,12 +47,12 @@ class StoryDetail(APIView):
     """
     Update a story instance.
     """
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         story = self.get_object(pk)
         serializer = StorySerializer(story, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'data':serializer.data})
+            return Response({'data':serializer.reformat(serializer.data)})
         return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     """
     Delete a story instance.
