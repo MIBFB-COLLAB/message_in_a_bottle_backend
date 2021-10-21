@@ -119,7 +119,17 @@ class TestGetStory(TestCase):
         response = client.get(self.route)
 
         assert response.status_code == 400
-        assert response.data['errors'] == 'Invalid coordinates'
+        assert response.data['errors'] == 'Invalid latitude and longitude'
+
+    def test_error_no_coordinates(self):
+        TestGetStory.test_db_setup()
+        self.route = f'/api/v1/stories'
+
+        client = APIClient()
+        response = client.get(self.route)
+
+        assert response.status_code == 400
+        assert response.data['errors'] == 'Invalid latitude and longitude'
 
     def test_story_does_not_save_invalid_lat_long(self):
         TestGetStory.test_db_setup()

@@ -22,7 +22,7 @@ class StoryList(APIView):
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            error = 'Invalid coordinates'
+            error = 'Invalid latitude and longitude'
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
