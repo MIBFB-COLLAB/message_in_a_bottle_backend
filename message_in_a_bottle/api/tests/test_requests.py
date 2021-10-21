@@ -73,7 +73,7 @@ class TestStoryRequests(TestCase):
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
-    def delete_existing_story(self):
+    def test_delete_existing_story(self):
         TestStoryRequests.test_db_setup()
 
         self.story_id = Story.objects.latest('id').id
@@ -83,7 +83,7 @@ class TestStoryRequests(TestCase):
         response = client.delete(self.route)
         assert response.status_code == 204
 
-    def update_existing_story(self):
+    def test_update_existing_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
         self.story = Story.objects.latest('id')
         self.route = f'/api/v1/stories/{self.story.id}'
@@ -95,4 +95,6 @@ class TestStoryRequests(TestCase):
 
         assert response.status_code == 200
         assert response.data['data'] == serializer.reformat(serializer.data)
+
+        self.story = Story.objects.latest('id')
         assert self.story.title != self.story_dict['title']

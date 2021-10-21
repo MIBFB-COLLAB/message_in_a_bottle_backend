@@ -49,7 +49,7 @@ class StoryDetail(APIView):
     """
     def patch(self, request, pk, format=None):
         story = self.get_object(pk)
-        serializer = StorySerializer(story, data=request.data)
+        serializer = StorySerializer(story, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response({'data':serializer.reformat(serializer.data)})
