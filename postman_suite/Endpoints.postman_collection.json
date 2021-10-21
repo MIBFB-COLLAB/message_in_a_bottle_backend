@@ -36,7 +36,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/stories",
+							"raw": "{{base_url}}/api/v1/stories?latitude=39.75711894267296&longitude=-105.00325615707887",
 							"host": [
 								"{{base_url}}"
 							],
@@ -44,6 +44,16 @@
 								"api",
 								"v1",
 								"stories"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "39.75711894267296"
+								},
+								{
+									"key": "longitude",
+									"value": "-105.00325615707887"
+								}
 							]
 						}
 					},
