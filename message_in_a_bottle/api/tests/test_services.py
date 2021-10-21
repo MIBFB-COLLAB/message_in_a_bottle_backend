@@ -55,3 +55,16 @@ class TestServices(TestCase):
 
         assert response['searchResults'][0]['name'] == 'Union Station'
         assert response['searchResults'][0]['distanceUnit'] == 'm'
+    
+    def test_get_distance(self):
+        story = {
+            "key": "1",
+            "name": "Union Station",
+            "shapePoints": [
+                39.75711894267296,
+                -105.00325615707887
+                ]
+        }
+        
+        response = MapService.get_distance(lat, long, story)
+
