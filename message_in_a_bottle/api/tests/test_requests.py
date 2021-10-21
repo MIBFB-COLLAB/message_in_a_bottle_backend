@@ -66,6 +66,19 @@ class TestGetStory(TestCase):
 
         assert response.status_code == 200
         assert response.data['data'] == serializer.data
+    
+    # def test_get_existing_story_with_params(self):
+    #     TestGetStory.test_db_setup()
+
+    #     self.valid_id = Story.objects.latest('id').id
+    #     self.route = f'/api/v1/stories/{self.valid_id}?latitude=&longitude=' # <---
+
+    #     client = APIClient()
+    #     response = client.get(self.route)
+    #     serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
+
+    #     assert response.status_code == 200
+    #     assert response.data['data'] == serializer.data
 
     def test_get_non_existent_story(self):
         TestGetStory.test_db_setup()
