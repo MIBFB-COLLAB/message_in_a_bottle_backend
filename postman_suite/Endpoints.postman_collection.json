@@ -328,6 +328,94 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "PATCH Requests",
+			"item": [
+				{
+					"name": "Update Existing Story",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// update existing Story to different attributes:",
+									"var patchRequest = {",
+									"    url: `${pm.environment.get(\"base_url\")}/api/v1/stories/${pm.environment.get(\"story_id\")}`,",
+									"    method: 'PATCH',",
+									"    header: {",
+									"        'Content-Type': 'application/json',",
+									"    },",
+									"    body: JSON.stringify({",
+									"        title: 'I am the one who knocks!',",
+									"        message: \"Jesse, it's time to cook.\",",
+									"        name: 'Walter White'",
+									"    })",
+									"};",
+									"",
+									"pm.sendRequest(patchRequest, (error, response) => {",
+									"    console.log(error ? error : response.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PATCH Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['data']['id']).not.to.be.null;",
+									"    var attributes = jsonData['data']['attributes'];",
+									"    // check that the attributes passed within the JSON body were successfully updated vs values from pre-request script:",
+									"    pm.expect(attributes['name']).not.to.eql('Walter White');",
+									"    pm.expect(attributes['title']).not.to.eql('I am the one who knocks!');",
+									"    pm.expect(attributes['message']).not.to.eql(\"Jesse, it's time to cook.\");",
+									"    // check that remaining attributes are still serialized within the response:",
+									"    pm.expect(attributes['latitude']).not.to.be.null;",
+									"    pm.expect(attributes['longitude']).not.to.be.null;",
+									"    pm.expect(attributes['location']).not.to.be.null;",
+									"    pm.expect(attributes['created_at']).not.to.be.null;",
+									"    pm.expect(attributes['updated_at']).not.to.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
