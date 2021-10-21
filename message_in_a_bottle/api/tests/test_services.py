@@ -65,6 +65,6 @@ class TestServices(TestCase):
                 -105.00325615707887
                 ]
         }
-        
+        import pdb; pdb.set_trace()
         response = MapService.get_distance(lat, long, story)
 
