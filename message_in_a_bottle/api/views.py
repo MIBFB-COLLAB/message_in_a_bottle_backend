@@ -51,6 +51,7 @@ class StoryDetail(APIView):
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
+        MapService.get_distance(float(request.query_params['latitude']), float(request.query_params['longitude']), story)
         serializer = StorySerializer(story)
         return Response({'data':serializer.reformat(serializer.data)})
     """
