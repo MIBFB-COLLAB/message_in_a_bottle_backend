@@ -13,8 +13,8 @@ class TestStoryRequests(TestCase):
         cls.story_dict = {
             'title': 'Union Station',
             'message': 'I once saw a really pretty flower.',
-            'latitude': 39.75711894267296,
-            'longitude': -105.00325615707887
+            'latitude': 39.757118942673,
+            'longitude': -105.003256157079
         }
         cls.new_story = Story.objects.create(
             title = cls.story_dict['title'],
