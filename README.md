@@ -137,8 +137,8 @@ The GET stories endpoint has two options for retrieving stories near you. You ma
 
 | Query Params | Required? | Example | Notes |
 |   :----:     |   :----:  | :----:  | :----: |
-| lat     | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires long |
-| long    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires lat |
+| latitude     | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires longitude |
+| longitude    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires latitude |
 
 Request:
 GET `/api/v1/stories?latitude=12.3456&longitude=4.5968`
