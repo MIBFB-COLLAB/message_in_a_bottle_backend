@@ -83,7 +83,7 @@ class TestStoryRequests(TestCase):
         response = client.delete(self.route)
         assert response.status_code == 204
 
-    def test_update_existing_story(self):
+    def test_valid_update_existing_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
         self.story = Story.objects.latest('id')
         self.route = f'/api/v1/stories/{self.story.id}'
@@ -98,3 +98,20 @@ class TestStoryRequests(TestCase):
 
         self.story = Story.objects.latest('id')
         assert self.story.title != self.story_dict['title']
+
+    def test_invalid_update_existing_story(self):
+        TestStoryRequests.test_db_setup()
+
+        self.story_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.story_id}'
+
+        client = APIClient()
+        response = client.patch(self.route, {}, format='json')
+        serializer = StorySerializer(Story.objects.get(pk=self.story_id))
+
+        self.story = Story.objects.latest('id')
+        assert self.story.name != ''
+        assert self.story.title != ''
+        assert self.story.message != ''
+        assert self.story.latitude != ''
+        assert self.story.longitude != ''

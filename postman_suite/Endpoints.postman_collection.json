@@ -333,7 +333,7 @@
 			"name": "PATCH Requests",
 			"item": [
 				{
-					"name": "Update Existing Story",
+					"name": "Valid Update for Existing Story",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -376,7 +376,7 @@
 									"    pm.expect(attributes['name']).not.to.eql('Walter White');",
 									"    pm.expect(attributes['title']).not.to.eql('I am the one who knocks!');",
 									"    pm.expect(attributes['message']).not.to.eql(\"Jesse, it's time to cook.\");",
-									"    // check that remaining attributes are still serialized within the response:",
+									"    // check that the remaining attributes are still serialized within the response:",
 									"    pm.expect(attributes['latitude']).not.to.be.null;",
 									"    pm.expect(attributes['longitude']).not.to.be.null;",
 									"    pm.expect(attributes['location']).not.to.be.null;",
@@ -394,6 +394,73 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Update for Existing Story Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"'Unsuccessful' PATCH Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['data']['id']).not.to.be.null;",
+									"    var attributes = jsonData['data']['attributes'];",
+									"    // check that specific attributes were not deleted by the empty JSON body sent within the request:",
+									"    pm.expect(attributes['name']).not.to.be.null;",
+									"    pm.expect(attributes['title']).not.to.be.null;",
+									"    pm.expect(attributes['message']).not.to.be.null;",
+									"    // check that the remaining attributes are still serialized within the response:",
+									"    pm.expect(attributes['latitude']).not.to.be.null;",
+									"    pm.expect(attributes['longitude']).not.to.be.null;",
+									"    pm.expect(attributes['location']).not.to.be.null;",
+									"    pm.expect(attributes['created_at']).not.to.be.null;",
+									"    pm.expect(attributes['updated_at']).not.to.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
