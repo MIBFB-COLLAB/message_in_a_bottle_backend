@@ -156,7 +156,7 @@ class TestStoryRequests(TestCase):
 
         self.lat = 39.74822614190254
         self.long = -104.99898275758112
-        # TODO: note query param naming (pending confirmation from FE team)
+        # TODO: refactor query params to be 'latitude' and 'longitude'
         self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
 
         client = APIClient()
@@ -174,7 +174,7 @@ class TestStoryRequests(TestCase):
 
         self.lat = 34.134529719319424
         self.long = -118.29851756023974
-        # TODO: note query param naming (pending confirmation from FE team)
+        # TODO: refactor query params to be 'latitude' and 'longitude'
         self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
 
         client = APIClient()
