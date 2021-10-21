@@ -34,25 +34,12 @@ class TestModels(TestCase):
             ]}
         ]
 
-    # def test_validate_latitude(self):
-    #     assert Story.validate_latitude(30.8917) == True
-    #     assert Story.validate_latitude(12345.999) == False
-    #     assert Story.validate_latitude(-91.999) == False
-    #     assert Story.validate_latitude(-15.81726) == True
-    #
-    # def test_validate_longitude(self):
-    #     assert Story.validate_longitude(120.8917) == True
-    #     assert Story.validate_longitude(12345.999) == False
-    #     assert Story.validate_longitude(-182.999) == False
-    #     assert Story.validate_longitude(-98.81726) == True
+    def test_valid_user_coords(self):
+        valid_coords = {'lat': 23.563729, 'long': -145.782}
+        invalid_coords = {'lat': 230.563729, 'long': -1450.782}
 
-    # def test_clean(self):
-    #     assert len(Story.objects.all()) == 1
-    #
-    #     Story.objects.create(title= 'My Story', message= 'I said hi.', latitude= 123.599143847185175, longitude= -200.89309819798746)
-    #     Story.full_clean(self)
-    #
-    #     assert len(Story.objects.all()) == 1
+        assert Story.validate_user_coords(valid_coords) == True
+        assert Story.validate_user_coords(invalid_coords) == False
 
     def test_validation_error_raised_lat_or_long(self):
         story = Story(title= 'My Story', message= 'I said hi.', latitude= 123.599143847185175, longitude= -200.89309819798746)

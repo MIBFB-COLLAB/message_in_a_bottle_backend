@@ -21,6 +21,14 @@ class Story(models.Model):
         if not -180 <= self.longitude <= 180:
             raise ValidationError(('Longitude is invalid'))
 
+    def valid_user_coords(query_params):
+        if not -90 <= float(query_params['lat']) <= 90:
+            return False
+        elif not -180 <= float(query_params['long']) <= 180:
+            return False
+        else:
+            return True
+
     def create_dict(story):
         return {
             'key': str(story.id),
@@ -34,9 +42,3 @@ class Story(models.Model):
     def map_stories():
         stories = map(Story.create_dict, Story.objects.all())
         return list(stories)
-
-    # def validate_latitude(lat):
-    #     return -90 <= lat <= 90
-    #
-    # def validate_longitude(long):
-    #     return -180 <= long <= 180

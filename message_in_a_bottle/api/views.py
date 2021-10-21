@@ -11,16 +11,19 @@ from django.core.exceptions import ValidationError
 class StoryList(APIView):
     """
     List all stories.
-    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, format=None):
-        stories = Story.map_stories()
-        response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
-        if response['resultsCount'] == 0:
-            serializer = StorySerializer.stories_index_serializer([])
+        if Story.valid_user_coords(request.query_params):
+            stories = Story.map_stories()
+            response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
+            if response['resultsCount'] == 0:
+                serializer = StorySerializer.stories_index_serializer([])
+            else:
+                serializer = StorySerializer.stories_index_serializer(response['searchResults'])
+            return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            serializer = StorySerializer.stories_index_serializer(response['searchResults'])
-        return Response({'data':serializer})
+            error = 'Invalid coordinates'
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
     """
