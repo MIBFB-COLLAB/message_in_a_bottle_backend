@@ -1,8 +1,35 @@
+import pprint
+pp = pprint.PrettyPrinter(indent=2)
 import pytest
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.models import Story
 from django.test import TestCase
 
 class TestServices(TestCase):
+    def test_get_directions(self):
+        lat = 39.74822614190254
+        long = -104.99898275758112
+
+        story = Story.objects.create(
+            title = "Gates Crescent Park",
+            message = "Took a walk",
+            latitude = 39.749379471614546,
+            longitude = -105.01696456480278
+        )
+
+        request = {
+            'latitude': lat,
+            'longitude': long
+        }
+
+        response = MapService.get_directions(request, story)
+
+        assert 'distance' in response['route'].keys()
+        assert 'legs' in response['route'].keys()
+        assert response['route']['legs'].__class__.__name__ == 'list'
+        assert 'maneuvers' in response['route']['legs'][0].keys()
+        assert response['route']['legs'][0]['maneuvers'].__class__.__name__ == 'list'
+
     def test_get_stories(self):
         lat = 39.74822614190254
         long = -104.99898275758112
