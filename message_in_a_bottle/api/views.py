@@ -12,16 +12,17 @@ class StoryList(APIView):
     List all stories.
     """
     def get(self, request, format=None):
-        if Story.valid_user_coords(request.query_params):
+        coords_check = Story.valid_coords(request.query_params)
+        if coords_check:
             stories = Story.map_stories()
-            response = MapService.get_stories(float(request.query_params['lat']), float(request.query_params['long']), stories)
+            response = MapService.get_stories(float(request.query_params['latitude']), float(request.query_params['longitude']), stories)
             if response['resultsCount'] == 0:
                 serializer = StorySerializer.stories_index_serializer([])
             else:
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            error = 'Invalid latitude and longitude'
+            error = {'coordinates': ['Invalid latitude or longitude.']}
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.

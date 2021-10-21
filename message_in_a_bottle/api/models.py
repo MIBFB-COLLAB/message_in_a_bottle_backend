@@ -12,21 +12,9 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # TODO: confirm query params with FE team so we can DRY this up
     def valid_coords(request_dict):
         if 'latitude' in request_dict and 'longitude' in request_dict:
-            if not (-90 <= request_dict['latitude'] <= 90) or not (-180 <= request_dict['longitude'] <= 180):
-                return False
-            else:
-                return True
-        else:
-            return False
-
-    def valid_user_coords(query_params):
-        if query_params:
-            if not -90 <= float(query_params['lat']) <= 90:
-                return False
-            elif not -180 <= float(query_params['long']) <= 180:
+            if not (-90 <= float(request_dict['latitude']) <= 90) or not (-180 <= float(request_dict['longitude']) <= 180):
                 return False
             else:
                 return True

@@ -156,8 +156,7 @@ class TestStoryRequests(TestCase):
 
         self.lat = 39.74822614190254
         self.long = -104.99898275758112
-        # TODO: refactor query params to be 'latitude' and 'longitude'
-        self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
+        self.route = f'/api/v1/stories?latitude={self.lat}&longitude={self.long}'
 
         client = APIClient()
         response = client.get(self.route)
@@ -174,8 +173,7 @@ class TestStoryRequests(TestCase):
 
         self.lat = 34.134529719319424
         self.long = -118.29851756023974
-        # TODO: refactor query params to be 'latitude' and 'longitude'
-        self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
+        self.route = f'/api/v1/stories?latitude={self.lat}&longitude={self.long}'
 
         client = APIClient()
         response = client.get(self.route)
@@ -192,14 +190,14 @@ class TestStoryRequests(TestCase):
 
         self.lat = 340.134529719319424
         self.long = -1180.29851756023974
-        # TODO: note query param naming (pending confirmation from FE team)
-        self.route = f'/api/v1/stories?lat={self.lat}&long={self.long}'
+        self.route = f'/api/v1/stories?latitude={self.lat}&longitude={self.long}'
 
         client = APIClient()
         response = client.get(self.route)
+        errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors'] == 'Invalid latitude and longitude'
+        assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
     def test_error_no_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -208,6 +206,7 @@ class TestStoryRequests(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
+        errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors'] == 'Invalid latitude and longitude'
+        assert errors['coordinates'] == ['Invalid latitude or longitude.']
