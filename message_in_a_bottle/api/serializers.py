@@ -45,3 +45,10 @@ class StorySerializer(serializers.ModelSerializer):
         if return_distance is not None:
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
+
+    def coordinates_error(self):
+        return {
+            'coordinates': [
+                'Invalid latitude or longitude.'
+            ]
+        }

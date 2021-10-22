@@ -22,8 +22,8 @@ class StoryList(APIView):
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            error = {'coordinates': ['Invalid latitude or longitude.']}
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = StorySerializer()
+            return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
     """
@@ -36,8 +36,8 @@ class StoryList(APIView):
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
             return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            error = {'coordinates': ['Invalid latitude or longitude.']}
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = StorySerializer()
+            return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):

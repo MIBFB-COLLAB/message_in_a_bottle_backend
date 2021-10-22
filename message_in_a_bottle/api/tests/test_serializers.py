@@ -43,3 +43,14 @@ class TestStorySerializer(TestCase):
                 'updated_at': self.story.updated_at
             }
         }
+
+    def test_serializer_coordinates_error(self):
+        self.expected = {
+            'coordinates': [
+                'Invalid latitude or longitude.'
+            ]
+        }
+        serializer = StorySerializer()
+        self.actual = serializer.coordinates_error()
+
+        assert self.actual == self.expected
