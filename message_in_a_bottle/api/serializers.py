@@ -53,6 +53,6 @@ class StorySerializer(serializers.ModelSerializer):
             'type': 'directions',
             'attributes': {
                 'narrative': maneuver['narrative'],
-                'distance_in_miles': f"{maneuver['distance']} miles",
+                'distance': f"{maneuver['distance']} miles",
             }
         }
