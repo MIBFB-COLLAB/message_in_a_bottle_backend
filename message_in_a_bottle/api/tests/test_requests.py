@@ -196,3 +196,5 @@ class TestGetStory(TestCase):
         response = client.get(self.route)
 
         assert response.status_code == 200
+        assert isinstance(response.data['data'], dict)
+        assert response.data['data']['message'] == 'Impossible route.'
