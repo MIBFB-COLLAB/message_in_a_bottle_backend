@@ -47,7 +47,6 @@ class StoryDetail(APIView):
             raise Http404
     """
     Retrieve a story instance.
-    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
@@ -59,15 +58,15 @@ class StoryDetail(APIView):
                 story.latitude,
                 story.longitude
             )
-            if distance != 'Impossible Route':
-                serializer = StorySerializer(story)
-                return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
-            else:
-                serializer = StorySerializer()
-                return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            distance = None
+        if distance is not None and distance != 'Impossible Route':
+            serializer = StorySerializer(story)
+            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
             serializer = StorySerializer()
             return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+
     """
     Update a story instance.
     """
