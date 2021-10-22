@@ -51,8 +51,19 @@ class StoryDetail(APIView):
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
-        serializer = StorySerializer(story)
-        return Response({'data':serializer.reformat(serializer.data)})
+        coords_check = Story.valid_coords(request.query_params)
+        if coords_check:
+            distance = MapService.get_distance(
+                float(request.query_params['latitude']),
+                float(request.query_params['longitude']),
+                story.latitude,
+                story.longitude
+            )
+            serializer = StorySerializer(story)
+            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
+        else:
+            error = {'coordinates': ['Invalid latitude or longitude.']}
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Update a story instance.
     """

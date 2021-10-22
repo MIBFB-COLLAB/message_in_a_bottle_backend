@@ -44,7 +44,22 @@ class TestStoryRequests(TestCase):
         if return_dict:
             return cls.story_dict
 
+    
     def test_get_existing_story(self):
+        self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
+
+        self.valid_id = Story.objects.latest('id').id
+        self.route = f"/api/v1/stories/{self.valid_id}?latitude={self.story_dict['latitude']}&longitude={self.story_dict['longitude']}"
+
+        client = APIClient()
+        response = client.get(self.route)
+        serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
+        distance = response.data['data']['attributes']['distance_in_miles']
+        
+        assert response.status_code == 200
+        assert response.data['data'] == serializer.reformat(serializer.data, distance)
+
+    def test_get_story_no_coordinates(self):
         TestStoryRequests.test_db_setup()
 
         self.valid_id = Story.objects.latest('id').id
@@ -52,10 +67,10 @@ class TestStoryRequests(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
-        serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
+        errors = response.data['errors']
 
-        assert response.status_code == 200
-        assert response.data['data'] == serializer.reformat(serializer.data)
+        assert response.status_code == 400
+        assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
     def test_get_non_existent_story(self):
         TestStoryRequests.test_db_setup()
@@ -199,7 +214,7 @@ class TestStoryRequests(TestCase):
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
-    def test_error_no_coordinates(self):
+    def test_get_stories_no_coordinates(self):
         TestStoryRequests.test_db_setup()
 
         self.route = f'/api/v1/stories'
