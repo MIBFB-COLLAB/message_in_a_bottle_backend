@@ -54,9 +54,10 @@ class TestStoryRequests(TestCase):
         client = APIClient()
         response = client.get(self.route)
         serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
-
+        distance = response.data['data']['attributes']['distance_in_miles']
+        
         assert response.status_code == 200
-        assert response.data['data'] == serializer.reformat(serializer.data)
+        assert response.data['data'] == serializer.reformat(serializer.data, distance)
 
     def test_get_story_no_coordinates(self):
         TestStoryRequests.test_db_setup()

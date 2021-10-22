@@ -53,14 +53,14 @@ class StoryDetail(APIView):
         story = self.get_object(pk)
         coords_check = Story.valid_coords(request.query_params)
         if coords_check:
-            MapService.get_distance(
+            distance = MapService.get_distance(
                 float(request.query_params['latitude']),
                 float(request.query_params['longitude']),
                 story.latitude,
                 story.longitude
             )
             serializer = StorySerializer(story)
-            return Response({'data':serializer.reformat(serializer.data)})
+            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
             error = {'coordinates': ['Invalid latitude or longitude.']}
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)

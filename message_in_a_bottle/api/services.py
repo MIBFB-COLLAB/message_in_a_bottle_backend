@@ -35,4 +35,4 @@ class MapService():
         "to": f"{story_lat},{story_long}"
       }
       response = requests.get(url, params=params)
-      return response.json()
+      return response.json()['route']['distance']

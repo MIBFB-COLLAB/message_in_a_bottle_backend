@@ -27,8 +27,8 @@ class StorySerializer(serializers.ModelSerializer):
                 }
             }
 
-    def reformat(self, story):
-        return {
+    def reformat(self, story, return_distance=None):
+        output_dict = {
             'id': story['id'],
             'type': 'Story',
             'attributes': {
@@ -42,3 +42,6 @@ class StorySerializer(serializers.ModelSerializer):
                 'updated_at': story['updated_at']
             }
         }
+        if return_distance is not None:
+            output_dict['attributes']['distance_in_miles'] = return_distance
+        return output_dict

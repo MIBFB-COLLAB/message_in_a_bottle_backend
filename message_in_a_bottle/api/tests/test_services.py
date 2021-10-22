@@ -73,7 +73,6 @@ class TestServices(TestCase):
             story['lat'],
             story['long']
         )
-
-        assert 'route' in response.keys()
-        assert 'distance' in response['route'].keys()
+        
+        assert type(response) == float
 
