@@ -17,7 +17,7 @@ class Story(models.Model):
 
     def valid_coords(request_dict):
         if 'latitude' in request_dict and 'longitude' in request_dict:
-            if not (-90 <= request_dict['latitude'] <= 90) or not (-180 <= request_dict['longitude'] <= 180):
+            if not (-90 <= float(request_dict['latitude']) <= 90) or not (-180 <= float(request_dict['longitude']) <= 180):
                 return False
             else:
                 return True

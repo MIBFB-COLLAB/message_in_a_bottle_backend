@@ -163,3 +163,15 @@ class TestGetStory(TestCase):
         response = client.post(self.route, dict, format='json')
 
         assert len(Story.objects.all()) == original_length + 1
+
+    def test_get_directions(self):
+        TestGetStory.test_db_setup()
+        story = Story.objects.all()[0]
+        self.lat = 34.134529719319424
+        self.long = -118.29851756023974
+        self.route = f'/api/v1/stories/{story.id}/directions?latitude={self.lat}&longitude={self.long}'
+
+        client = APIClient()
+        response = client.get(self.route)
+
+        assert response.status_code == 200

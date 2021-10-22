@@ -42,3 +42,17 @@ class StorySerializer(serializers.ModelSerializer):
                 'updated_at': story['updated_at']
             }
         }
+
+    def story_directions_serializer(response, story):
+        directions = map(format_directions(), response['maneuvers'])
+        return list(directions)
+
+    def format_directions(maneuver):
+        return {
+            'id': None,
+            'type': 'directions',
+            'attributes': {
+                'narrative': manuever['narrative'],
+                'distance_in_miles': f"{manuever['distance']} miles",
+            }
+        }
