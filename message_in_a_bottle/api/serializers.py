@@ -44,7 +44,7 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def story_directions_serializer(response, story):
-        directions = map(format_directions(), response['maneuvers'])
+        directions = map(StorySerializer.format_directions, response['maneuvers'])
         return list(directions)
 
     def format_directions(maneuver):
@@ -52,7 +52,7 @@ class StorySerializer(serializers.ModelSerializer):
             'id': None,
             'type': 'directions',
             'attributes': {
-                'narrative': manuever['narrative'],
-                'distance_in_miles': f"{manuever['distance']} miles",
+                'narrative': maneuver['narrative'],
+                'distance_in_miles': f"{maneuver['distance']} miles",
             }
         }
