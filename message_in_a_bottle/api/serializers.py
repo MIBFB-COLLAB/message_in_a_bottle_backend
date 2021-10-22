@@ -42,3 +42,10 @@ class StorySerializer(serializers.ModelSerializer):
                 'updated_at': story['updated_at']
             }
         }
+
+    def coordinates_error(self):
+        return {
+            'coordinates': [
+                'Invalid latitude or longitude.'
+            ]
+        }

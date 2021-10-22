@@ -49,14 +49,14 @@ Message in a Bottle is an application where users can discover stories about the
 
 ## Tools Used
 
-| Development | Testing       | Gems            |
+| Development | Testing       | Packages        |
 |   :----:    |    :----:     |    :----:       |
-| Python 3.8.2| Pytest        |              |
-| Django      |               |  |
-| CircleCI    | FactoryBot    |          |
-| PostgreSQL  | Faker         |        |
-| Git/Github  |       |      |
-| Heroku      |          |                 |
+| Python 3.9.7| Pytest        |                 |
+| Django      | Postman       |                 |
+| CircleCI    |               |                 |
+| PostgreSQL  |               |                 |
+| Git/Github  |               |                 |
+| Heroku      |               |                 |
 
 
 
@@ -137,8 +137,8 @@ The GET stories endpoint has two options for retrieving stories near you. You ma
 
 | Query Params | Required? | Example | Notes |
 |   :----:     |   :----:  | :----:  | :----: |
-| latitude     | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires longitude |
-| longitude    | No        | `/api/v1/stories?lat=12.345&long=4.5968` | requires latitude |
+| latitude     | Yes        | `/api/v1/stories?latitude=12.345&longitude=4.5968` | requires longitude |
+| longitude    | Yes        | `/api/v1/stories?latitude=12.345&longitude=4.5968` | requires latitude |
 
 Request:
 GET `/api/v1/stories?latitude=12.3456&longitude=4.5968`
@@ -177,7 +177,7 @@ Response:
 [Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1)
 <br>
     Request:
-GET `/api/v1/stories/:id?latitude=12093&longitude=-19283`
+GET `/api/v1/stories/:id?latitude=12.3456&longitude=-4.5968`
 
 Response:
 ```json
@@ -188,7 +188,7 @@ Response:
     "attributes": {
       "title": "my cool story",
       "message": "This one time I saw a bird",
-      "name": "anonymous",
+      "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
       "latitude": 13.201,
@@ -238,7 +238,7 @@ Request Body:
 {
   "title": "A new title",
   "message": "I'm coming up",
-  "latitude": 1239.2,
+  "latitude": 123.92,
   "longitude": 29.758
 }
 ```
@@ -255,7 +255,7 @@ Response:
       "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
-      "latitude": 1239.2,
+      "latitude": 123.92,
       "longitude": 29.758
     }
   }
@@ -265,16 +265,14 @@ Response:
 [Update Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
 <br>
 Request:
-PUT `/api/v1/stories/:id`
+PATCH `/api/v1/stories/:id`
 
 Request Body:
 ```json
 {
   "title": "My Fixed Title",
   "message": "Hello World.",
-  "name": "sally",
-  "latitude": 1239.2,
-  "longitude": 29.758
+  "name": "Sally"
 }
 ```
 
@@ -315,25 +313,25 @@ DELETE `/api/v1/stories/:id`
 - [GitHub](https://github.com/marlitas)
 - [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
 
-👤  **Taylor Voraglu**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Taylor Varoglu**
+- [GitHub](https://github.com/tvaroglu)
+- [LinkedIn](https://www.linkedin.com/in/taylorvaroglu/)
 
 👤  **Matt Kragen**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+- [GitHub](https://github.com/matt-kragen)
+- [LinkedIn](https://www.linkedin.com/in/mattkragen/)
 
-👤  **Mae Duphone**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Mae Duphorne**
+- [GitHub](https://github.com/maeduphorne)
+- [LinkedIn](https://www.linkedin.com/in/maeduphorne/)
 
-👤  **Fara Akha**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Fara Akhatova**
+- [GitHub](https://github.com/Fakhatova)
+- [LinkedIn](https://www.linkedin.com/in/fara-akhatova/)
 
-👤  **Justin A**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Justin Anthony**
+- [GitHub](https://github.com/justincanthony)
+- [LinkedIn](https://www.linkedin.com/in/justincanthony/)
 
 
 ## Acknowledgements
