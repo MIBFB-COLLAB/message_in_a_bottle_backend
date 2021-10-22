@@ -44,7 +44,7 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def story_directions_serializer(response, story):
-        if 'routeError' in response.keys():
+        if response['routeError']['errorCode'] == 2:
             return {'message': 'Impossible route.'}
         else:
             directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
