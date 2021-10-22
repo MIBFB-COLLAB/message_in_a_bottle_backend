@@ -313,25 +313,25 @@ DELETE `/api/v1/stories/:id`
 - [GitHub](https://github.com/marlitas)
 - [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
 
-👤  **Taylor Voraglu**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Taylor Varoglu**
+- [GitHub](https://github.com/tvaroglu)
+- [LinkedIn](https://www.linkedin.com/in/taylorvaroglu/)
 
 👤  **Matt Kragen**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+- [GitHub](https://github.com/matt-kragen)
+- [LinkedIn](https://www.linkedin.com/in/mattkragen/)
 
-👤  **Mae Duphone**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Mae Duphorne**
+- [GitHub](https://github.com/maeduphorne)
+- [LinkedIn](https://www.linkedin.com/in/maeduphorne/)
 
-👤  **Fara Akha**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Fara Akhatova**
+- [GitHub](https://github.com/Fakhatova)
+- [LinkedIn](https://www.linkedin.com/in/fara-akhatova/)
 
-👤  **Justin A**
-- [GitHub](https://github.com/marlitas)
-- [LinkedIn](https://www.linkedin.com/in/marla-a-schulz/)
+👤  **Justin Anthony**
+- [GitHub](https://github.com/justincanthony)
+- [LinkedIn](https://www.linkedin.com/in/justincanthony/)
 
 
 ## Acknowledgements
