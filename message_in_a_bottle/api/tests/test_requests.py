@@ -173,7 +173,7 @@ class TestGetStory(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
-        # import pdb; pdb.set_trace()
+
         assert response.status_code == 200
         assert isinstance(response.data['data'], list)
         assert isinstance(response.data['data'][0], dict)
@@ -185,14 +185,14 @@ class TestGetStory(TestCase):
         assert 'narrative' in response.data['data'][0]['attributes'].keys()
         assert 'distance' in response.data['data'][0]['attributes'].keys()
 
-    # def test_get_directions(self):
-    #     TestGetStory.test_db_setup()
-    #     story = Story.objects.all()[0]
-    #     self.lat = 34.134529719319424
-    #     self.long = -118.29851756023974
-    #     self.route = f'/api/v1/stories/{story.id}/directions?latitude={self.lat}&longitude={self.long}'
-    #
-    #     client = APIClient()
-    #     response = client.get(self.route)
-    #
-    #     assert response.status_code == 200
+    def test_impossible_route(self):
+        TestGetStory.test_db_setup()
+        story = Story.objects.all()[0]
+        self.lat = 21.393936208637445
+        self.long = -157.8674605018104
+        self.route = f'/api/v1/stories/{story.id}/directions?latitude={self.lat}&longitude={self.long}'
+
+        client = APIClient()
+        response = client.get(self.route)
+
+        assert response.status_code == 200

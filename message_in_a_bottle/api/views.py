@@ -84,12 +84,8 @@ class StoryDirections(APIView):
     def get(self, request, pk, format = None):
         if Story.valid_coords(request.query_params):
             story = self.get_object(pk)
-            response = MapService.get_directions(request.query_params, story)['route']['legs']
-            # if response['route'] == 'impossible route':
-            #     return Response({'data': 'impossible route'}, status=status.HTTP_200_OK)
-            # else:
-            #     serializer = StorySerializer.story_directions_serializer(response[0], story)
-            serializer = StorySerializer.story_directions_serializer(response[0], story)
+            response = MapService.get_directions(request.query_params, story)['route']
+            serializer = StorySerializer.story_directions_serializer(response, story)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
             error = 'Invalid latitude and longitude'

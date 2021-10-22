@@ -44,8 +44,11 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def story_directions_serializer(response, story):
-        directions = map(StorySerializer.format_directions, response['maneuvers'])
-        return list(directions)
+        if 'routeError' in response.keys():
+            return {'message': 'Impossible route.'}
+        else:
+            directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
+            return list(directions)
 
     def format_directions(maneuver):
         return {
