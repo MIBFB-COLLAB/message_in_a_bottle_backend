@@ -60,7 +60,7 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coordinates_error(response=None):
+    def coords_error(response=None):
         if response is None:
             return {'coordinates': ['Invalid latitude or longitude.']}
         elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:

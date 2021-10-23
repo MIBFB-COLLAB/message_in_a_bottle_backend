@@ -22,7 +22,7 @@ class StoryList(APIView):
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            error = StorySerializer.coordinates_error() if coords_present and not coords_check else StorySerializer.blank_coords()
+            error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
@@ -36,7 +36,7 @@ class StoryList(APIView):
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
             return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coords_error()}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):
@@ -60,13 +60,13 @@ class StoryDetail(APIView):
             )
         else:
             distance = None
-            error = StorySerializer.coordinates_error() if coords_present and not coords_check else StorySerializer.blank_coords()
+            error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
         if distance is not None and distance != 'Impossible route.':
             serializer = StorySerializer(story)
             return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            return Response({'errors':StorySerializer.coordinates_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coords_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
     """
     Update a story instance.
     """
@@ -102,4 +102,4 @@ class StoryDirections(APIView):
             serializer = StorySerializer.story_directions_serializer(response, story)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            return Response({'errors':StorySerializer.coordinates_error(response)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coords_error(response)}, status=status.HTTP_400_BAD_REQUEST)
