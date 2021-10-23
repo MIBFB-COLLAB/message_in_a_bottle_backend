@@ -228,6 +228,20 @@ class TestStoryRequests(TestCase):
 
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
+    
+    def test_error_blank_coordinates(self):
+        TestStoryRequests.test_db_setup()
+
+        self.lat = ''
+        self.long = ''
+        self.route = f'/api/v1/stories?latitude={self.lat}&longitude={self.long}'
+
+        client = APIClient()
+        response = client.get(self.route)
+        errors = response.data['errors']
+
+        assert response.status_code == 400
+        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
 
     def test_get_stories_no_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -239,7 +253,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors'] == {'coordinates': ['Invalid latitude or longitude.']}
+        assert response.data['errors'] == {'coordinates': ["Latitude or longitude can't be blank."]}
 
     def test_story_does_not_save_invalid_lat_long(self):
         TestStoryRequests.test_db_setup()

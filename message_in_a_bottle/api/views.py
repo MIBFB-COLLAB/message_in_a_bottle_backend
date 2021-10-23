@@ -12,8 +12,15 @@ class StoryList(APIView):
     List all stories.
     """
     def get(self, request, format=None):
-        coords_check = Story.valid_coords(request.query_params)
-        if coords_check:
+        serializer = StorySerializer()
+        coords_present = Story.coords_present(request.query_params)
+        if not coords_present:
+            return Response({'errors':StorySerializer.blank_coords()}, status=status.HTTP_400_BAD_REQUEST)
+        elif coords_present:
+            coords_check = Story.valid_coords(request.query_params)
+        else:
+            coords_check = False
+        if coords_check and coords_present:
             stories = Story.map_stories()
             response = MapService.get_stories(float(request.query_params['latitude']), float(request.query_params['longitude']), stories)
             if response['resultsCount'] == 0:
