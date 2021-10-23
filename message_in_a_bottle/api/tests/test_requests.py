@@ -85,7 +85,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['message'] == ['Impossible route.']
 
     def test_get_non_existent_story(self):
         TestStoryRequests.test_db_setup()
@@ -305,9 +305,10 @@ class TestStoryRequests(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
+        errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors']['message'] == ['Impossible route.']
+        assert errors['message'] == ['Impossible route.']
 
     def test_invalid_coordinates_directions(self):
         TestStoryRequests.test_db_setup()
