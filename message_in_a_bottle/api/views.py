@@ -13,7 +13,7 @@ class StoryList(APIView):
     def get(self, request, format=None):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
-        if coords_check and coords_present:
+        if coords_present and coords_check:
             stories = Story.map_stories()
             response = MapService.get_stories(request.query_params['latitude'], request.query_params['longitude'], stories)
             if response['resultsCount'] == 0:
@@ -49,8 +49,9 @@ class StoryDetail(APIView):
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
-        coords_check = Story.valid_coords(request.query_params)
-        if coords_check:
+        coords_present = Story.coords_present(request.query_params)
+        coords_check = Story.valid_coords(request.query_params) if coords_present else False
+        if coords_present and coords_check:
             distance = MapService.get_distance(
                 request.query_params['latitude'],
                 request.query_params['longitude'],
@@ -59,12 +60,13 @@ class StoryDetail(APIView):
             )
         else:
             distance = None
+            error = StorySerializer.coordinates_error() if coords_present and not coords_check else StorySerializer.blank_coords()
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
         if distance is not None and distance != 'Impossible route.':
             serializer = StorySerializer(story)
             return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            error = StorySerializer.coordinates_error() if distance is None else StorySerializer.coordinates_error(distance)
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coordinates_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
     """
     Update a story instance.
     """

@@ -74,7 +74,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -112,6 +112,56 @@
 					"response": []
 				},
 				{
+					"name": "Stories Index (blank Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories?latitude=&longitude=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Stories Index (no Params)",
 					"event": [
 						{
@@ -124,7 +174,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -225,7 +275,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['message']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['message']).to.eql(['Impossible route.']);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -276,7 +326,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -315,6 +365,57 @@
 					"response": []
 				},
 				{
+					"name": "Story Show (blank Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}?latitude=&longitude=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Story Show (no Params)",
 					"event": [
 						{
@@ -327,7 +428,7 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).not.to.be.null;",
+									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
 									"});"
 								],
 								"type": "text/javascript"
