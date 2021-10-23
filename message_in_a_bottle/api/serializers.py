@@ -6,6 +6,25 @@ class StorySerializer(serializers.ModelSerializer):
         model = Story
         fields = ['id', 'latitude', 'longitude', 'message', 'name', 'title', 'location', 'created_at', 'updated_at']
 
+    def reformat(self, story, return_distance=None):
+        output_dict = {
+            'id': story['id'],
+            'type': 'Story',
+            'attributes': {
+                'name': story['name'],
+                'title': story['title'],
+                'message': story['message'],
+                'latitude': story['latitude'],
+                'longitude': story['longitude'],
+                'location': story['location'],
+                'created_at': story['created_at'],
+                'updated_at': story['updated_at']
+            }
+        }
+        if return_distance is not None:
+            output_dict['attributes']['distance_in_miles'] = return_distance
+        return output_dict
+
     def stories_index_serializer(response):
         stories = map(StorySerializer.reformat_mapquest_response, response)
         dict = {
@@ -27,26 +46,7 @@ class StorySerializer(serializers.ModelSerializer):
                 }
             }
 
-    def reformat(self, story, return_distance=None):
-        output_dict = {
-            'id': story['id'],
-            'type': 'Story',
-            'attributes': {
-                'name': story['name'],
-                'title': story['title'],
-                'message': story['message'],
-                'latitude': story['latitude'],
-                'longitude': story['longitude'],
-                'location': story['location'],
-                'created_at': story['created_at'],
-                'updated_at': story['updated_at']
-            }
-        }
-        if return_distance is not None:
-            output_dict['attributes']['distance_in_miles'] = return_distance
-        return output_dict
-
-    def coordinates_error(self):
+    def coordinates_error():
         return {
             'coordinates': [
                 'Invalid latitude or longitude.'

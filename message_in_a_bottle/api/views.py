@@ -22,8 +22,7 @@ class StoryList(APIView):
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            serializer = StorySerializer()
-            return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
     """
@@ -36,8 +35,7 @@ class StoryList(APIView):
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
             return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            serializer = StorySerializer()
-            return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):
@@ -64,8 +62,7 @@ class StoryDetail(APIView):
             serializer = StorySerializer(story)
             return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            serializer = StorySerializer()
-            return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
 
     """
     Update a story instance.
