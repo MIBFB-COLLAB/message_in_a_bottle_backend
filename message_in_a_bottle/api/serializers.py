@@ -44,11 +44,8 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def story_directions_serializer(response, story):
-        if response['routeError']['errorCode'] == 2:
-            return {'message': 'Impossible route.'}
-        else:
-            directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
-            return list(directions)
+        directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
+        return list(directions)
 
     def format_directions(maneuver):
         return {
@@ -60,9 +57,8 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-     def coordinates_error(self):
-            return {
-                'coordinates': [
-                    'Invalid latitude or longitude.'
-                ]
-            }
+    def coordinates_error(self, response):
+        if response is None:
+            return {'coordinates': ['Invalid latitude or longitude.']}
+        elif response['routeError']['errorCode'] == 2:
+            return {'message': ['Impossible route.']}

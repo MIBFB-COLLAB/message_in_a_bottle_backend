@@ -196,7 +196,7 @@ class TestGetStory(TestCase):
         response = client.get(self.route)
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude']
+        assert response.data['errors']['message'] == ['Impossible route.']
 
     def test_invalid_coordinates_directions(self):
         TestGetStory.test_db_setup()
