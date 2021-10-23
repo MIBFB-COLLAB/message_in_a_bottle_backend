@@ -72,3 +72,5 @@ class StorySerializer(serializers.ModelSerializer):
 #                 'Invalid latitude or longitude.'
 #             ]
 #         }
+
+#   def blank_coords
