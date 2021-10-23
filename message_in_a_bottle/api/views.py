@@ -47,7 +47,6 @@ class StoryDetail(APIView):
             raise Http404
     """
     Retrieve a story instance.
-    TODO: Add query param logic once 3rd party geoloc API is integrated
     """
     def get(self, request, pk, format=None):
         story = self.get_object(pk)
@@ -81,3 +80,23 @@ class StoryDetail(APIView):
         story = self.get_object(pk)
         story.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class StoryDirections(APIView):
+    def get_object(self, pk):
+        try:
+            return Story.objects.get(pk=pk)
+        except Story.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format = None):
+        if Story.valid_coords(request.query_params):
+            story = self.get_object(pk)
+            response = MapService.get_directions(request.query_params, story)['route']
+        else:
+            response = None
+        if response is not None and response['routeError']['errorCode'] != 2:
+            serializer = StorySerializer.story_directions_serializer(response, story)
+            return Response({'data':serializer}, status=status.HTTP_200_OK)
+        else:
+            serializer = StorySerializer()
+            return Response({'errors':serializer.coordinates_error(response)}, status=status.HTTP_400_BAD_REQUEST)
