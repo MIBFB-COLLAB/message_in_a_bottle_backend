@@ -1,6 +1,8 @@
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
 import pytest
+import pprint
+pp = pprint.PrettyPrinter(indent=2)
 from message_in_a_bottle.api.services import MapService
 from message_in_a_bottle.api.models import Story
 from django.test import TestCase
@@ -82,3 +84,22 @@ class TestServices(TestCase):
 
         assert response['searchResults'][0]['name'] == 'Union Station'
         assert response['searchResults'][0]['distanceUnit'] == 'm'
+    
+    def test_get_distance(self):
+        user_location = {
+            'lat': 39.749379471614546,
+            'long': -105.01696456480278
+        }
+        story = {
+            'lat': 39.75711894267296,
+            'long': -105.00325615707887
+        }
+        response = MapService.get_distance(
+            user_location['lat'],
+            user_location['long'],
+            story['lat'],
+            story['long']
+        )
+        
+        assert type(response) == float
+
