@@ -59,3 +59,10 @@ class StorySerializer(serializers.ModelSerializer):
                 'distance': f"{maneuver['distance']} miles",
             }
         }
+
+     def coordinates_error(self):
+            return {
+                'coordinates': [
+                    'Invalid latitude or longitude.'
+                ]
+            }

@@ -195,9 +195,8 @@ class TestGetStory(TestCase):
         client = APIClient()
         response = client.get(self.route)
 
-        assert response.status_code == 200
-        assert isinstance(response.data['data'], dict)
-        assert response.data['data']['message'] == 'Impossible route.'
+        assert response.status_code == 400
+        assert errors['coordinates'] == ['Invalid latitude or longitude']
 
     def test_invalid_coordinates_directions(self):
         TestGetStory.test_db_setup()
