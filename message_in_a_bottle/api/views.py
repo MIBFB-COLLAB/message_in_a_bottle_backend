@@ -12,8 +12,11 @@ class StoryList(APIView):
     List all stories.
     """
     def get(self, request, format=None):
+        serializer = StorySerializer()
         coords_present = Story.coords_present(request.query_params)
-        if coords_present:
+        if not coords_present:
+            return Response({'errors':serializer.blank_coords()}, status=status.HTTP_400_BAD_REQUEST)
+        elif coords_present:
             coords_check = Story.valid_coords(request.query_params)
         else:
             coords_check = False
@@ -26,7 +29,6 @@ class StoryList(APIView):
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            serializer = StorySerializer()
             return Response({'errors':serializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
