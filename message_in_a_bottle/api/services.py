@@ -31,7 +31,7 @@ class MapService():
         url = 'http://www.mapquestapi.com/directions/v2/route'
         params = {
             'key': os.environ.get('MAPQUEST_KEY'),
-            'from': f'{request['latitude']},{request['longitude']}',
+            'from': f"{request['latitude']},{request['longitude']}",
             'to': f'{story.latitude},{story.longitude}'
         }
         response = requests.post(url, params=params)

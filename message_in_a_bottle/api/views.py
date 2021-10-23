@@ -99,5 +99,4 @@ class StoryDirections(APIView):
             serializer = StorySerializer.story_directions_serializer(response, story)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            serializer = StorySerializer()
-            return Response({'errors':serializer.coordinates_error(response)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coordinates_error(response)}, status=status.HTTP_400_BAD_REQUEST)
