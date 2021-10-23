@@ -7,6 +7,9 @@ from message_in_a_bottle.api.serializers import StorySerializer
 
 @pytest.mark.django_db
 class TestStoryRequests(TestCase):
+    """
+    Database transactional fixture setup for test runs:
+    """
     @classmethod
     def test_db_setup(cls, return_dict=False):
         assert Story.objects.count() == 0
@@ -44,12 +47,16 @@ class TestStoryRequests(TestCase):
         if return_dict:
             return cls.story_dict
 
-
+    """
+    Retrieve a story instance:
+    """
     def test_get_existing_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
 
         self.valid_id = Story.objects.latest('id').id
-        self.route = f"/api/v1/stories/{self.valid_id}?latitude={self.story_dict['latitude']}&longitude={self.story_dict['longitude']}"
+        self.lat = self.story_dict['latitude']
+        self.long = self.story_dict['longitude']
+        self.route = f'/api/v1/stories/{self.valid_id}?latitude={self.lat}&longitude={self.long}'
 
         client = APIClient()
         response = client.get(self.route)
@@ -59,7 +66,46 @@ class TestStoryRequests(TestCase):
         assert response.status_code == 200
         assert response.data['data'] == serializer.reformat(serializer.data, distance)
 
-    def test_get_story_no_coordinates(self):
+    def test_get_story_impossible_route(self):
+        TestStoryRequests.test_db_setup()
+
+        self.valid_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.valid_id}?latitude={0}&longitude={0}'
+
+        client = APIClient()
+        response = client.get(self.route)
+        errors = response.data['errors']
+
+        assert response.status_code == 400
+        assert errors['message'] == ['Impossible route.']
+
+    def test_get_story_invalid_coordinates(self):
+        TestStoryRequests.test_db_setup()
+
+        self.valid_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.valid_id}?latitude={100000}&longitude={100000}'
+
+        client = APIClient()
+        response = client.get(self.route)
+        errors = response.data['errors']
+
+        assert response.status_code == 400
+        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+
+    def test_get_story_empty_params(self):
+        TestStoryRequests.test_db_setup()
+
+        self.valid_id = Story.objects.latest('id').id
+        self.route = f'/api/v1/stories/{self.valid_id}?latitude=&longitude='
+
+        client = APIClient()
+        response = client.get(self.route)
+        errors = response.data['errors']
+
+        assert response.status_code == 400
+        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
+
+    def test_get_story_no_params(self):
         TestStoryRequests.test_db_setup()
 
         self.valid_id = Story.objects.latest('id').id
@@ -70,7 +116,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
 
     def test_get_non_existent_story(self):
         TestStoryRequests.test_db_setup()
@@ -83,6 +129,9 @@ class TestStoryRequests(TestCase):
 
         assert response.status_code == 404
 
+    """
+    Create a story:
+    """
     def test_create_valid_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
         self.route = '/api/v1/stories'
@@ -107,7 +156,7 @@ class TestStoryRequests(TestCase):
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
-    def test_create_invalid_story_lat_long(self):
+    def test_create_story_invalid_coordinates(self):
         self.invalid_dict = {
             'title': "I'm invalid",
             'message': 'My coordinates are invalid!',
@@ -123,6 +172,9 @@ class TestStoryRequests(TestCase):
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
 
+    """
+    Delete a story instance:
+    """
     def test_delete_existing_story(self):
         TestStoryRequests.test_db_setup()
 
@@ -133,6 +185,9 @@ class TestStoryRequests(TestCase):
         response = client.delete(self.route)
         assert response.status_code == 204
 
+    """
+    Update a story instance:
+    """
     def test_valid_update_existing_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
         self.story = Story.objects.earliest('id')
@@ -166,6 +221,9 @@ class TestStoryRequests(TestCase):
         assert self.story.latitude != ''
         assert self.story.longitude != ''
 
+    """
+    List all stories:
+    """
     def test_get_story_index(self):
         TestStoryRequests.test_db_setup()
 
@@ -213,8 +271,8 @@ class TestStoryRequests(TestCase):
 
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']
-    
-    def test_error_blank_coordinates(self):
+
+    def test_get_stories_blank_coordinates(self):
         TestStoryRequests.test_db_setup()
 
         self.lat = ''
@@ -238,44 +296,14 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors'] == {'coordinates': ["Latitude or longitude can't be blank."]}
+        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
 
-    def test_story_does_not_save_invalid_lat_long(self):
-        TestStoryRequests.test_db_setup()
-        dict = {
-            "title": "I'm invalid",
-            "message": "Delete me I'm invalid!",
-            "latitude": 450.8762,
-            "longitude": 960.12893,
-            "location": 'place'
-        }
-        original_length = len(Story.objects.all())
-        self.route = f'/api/v1/stories'
-
-        client = APIClient()
-        response = client.post(self.route, dict, format='json')
-
-        assert original_length == len(Story.objects.all())
-
-    def test_story_saves_valid_lat_long(self):
-        TestStoryRequests.test_db_setup()
-        dict = {
-            "title": "I'm valid",
-            "message": "Keep me I'm valid!",
-            "latitude": 45.8762,
-            "longitude": 96.12893,
-            "location": 'place'
-        }
-        original_length = len(Story.objects.all())
-        self.route = f'/api/v1/stories'
-
-        client = APIClient()
-        response = client.post(self.route, dict, format='json')
-
-        assert len(Story.objects.all()) == original_length + 1
-
+    """
+    Get directions to a single story:
+    """
     def test_get_directions(self):
         TestStoryRequests.test_db_setup()
+
         story = Story.objects.all()[0]
         self.lat = 34.134529719319424
         self.long = -118.29851756023974
@@ -295,8 +323,9 @@ class TestStoryRequests(TestCase):
         assert 'narrative' in response.data['data'][0]['attributes'].keys()
         assert 'distance' in response.data['data'][0]['attributes'].keys()
 
-    def test_impossible_route(self):
+    def test_get_directions_impossible_route(self):
         TestStoryRequests.test_db_setup()
+
         story = Story.objects.all()[0]
         self.lat = 21.393936208637445
         self.long = -157.8674605018104
@@ -304,12 +333,14 @@ class TestStoryRequests(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
+        errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors']['message'] == ['Impossible route.']
+        assert errors['message'] == ['Impossible route.']
 
-    def test_invalid_coordinates_directions(self):
+    def test_get_directions_invalid_coordinates(self):
         TestStoryRequests.test_db_setup()
+
         story = Story.objects.all()[0]
         self.lat = 210.393936208637445
         self.long = -1570.8674605018104

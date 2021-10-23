@@ -60,13 +60,13 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coordinates_error(self, response=None):
+    def coords_error(response=None):
         if response is None:
             return {'coordinates': ['Invalid latitude or longitude.']}
-        elif response['routeError']['errorCode'] == 2:
+        elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:
             return {'message': ['Impossible route.']}
 
-    def blank_coords(self):
+    def blank_coords():
         return {
             'coordinates': [
                 "Latitude or longitude can't be blank."

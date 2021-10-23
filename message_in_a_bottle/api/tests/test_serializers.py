@@ -50,7 +50,16 @@ class TestStorySerializer(TestCase):
                 'Invalid latitude or longitude.'
             ]
         }
-        serializer = StorySerializer()
-        self.actual = serializer.coordinates_error()
+        self.actual = StorySerializer.coords_error()
+
+        assert self.actual == self.expected
+
+    def test_serializer_blank_coordinates(self):
+        self.expected = {
+            'coordinates': [
+                "Latitude or longitude can't be blank."
+            ]
+        }
+        self.actual = StorySerializer.blank_coords()
 
         assert self.actual == self.expected
