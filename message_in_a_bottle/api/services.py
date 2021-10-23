@@ -11,19 +11,19 @@ class MapService():
             'key': os.environ.get('MAPQUEST_KEY')
         }
         data = {
-          'origin': {
-            'latLng': {
-              'lat': lat,
-              'lng': long
-            }
-          },
-          'options': {
-            'maxMatches': 100,
-            'radius': 25,
-            'units': 'm'
-          },
-        'remoteDataList': stories
-          }
+            'origin': {
+                'latLng': {
+                    'lat': float(lat),
+                    'lng': float(long)
+                }
+            },
+            'options': {
+                'maxMatches': 100,
+                'radius': 25,
+                'units': 'm'
+            },
+            'remoteDataList': stories
+        }
         response = requests.post(url, params=params, data=json.dumps(data, indent=1))
         return response.json()
 
@@ -49,4 +49,4 @@ class MapService():
         if parsed['routeError']['errorCode'] == -400:
             return parsed['distance']
         else:
-            return 'Impossible Route'
+            return 'Impossible route.'

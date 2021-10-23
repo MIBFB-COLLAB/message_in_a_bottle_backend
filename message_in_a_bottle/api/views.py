@@ -5,31 +5,25 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.core.exceptions import ValidationError
 
 class StoryList(APIView):
     """
     List all stories.
     """
     def get(self, request, format=None):
-        serializer = StorySerializer()
         coords_present = Story.coords_present(request.query_params)
-        if not coords_present:
-            return Response({'errors':StorySerializer.blank_coords()}, status=status.HTTP_400_BAD_REQUEST)
-        elif coords_present:
-            coords_check = Story.valid_coords(request.query_params)
-        else:
-            coords_check = False
+        coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_check and coords_present:
             stories = Story.map_stories()
-            response = MapService.get_stories(float(request.query_params['latitude']), float(request.query_params['longitude']), stories)
+            response = MapService.get_stories(request.query_params['latitude'], request.query_params['longitude'], stories)
             if response['resultsCount'] == 0:
                 serializer = StorySerializer.stories_index_serializer([])
             else:
                 serializer = StorySerializer.stories_index_serializer(response['searchResults'])
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
-            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            error = StorySerializer.coordinates_error() if coords_present and not coords_check else StorySerializer.blank_coords()
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
     """
     Create a story.
     """
@@ -65,13 +59,12 @@ class StoryDetail(APIView):
             )
         else:
             distance = None
-        if distance is not None and distance != 'Impossible Route':
+        if distance is not None and distance != 'Impossible route.':
             serializer = StorySerializer(story)
             return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
             error = StorySerializer.coordinates_error() if distance is None else StorySerializer.coordinates_error(distance)
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
-
     """
     Update a story instance.
     """
