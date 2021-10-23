@@ -66,9 +66,9 @@ class StorySerializer(serializers.ModelSerializer):
         elif response['routeError']['errorCode'] == 2:
             return {'message': ['Impossible route.']}
 
-#     def coordinates_error(self):
-#         return {
-#             'coordinates': [
-#                 'Invalid latitude or longitude.'
-#             ]
-#         }
+    def blank_coords(self):
+        return {
+            'coordinates': [
+                "Latitude or longitude can't be blank."
+            ]
+        }

@@ -20,6 +20,15 @@ class Story(models.Model):
                 return True
         else:
             return False
+    
+    def coords_present(request):
+        if 'latitude' and 'longitude' in request:
+            if not request['latitude'] or not request['longitude']:
+                return False
+            else:
+                return True
+        else:
+            return False
 
     def mapquest_data_dict(story):
         return {
