@@ -198,3 +198,15 @@ class TestGetStory(TestCase):
         assert response.status_code == 200
         assert isinstance(response.data['data'], dict)
         assert response.data['data']['message'] == 'Impossible route.'
+
+    def test_invalid_coordinates_directions(self):
+        TestGetStory.test_db_setup()
+        story = Story.objects.all()[0]
+        self.lat = 210.393936208637445
+        self.long = -1570.8674605018104
+        self.route = f'/api/v1/stories/{story.id}/directions?latitude={self.lat}&longitude={self.long}'
+
+        client = APIClient()
+        response = client.get(self.route)
+
+        assert response.status_code == 400
