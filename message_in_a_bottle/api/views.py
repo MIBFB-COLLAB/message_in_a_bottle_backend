@@ -61,10 +61,9 @@ class StoryDetail(APIView):
         if distance is not None and distance != 'Impossible Route':
             serializer = StorySerializer(story)
             return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
-        elif distance == 'Impossible Route':
-            return Response({'errors':StorySerializer.coordinates_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'errors':StorySerializer.coordinates_error()}, status=status.HTTP_400_BAD_REQUEST)
+            error = StorySerializer.coordinates_error() if distance is None else StorySerializer.coordinates_error(distance)
+            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
 
     """
     Update a story instance.
