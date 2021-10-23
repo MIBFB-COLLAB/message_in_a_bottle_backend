@@ -44,7 +44,7 @@ class TestStoryRequests(TestCase):
         if return_dict:
             return cls.story_dict
 
-    
+
     def test_get_existing_story(self):
         self.story_dict = TestStoryRequests.test_db_setup(return_dict=True)
 
@@ -55,7 +55,7 @@ class TestStoryRequests(TestCase):
         response = client.get(self.route)
         serializer = StorySerializer(Story.objects.get(pk=self.valid_id))
         distance = response.data['data']['attributes']['distance_in_miles']
-        
+
         assert response.status_code == 200
         assert response.data['data'] == serializer.reformat(serializer.data, distance)
 
@@ -224,10 +224,10 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert response.data['errors'] == 'Invalid latitude and longitude'
+        assert response.data['errors'] == {'coordinates': ['Invalid latitude or longitude.']}
 
     def test_story_does_not_save_invalid_lat_long(self):
-        TestGetStory.test_db_setup()
+        TestStoryRequests.test_db_setup()
         dict = {
             "title": "I'm invalid",
             "message": "Delete me I'm invalid!",
@@ -244,7 +244,7 @@ class TestStoryRequests(TestCase):
         assert original_length == len(Story.objects.all())
 
     def test_story_saves_valid_lat_long(self):
-        TestGetStory.test_db_setup()
+        TestStoryRequests.test_db_setup()
         dict = {
             "title": "I'm valid",
             "message": "Keep me I'm valid!",
@@ -261,7 +261,7 @@ class TestStoryRequests(TestCase):
         assert len(Story.objects.all()) == original_length + 1
 
     def test_get_directions(self):
-        TestGetStory.test_db_setup()
+        TestStoryRequests.test_db_setup()
         story = Story.objects.all()[0]
         self.lat = 34.134529719319424
         self.long = -118.29851756023974
@@ -282,7 +282,7 @@ class TestStoryRequests(TestCase):
         assert 'distance' in response.data['data'][0]['attributes'].keys()
 
     def test_impossible_route(self):
-        TestGetStory.test_db_setup()
+        TestStoryRequests.test_db_setup()
         story = Story.objects.all()[0]
         self.lat = 21.393936208637445
         self.long = -157.8674605018104
@@ -295,7 +295,7 @@ class TestStoryRequests(TestCase):
         assert response.data['errors']['message'] == ['Impossible route.']
 
     def test_invalid_coordinates_directions(self):
-        TestGetStory.test_db_setup()
+        TestStoryRequests.test_db_setup()
         story = Story.objects.all()[0]
         self.lat = 210.393936208637445
         self.long = -1570.8674605018104
@@ -303,6 +303,7 @@ class TestStoryRequests(TestCase):
 
         client = APIClient()
         response = client.get(self.route)
+        errors = response.data['errors']
 
         assert response.status_code == 400
         assert errors['coordinates'] == ['Invalid latitude or longitude.']

@@ -22,9 +22,9 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
         if return_distance is not None:
-                output_dict['attributes']['distance_in_miles'] = return_distance
-            return output_dict
-    
+            output_dict['attributes']['distance_in_miles'] = return_distance
+        return output_dict
+
     def stories_index_serializer(response):
         stories = map(StorySerializer.reformat_mapquest_response, response)
         dict = {
@@ -60,7 +60,7 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coordinates_error(self, response):
+    def coordinates_error(self, response=None):
         if response is None:
             return {'coordinates': ['Invalid latitude or longitude.']}
         elif response['routeError']['errorCode'] == 2:
