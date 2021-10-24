@@ -14,7 +14,7 @@ class StoryList(APIView):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_present and coords_check:
-            stories = StorySerializer.sort_by_distance(
+            stories = StorySerializer.stories_near_user(
                 request.query_params['latitude'],
                 request.query_params['longitude'],
                 Story.objects.all()
@@ -31,6 +31,7 @@ class StoryList(APIView):
     def post(self, request, format=None):
         coords_check = Story.valid_coords(request.data)
         if coords_check:
+            request.data['location'] = MapService.get_city_state(request.data['latitude'], request.data['longitude'])
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()

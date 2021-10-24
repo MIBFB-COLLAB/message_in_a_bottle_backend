@@ -516,7 +516,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Sven\",\n    \"latitude\":39.75506,\n    \"longitude\":-105.0066986\n}",
+							"raw": "{\n    \"title\":\"Immer Verloren\",\n    \"message\":\"Wo bist du, Sven??\",\n    \"name\":\"Jorge\",\n    \"latitude\":39.95506,\n    \"longitude\":-105.0066986\n}",
 							"options": {
 								"raw": {
 									"language": "json"

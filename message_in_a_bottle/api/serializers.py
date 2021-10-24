@@ -26,7 +26,7 @@ class StorySerializer(serializers.ModelSerializer):
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
 
-    def sort_by_distance(from_lat, from_long, stories):
+    def stories_near_user(from_lat, from_long, stories):
         output_list = []
         for s in stories:
             distance = MapService.get_distance(from_lat, from_long, s.latitude, s.longitude)
@@ -41,7 +41,7 @@ class StorySerializer(serializers.ModelSerializer):
                         'distance_in_miles': distance
                     }
                 })
-        return output_list
+        return sorted(output_list, key = lambda s: s['attributes']['distance_in_miles'])
 
     def stories_index(city_state, stories):
         return {
@@ -58,16 +58,17 @@ class StorySerializer(serializers.ModelSerializer):
         return dict
 
     def reformat_mapquest_response(story):
-        return {
-            'id': story['key'],
-            'type': 'story',
-            'attributes': {
-                'title': story['name'],
-                'distance_in_miles': story['distance'],
-                'latitude': story['shapePoints'][0],
-                'longitude': story['shapePoints'][1]
+        if story:
+            return {
+                'id': story['key'],
+                'type': 'story',
+                'attributes': {
+                    'title': story['name'],
+                    'distance_in_miles': story['distance'],
+                    'latitude': story['shapePoints'][0],
+                    'longitude': story['shapePoints'][1]
+                }
             }
-        }
 
     def story_directions_serializer(response, story):
         directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
