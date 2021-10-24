@@ -34,17 +34,16 @@ class StorySerializer(serializers.ModelSerializer):
         return dict
 
     def reformat_mapquest_response(story):
-        if story:
-            return {
-                'id': story['key'],
-                'type': 'story',
-                'attributes': {
-                    'title': story['name'],
-                    'distance_in_miles': story['distance'],
-                    'latitude': story['shapePoints'][0],
-                    'longitude': story['shapePoints'][1]
-                }
+        return {
+            'id': story['key'],
+            'type': 'story',
+            'attributes': {
+                'title': story['name'],
+                'distance_in_miles': story['distance'],
+                'latitude': story['shapePoints'][0],
+                'longitude': story['shapePoints'][1]
             }
+        }
 
     def story_directions_serializer(response, story):
         directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])

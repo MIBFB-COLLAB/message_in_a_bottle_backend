@@ -25,6 +25,12 @@
 									"    pm.expect(jsonData['data']['input_location']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['stories']).not.to.be.null;",
 									"    // TODO: add more tests once we have geoloc logic fully integrated into endpoint",
+									"    pm.expect(jsonData['data']['input_location']).to.eql('This is a temporary location!');",
+									"    var stories = jsonData['data']['stories'];",
+									"    for (var s = 0; s < stories.length; s++) {",
+									"        pm.expect(s['id']).not.to.be.null;",
+									"        console.log(s);",
+									"    }",
 									"});"
 								],
 								"type": "text/javascript"
@@ -38,7 +44,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/stories?latitude=-18.982791&longitude=125.456892",
+							"raw": "{{base_url}}/api/v1/stories?latitude=39.775506&longitude=-105.0066986",
 							"host": [
 								"{{base_url}}"
 							],
@@ -50,11 +56,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "-18.982791"
+									"value": "39.775506"
 								},
 								{
 									"key": "longitude",
-									"value": "125.456892"
+									"value": "-105.0066986"
 								}
 							]
 						}
@@ -238,7 +244,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/stories/{{story_id}}?latitude=-18.982791&longitude=125.456892",
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}?latitude=39.775506&longitude=-105.0066986",
 							"host": [
 								"{{base_url}}"
 							],
@@ -251,11 +257,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "-18.982791"
+									"value": "39.775506"
 								},
 								{
 									"key": "longitude",
-									"value": "125.456892"
+									"value": "-105.0066986"
 								}
 							]
 						}
@@ -289,7 +295,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/stories/{{story_id}}?latitude=39.75711894267296&longitude=-105.00325615707887",
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}?latitude=0&longitude=0",
 							"host": [
 								"{{base_url}}"
 							],
@@ -302,11 +308,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "39.75711894267296"
+									"value": "0"
 								},
 								{
 									"key": "longitude",
-									"value": "-105.00325615707887"
+									"value": "0"
 								}
 							]
 						}
@@ -510,7 +516,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\",\n    \"longitude\":125.456892,\n    \"latitude\":-18.982791\n}",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Sven\",\n    \"latitude\":39.775506,\n    \"longitude\":-105.0066986\n}",
 							"options": {
 								"raw": {
 									"language": "json"
