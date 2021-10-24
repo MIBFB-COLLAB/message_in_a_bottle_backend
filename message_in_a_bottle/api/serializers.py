@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Story
+from message_in_a_bottle.api.services import MapService
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,6 +25,29 @@ class StorySerializer(serializers.ModelSerializer):
         if return_distance is not None:
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
+
+    def sort_by_distance(from_lat, from_long, stories):
+        output_list = []
+        for s in stories:
+            distance = MapService.get_distance(from_lat, from_long, s.latitude, s.longitude)
+            if distance != 'Impossible route.' and distance <= 25:
+                output_list.append({
+                    'id': s.id,
+                    'type': s.__class__.__name__,
+                    'attributes': {
+                        'title': s.title,
+                        'latitude': s.latitude,
+                        'longitude': s.longitude,
+                        'distance_in_miles': distance
+                    }
+                })
+        return output_list
+
+    def stories_index(city_state, stories):
+        return {
+            'input_location': city_state,
+            'stories': stories
+        }
 
     def stories_index_serializer(response):
         stories = map(StorySerializer.reformat_mapquest_response, response)

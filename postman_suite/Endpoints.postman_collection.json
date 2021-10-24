@@ -22,14 +22,14 @@
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData['data']).not.to.be.null;",
-									"    pm.expect(jsonData['data']['input_location']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['stories']).not.to.be.null;",
-									"    // TODO: add more tests once we have geoloc logic fully integrated into endpoint",
-									"    pm.expect(jsonData['data']['input_location']).to.eql('This is a temporary location!');",
-									"    var stories = jsonData['data']['stories'];",
-									"    for (var s = 0; s < stories.length; s++) {",
+									"    pm.expect(jsonData['data']['input_location']).not.to.eql('This is a temporary location!');",
+									"    for (var s = 0; s < jsonData['data'].length; s++) {",
 									"        pm.expect(s['id']).not.to.be.null;",
-									"        console.log(s);",
+									"        pm.expect(s['type']).to.eql('Story');",
+									"        pm.expect(s['title']).not.to.be.null;",
+									"        pm.expect(s['latitude']).not.to.be.null;",
+									"        pm.expect(s['longitude']).not.to.be.null;",
 									"    }",
 									"});"
 								],
@@ -516,7 +516,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Sven\",\n    \"latitude\":39.775506,\n    \"longitude\":-105.0066986\n}",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Sven\",\n    \"latitude\":39.75506,\n    \"longitude\":-105.0066986\n}",
 							"options": {
 								"raw": {
 									"language": "json"
