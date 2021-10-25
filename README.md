@@ -49,15 +49,18 @@ Message in a Bottle is an application where users can discover stories about the
 
 ## Tools Used
 
-| Development | Testing       | Packages        |
-|   :----:    |    :----:     |    :----:       |
-| Python 3.9.7| Pytest        |                 |
-| Django      | Postman       |                 |
-| CircleCI    |               |                 |
-| PostgreSQL  |               |                 |
-| Git/Github  |               |                 |
-| Heroku      |               |                 |
-
+| Development | Testing       | Packages              |
+|   :----:    |    :----:     |    :----:             |
+| Python 3.9.7| Pytest Django | Django                |
+| Django      | Pytest-Cov    | Django CORS Headers   |
+| CircleCI    | Postman       | Django Heroku         |
+| PostgreSQL  |               | Django REST Framework |
+| Git/Github  |               | Gunicorn              |
+| Heroku      |               | Psycopg2              |
+|             |               | Pycodestyle           |
+|             |               | Python-Decouple       |
+|             |               | Python-DotENV         |
+|             |               | Requests              |
 
 
 ## Set Up
