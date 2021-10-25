@@ -10,28 +10,6 @@ from message_in_a_bottle.api.services import MapService
 from message_in_a_bottle.api.models import Story
 
 class TestServices(TestCase):
-    def test_get_directions(self):
-        self.lat = 39.74822614190254
-        self.long = -104.99898275758112
-        self.story = Story.objects.create(
-            title = 'Gates Crescent Park',
-            message = 'Took a walk',
-            latitude = 39.749379471614546,
-            longitude = -105.01696456480278
-        )
-
-        self.request = {
-            'latitude': self.lat,
-            'longitude': self.long
-        }
-        response = MapService.get_directions(self.request, self.story)
-
-        assert 'distance' in response['route'].keys()
-        assert 'legs' in response['route'].keys()
-        assert response['route']['legs'].__class__.__name__ == 'list'
-        assert 'maneuvers' in response['route']['legs'][0].keys()
-        assert response['route']['legs'][0]['maneuvers'].__class__.__name__ == 'list'
-
     def test_get_stories(self):
         self.lat = 39.74822614190254
         self.long = -104.99898275758112
@@ -85,9 +63,36 @@ class TestServices(TestCase):
         assert response['searchResults'][0]['name'] == 'Union Station'
         assert response['searchResults'][0]['distanceUnit'] == 'm'
 
+    def test_get_directions(self):
+        self.base_path = os.path.dirname(__file__)
+        self.fixture = f'{self.base_path}/fixtures/route_response.json'
+        with open(self.fixture, 'r') as reader:
+            json_blob = json.load(reader)
+
+        self.user_location = {
+            'latitude': 39.749379471614546,
+            'longitude': -105.01696456480278
+        }
+        self.story = Story.objects.create(
+            title = 'Gates Crescent Park',
+            message = 'Took a walk',
+            latitude = 39.75711894267296,
+            longitude = -105.00325615707887
+        )
+
+        with Mocker() as mocker:
+            mocker.post(MapService.base_urls()['route'], json=json_blob, status_code=200)
+            response = MapService.get_directions(self.user_location, self.story)
+
+        assert 'distance' in response['route'].keys()
+        assert 'legs' in response['route'].keys()
+        assert isinstance(response['route']['legs'], list)
+        assert 'maneuvers' in response['route']['legs'][0].keys()
+        assert isinstance(response['route']['legs'][0]['maneuvers'], list)
+
     def test_get_distance(self):
         self.base_path = os.path.dirname(__file__)
-        self.fixture = f'{self.base_path}/fixtures/distance_response.json'
+        self.fixture = f'{self.base_path}/fixtures/route_response.json'
         with open(self.fixture, 'r') as reader:
             json_blob = json.load(reader)
 
@@ -95,7 +100,7 @@ class TestServices(TestCase):
             'lat': 39.749379471614546,
             'long': -105.01696456480278
         }
-        self.story = {
+        self.story_location = {
             'lat': 39.75711894267296,
             'long': -105.00325615707887
         }
@@ -105,8 +110,8 @@ class TestServices(TestCase):
             response = MapService.get_distance(
                 self.user_location['lat'],
                 self.user_location['long'],
-                self.story['lat'],
-                self.story['long']
+                self.story_location['lat'],
+                self.story_location['long']
             )
 
         assert type(response) == float
