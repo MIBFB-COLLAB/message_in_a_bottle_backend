@@ -1,6 +1,10 @@
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
+import os
+import json
 import pytest
+import requests
+from requests_mock.mocker import Mocker
 from django.test import TestCase
 from message_in_a_bottle.api.services import MapService
 from message_in_a_bottle.api.models import Story
@@ -82,6 +86,11 @@ class TestServices(TestCase):
         assert response['searchResults'][0]['distanceUnit'] == 'm'
 
     def test_get_distance(self):
+        self.base_path = os.path.dirname(__file__)
+        self.fixture = f'{self.base_path}/fixtures/distance_response.json'
+        with open(self.fixture, 'r') as reader:
+            json_blob = json.load(reader)
+
         self.user_location = {
             'lat': 39.749379471614546,
             'long': -105.01696456480278
@@ -90,12 +99,15 @@ class TestServices(TestCase):
             'lat': 39.75711894267296,
             'long': -105.00325615707887
         }
-        response = MapService.get_distance(
-            self.user_location['lat'],
-            self.user_location['long'],
-            self.story['lat'],
-            self.story['long']
-        )
+
+        with Mocker() as mocker:
+            mocker.get(MapService.base_urls()['route'], json=json_blob, status_code=200)
+            response = MapService.get_distance(
+                self.user_location['lat'],
+                self.user_location['long'],
+                self.story['lat'],
+                self.story['long']
+            )
 
         assert type(response) == float
 
