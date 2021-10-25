@@ -43,20 +43,17 @@ class StoryDetail(APIView):
     Retrieve a story instance.
     """
     def get(self, request, pk, format=None):
-        story = self.get_object(pk)
-        coords_present = Story.coords_present(request.query_params)
-        coords_check = Story.valid_coords(request.query_params) if coords_present else False
-        if coords_present and coords_check:
-            distance = MapFacade.get_distance(request, story)
+        if StorySerializer.coords_error(request.query_params)['code'] == 0:
+            story = self.get_object(pk)
+            distance = MapFacade.get_distance(request.query_params, story)
+            if distance == 'Impossible route.':
+                return Response({'errors':StorySerializer.coords_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                serializer = StorySerializer(story)
+                return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            distance = None
-            error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
-        if distance is not None and distance != 'Impossible route.':
-            serializer = StorySerializer(story)
-            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
-        else:
-            return Response({'errors':StorySerializer.coords_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coords_error(request.query_params)}, status=status.HTTP_400_BAD_REQUEST)
+
     """
     Update a story instance.
     """
