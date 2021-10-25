@@ -808,7 +808,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Till Lindemann\"\n}",
+							"raw": "{\n    \"title\":\"Wie Traurig\",\n    \"message\":\"Ich habe meinen Freund im Denver verloren und jetzt bin Ich ganz allein :(\",\n    \"name\":\"Sven\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
