@@ -7,40 +7,46 @@ class StorySerializer(serializers.ModelSerializer):
         model = Story
         fields = ['id', 'latitude', 'longitude', 'message', 'name', 'title', 'location', 'created_at', 'updated_at']
 
-    def reformat(self, story, return_distance=None):
+    def reformat(self, story_dict, return_distance=None):
         output_dict = {
-            'id': story['id'],
+            'id': story_dict['id'],
             'type': 'Story',
             'attributes': {
-                'name': story['name'],
-                'title': story['title'],
-                'message': story['message'],
-                'latitude': story['latitude'],
-                'longitude': story['longitude'],
-                'location': story['location'],
-                'created_at': story['created_at'],
-                'updated_at': story['updated_at']
+                'name': story_dict['name'],
+                'title': story_dict['title'],
+                'message': story_dict['message'],
+                'latitude': story_dict['latitude'],
+                'longitude': story_dict['longitude'],
+                'location': story_dict['location'],
+                'created_at': story_dict['created_at'],
+                'updated_at': story_dict['updated_at']
             }
         }
         if return_distance is not None:
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
 
+    def reformat_condensed(story_obj, distance):
+        return {
+            'id': story_obj.id,
+            'type': story_obj.__class__.__name__,
+            'attributes': {
+                'title': story_obj.title,
+                'latitude': story_obj.latitude,
+                'longitude': story_obj.longitude,
+                'distance_in_miles': distance
+            }
+        }
+
     def stories_near_user(from_lat, from_long, stories):
         output_list = []
         for s in stories:
-            distance = MapService.get_distance(from_lat, from_long, s.latitude, s.longitude)
-            if distance != 'Impossible route.' and distance <= 25:
-                output_list.append({
-                    'id': s.id,
-                    'type': s.__class__.__name__,
-                    'attributes': {
-                        'title': s.title,
-                        'latitude': s.latitude,
-                        'longitude': s.longitude,
-                        'distance_in_miles': distance
-                    }
-                })
+            delta_lat = abs(float(from_lat) - s.latitude)
+            delta_long = abs(float(from_long) - s.longitude)
+            if delta_lat <= 2 and delta_long <= 2:
+                distance = MapService.get_distance(from_lat, from_long, s.latitude, s.longitude)
+                if distance != 'Impossible route.' and distance <= 25:
+                    output_list.append(StorySerializer.reformat_condensed(s, distance))
         return sorted(output_list, key = lambda s: s['attributes']['distance_in_miles'])
 
     def stories_index(city_state, stories):
@@ -86,9 +92,17 @@ class StorySerializer(serializers.ModelSerializer):
 
     def coords_error(response=None):
         if response is None:
-            return {'coordinates': ['Invalid latitude or longitude.']}
+            return {
+                'coordinates': [
+                    'Invalid latitude or longitude.'
+                ]
+            }
         elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:
-            return {'message': ['Impossible route.']}
+            return {
+                'message': [
+                    'Impossible route.'
+                ]
+            }
 
     def blank_coords():
         return {
