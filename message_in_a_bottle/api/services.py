@@ -29,7 +29,7 @@ class MapService():
             },
             'options': {
                 'maxMatches': 100,
-                'radius': 25,
+                'radius': 50,
                 'units': 'm'
             },
             'remoteDataList': stories
