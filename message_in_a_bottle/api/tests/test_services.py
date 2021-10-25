@@ -117,29 +117,41 @@ class TestServices(TestCase):
         assert type(response) == float
 
     def test_get_valid_city_state(self):
+        self.base_path = os.path.dirname(__file__)
+        self.fixture = f'{self.base_path}/fixtures/valid_geocode_response.json'
+        with open(self.fixture, 'r') as reader:
+            json_blob = json.load(reader)
+
         self.user_location = {
-            'lat': 39.749379471614546,
-            'long': -105.01696456480278
+            'lat': 40.337408,
+            'long': -104.9460736
         }
+        self.expected = 'Weld, CO'
 
-        self.actual = MapService.get_city_state(
-            self.user_location['lat'],
-            self.user_location['long']
-        )
-        self.expected = 'Denver, CO'
-
-        assert self.actual == self.expected
+        with Mocker() as mocker:
+            mocker.get(MapService.base_urls()['reverse_geocode'], json=json_blob, status_code=200)
+            response = MapService.get_city_state(
+                self.user_location['lat'],
+                self.user_location['long']
+            )
+        assert response == self.expected
 
     def test_get_invalid_city_state(self):
+        self.base_path = os.path.dirname(__file__)
+        self.fixture = f'{self.base_path}/fixtures/invalid_geocode_response.json'
+        with open(self.fixture, 'r') as reader:
+            json_blob = json.load(reader)
+
         self.hope_you_brought_water_wings = {
             'lat': 0,
             'long': 0
         }
-
-        self.actual = MapService.get_city_state(
-            self.hope_you_brought_water_wings['lat'],
-            self.hope_you_brought_water_wings['long']
-        )
         self.expected = ''
 
-        assert self.actual == self.expected
+        with Mocker() as mocker:
+            mocker.get(MapService.base_urls()['reverse_geocode'], json=json_blob, status_code=200)
+            response = MapService.get_city_state(
+                self.hope_you_brought_water_wings['lat'],
+                self.hope_you_brought_water_wings['long']
+            )
+        assert response == self.expected
