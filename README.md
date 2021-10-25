@@ -306,7 +306,7 @@ DELETE `/api/v1/stories/:id`
 
 
 ## Database Schema
-![message_in_a_bottle_schema](https://user-images.githubusercontent.com/80797707/134600560-be2d2a0d-290d-4757-b28f-1eb24a929f03.jpg)
+![MIAB DB Schema](https://user-images.githubusercontent.com/56685055/138749880-bccbafc1-3a32-43ac-8df3-5314dc65aa16.png)
 
 
 
