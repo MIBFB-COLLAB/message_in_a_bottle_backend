@@ -14,8 +14,10 @@ class StoryList(APIView):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_present and coords_check:
-            city_state = MapService.get_city_state(request.query_params['latitude'], request.query_params['longitude'])
-            response = MapService.get_stories(request.query_params['latitude'], request.query_params['longitude'], Story.map_stories())
+            input_lat = request.query_params['latitude']
+            input_long = request.query_params['longitude']
+            city_state = MapService.get_city_state(input_lat, input_long)
+            response = MapService.get_stories(input_lat, input_long, Story.map_stories())
             results = [] if response['resultsCount'] == 0 else response['searchResults']
             serializer = StorySerializer.stories_index_serializer(results, city_state)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
