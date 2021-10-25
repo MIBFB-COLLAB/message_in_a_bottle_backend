@@ -91,15 +91,15 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def coords_error(request):
-        error = {'message': [], 'code': 0}
+        error = {'messages': [], 'code': 0}
         if not Story.coords_present(request):
-            error['message'].append("Latitude or longitude can't be blank.")
+            error['messages'].append("Latitude or longitude can't be blank.")
             error['code'] = 1
         elif not Story.valid_coords(request):
-            error['message'].append("Invalid latitude or longitude.")
+            error['messages'].append("Invalid latitude or longitude.")
             error['code'] = 1
         elif request == 'Impossible route.':
-            error['message'].append('Impossible route.')
+            error['messages'].append('Impossible route.')
             error['code'] = 2
         return error
 
