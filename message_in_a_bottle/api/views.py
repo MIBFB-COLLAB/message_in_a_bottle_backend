@@ -19,7 +19,7 @@ class StoryList(APIView):
             city_state = MapService.get_city_state(input_lat, input_long)
             response = MapService.get_stories(input_lat, input_long, Story.map_stories())
             results = [] if response['resultsCount'] == 0 else response['searchResults']
-            serializer = StorySerializer.stories_index_serializer(results, city_state)
+            serializer = StorySerializer.stories_index(results, city_state)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
             error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()

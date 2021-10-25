@@ -11,8 +11,15 @@ from message_in_a_bottle.api.models import Story
 
 class TestServices(TestCase):
     def test_get_stories(self):
-        self.lat = 39.74822614190254
-        self.long = -104.99898275758112
+        self.base_path = os.path.dirname(__file__)
+        self.fixture = f'{self.base_path}/fixtures/radius_response.json'
+        with open(self.fixture, 'r') as reader:
+            json_blob = json.load(reader)
+
+        self.user_location = {
+            'latitude': 39.749379471614546,
+            'longitude': -105.01696456480278
+        }
         self.stories = [
             {
             'key': '1',
@@ -48,7 +55,13 @@ class TestServices(TestCase):
             }
         ]
 
-        response = MapService.get_stories(self.lat, self.long, self.stories)
+        with Mocker() as mocker:
+            mocker.post(MapService.base_urls()['radius'], json=json_blob, status_code=200)
+            response = MapService.get_stories(
+                self.user_location['latitude'],
+                self.user_location['longitude'],
+                self.stories
+            )
 
         assert response['resultsCount'] == 3
         assert 'origin' in response.keys()

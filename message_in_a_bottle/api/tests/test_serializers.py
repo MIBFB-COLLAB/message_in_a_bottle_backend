@@ -37,9 +37,9 @@ class TestStorySerializer(TestCase):
         serializer = StorySerializer(self.story)
 
         assert type(self.story) == Story
-        assert serializer.reformat(self.story.__dict__) == {
+        assert serializer.reformat(self.story.__dict__, 1.25) == {
             'id': self.story.id,
-            'type': self.story.__class__.__name__,
+            'type': str(self.story.__class__.__name__).lower(),
             'attributes': {
                 'name': self.story.name,
                 'title': self.story.title,
@@ -48,17 +48,37 @@ class TestStorySerializer(TestCase):
                 'longitude': self.story.longitude,
                 'location': self.story.location,
                 'created_at': self.story.created_at,
-                'updated_at': self.story.updated_at
+                'updated_at': self.story.updated_at,
+                'distance_in_miles': 1.25
             }
         }
 
-    def test_serializer_coordinates_error(self):
+    def test_stories_index(self):
+        self.expected = {
+            'input_location': 'Denver, CO',
+            'stories': []
+        }
+        self.actual = StorySerializer.stories_index([], 'Denver, CO')
+
+        assert self.actual == self.expected
+
+    def test_serializer_coords_error(self):
         self.expected = {
             'coordinates': [
                 'Invalid latitude or longitude.'
             ]
         }
         self.actual = StorySerializer.coords_error()
+
+        assert self.actual == self.expected
+
+    def test_serializer_coords_error_impossible_route(self):
+        self.expected = {
+            'message': [
+                'Impossible route.'
+            ]
+        }
+        self.actual = StorySerializer.coords_error('Impossible route.')
 
         assert self.actual == self.expected
 
@@ -71,34 +91,3 @@ class TestStorySerializer(TestCase):
         self.actual = StorySerializer.blank_coords()
 
         assert self.actual == self.expected
-
-    def test_stories_near_user(self):
-        self.story_dict = TestStorySerializer.test_db_setup(return_dict=True)
-        self.lat = self.story_dict['latitude']
-        self.long = self.story_dict['longitude']
-
-        self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
-
-        assert isinstance(self.actual, list)
-        assert len(self.actual) == 2
-        assert self.actual[0]['attributes']['title'] == self.story_dict['title']
-        assert self.actual[1]['attributes']['title'] == 'Hello'
-
-    def test_no_stories_near_user(self):
-        TestStorySerializer.test_db_setup()
-        self.lat = 0
-        self.long = 0
-
-        self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
-
-        assert isinstance(self.actual, list)
-        assert len(self.actual) == 0
-
-    def test_stories_index(self):
-        TestStorySerializer.test_db_setup()
-
-        self.actual = StorySerializer.stories_index(Story.objects.all(), 'Boulder, CO')
-
-        assert isinstance(self.actual, dict)
-        assert self.actual['input_location'] == 'Boulder, CO'
-        assert len(self.actual['stories']) == 2
