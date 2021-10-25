@@ -154,7 +154,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     def test_create_story_invalid_coordinates(self):
         self.invalid_dict = {
@@ -170,7 +170,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ['Invalid latitude or longitude.']
 
     """
     Delete a story instance:

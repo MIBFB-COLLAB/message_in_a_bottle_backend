@@ -12,35 +12,26 @@ class StoryList(APIView):
     List all stories.
     """
     def get(self, request, format=None):
-        # coords_present = Story.coords_present(request.query_params)
-        # coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if StorySerializer.coords_error(request.query_params)['code'] == 1:
             return Response({'errors':StorySerializer.coords_error(request.query_params)}, status=status.HTTP_400_BAD_REQUEST)
         else:
             results = MapFacade.get_stories(request.query_params)
             serializer = StorySerializer.stories_index_serializer(*results)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
-        # if coords_present and coords_check:
-        #     results = MapFacade.get_stories(request.query_params)
-        #     serializer = StorySerializer.stories_index_serializer(*results)
-        #     return Response({'data':serializer}, status=status.HTTP_200_OK)
-        # else:
-        #     error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
-        #     return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+
     """
     Create a story.
     """
     def post(self, request, format=None):
-        coords_check = Story.valid_coords(request.data)
-        if coords_check:
+        if StorySerializer.coords_error(request.data)['code'] == 1:
+            return Response({'errors':StorySerializer.coords_error(request.data)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
             request.data['location'] = MapFacade.get_city_state(request)
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
             return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'errors':StorySerializer.coords_error()}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def get_object(self, pk):
