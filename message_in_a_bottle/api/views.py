@@ -1,6 +1,7 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.facades import MapFacade
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,10 +17,8 @@ class StoryList(APIView):
         if coords_present and coords_check:
             input_lat = request.query_params['latitude']
             input_long = request.query_params['longitude']
-            city_state = MapService.get_city_state(input_lat, input_long)
-            response = MapService.get_stories(input_lat, input_long, Story.map_stories())
-            results = [] if response['resultsCount'] == 0 else response['searchResults']
-            serializer = StorySerializer.stories_index_serializer(results, city_state)
+            results = MapFacade.get_stories(input_lat, input_long)
+            serializer = StorySerializer.stories_index_serializer(*results)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
             error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
