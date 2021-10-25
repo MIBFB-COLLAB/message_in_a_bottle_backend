@@ -134,7 +134,7 @@ To experience the UI our frontend team built please [visit](link). Otherwise you
 
 Domain: 'https://message-in-a-bottle-api.herokuapp.com'
 
-[Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
+#### [Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
 The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
 
@@ -177,7 +177,7 @@ Response:
 }
 ```
 
-[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166)
+#### [Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166)
 <br>
     Request:
 GET `/api/v1/stories/:id?latitude=12.3456&longitude=-4.5968`
@@ -202,7 +202,7 @@ Response:
 }
 ```
 
-[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166/directions)
+#### [Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166/directions)
 <br>
 Request:
 GET `/api/v1/stories/:id/directions?latitude=1230&longitude=1209.3`
@@ -231,7 +231,7 @@ Response:
 }
 ```
 
-Create Story Endpoint
+#### Create Story Endpoint
 <br>
 Request:
 POST `/api/v1/stories`
@@ -265,7 +265,7 @@ Response:
 }
 ```
 
-Update Story Endpoint
+#### Update Story Endpoint
 <br>
 Request:
 PATCH `/api/v1/stories/:id`
@@ -298,7 +298,7 @@ Response:
 }
 ```
 
-Delete Story Endpoint
+#### Delete Story Endpoint
 <br>
 Request:
 DELETE `/api/v1/stories/:id`
