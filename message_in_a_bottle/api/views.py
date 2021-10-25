@@ -90,7 +90,7 @@ class StoryDirections(APIView):
     def get(self, request, pk, format = None):
         if Story.valid_coords(request.query_params):
             story = self.get_object(pk)
-            response = MapService.get_directions(request.query_params, story)['route']
+            response = MapFacade.get_directions(request, story)
         else:
             response = None
         if response is not None and response['routeError']['errorCode'] != 2:

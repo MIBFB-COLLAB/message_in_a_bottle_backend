@@ -18,4 +18,6 @@ class MapFacade():
                 story.latitude,
                 story.longitude
             )
-            
+
+  def get_directions(request, story):
+    return MapService.get_directions(request.query_params, story)['route']
