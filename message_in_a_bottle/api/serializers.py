@@ -90,23 +90,22 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coords_error(response=None):
-        if response is None:
-            return {
-                'coordinates': [
-                    'Invalid latitude or longitude.'
-                ]
-            }
-        elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:
-            return {
-                'message': [
-                    'Impossible route.'
-                ]
-            }
+    def coords_error(request):
+        error = {'message': [], 'code': 0}
+        if not Story.coords_present(request):
+            error['message'].append("Latitude or longitude can't be blank.")
+            error['code'] = 1
+        elif not Story.valid_coords(request):
+            error['message'].append("Invalid latitude or longitude.")
+            error['code'] = 1
+        elif request == 'Impossible route.':
+            error['message'].append('Impossible route.')
+            error['code'] = 2
+        return error
 
-    def blank_coords():
-        return {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
-        }
+    # def blank_coords():
+    #     return {
+    #         'coordinates': [
+    #             "Latitude or longitude can't be blank."
+    #         ]
+    #     }
