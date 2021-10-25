@@ -68,6 +68,58 @@
 					"response": []
 				},
 				{
+					"name": "Stories Index (valid Params no Stories)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData['data']).not.to.be.null;",
+									"    pm.expect(jsonData['data']['stories']).not.to.be.null;",
+									"    pm.expect(jsonData['data']['input_location']).not.to.eql('This is a temporary location!');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories?latitude=50.775506&longitude=-105.0066986",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "50.775506"
+								},
+								{
+									"key": "longitude",
+									"value": "-105.0066986"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Stories Index (bad Params)",
 					"event": [
 						{

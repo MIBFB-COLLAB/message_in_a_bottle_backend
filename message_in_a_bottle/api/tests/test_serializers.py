@@ -97,7 +97,7 @@ class TestStorySerializer(TestCase):
     def test_stories_index(self):
         TestStorySerializer.test_db_setup()
 
-        self.actual = StorySerializer.stories_index('Boulder, CO', Story.objects.all())
+        self.actual = StorySerializer.stories_index(Story.objects.all(), 'Boulder, CO')
 
         assert isinstance(self.actual, dict)
         assert self.actual['input_location'] == 'Boulder, CO'

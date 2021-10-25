@@ -14,14 +14,11 @@ class StoryList(APIView):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_present and coords_check:
-            stories = StorySerializer.stories_near_user(
-                request.query_params['latitude'],
-                request.query_params['longitude'],
-                Story.objects.all()
-            )
             city_state = MapService.get_city_state(request.query_params['latitude'], request.query_params['longitude'])
-            serialized = StorySerializer.stories_index(city_state, stories)
-            return Response({'data':serialized}, status=status.HTTP_200_OK)
+            response = MapService.get_stories(request.query_params['latitude'], request.query_params['longitude'], Story.map_stories())
+            results = [] if response['resultsCount'] == 0 else response['searchResults']
+            serializer = StorySerializer.stories_index_serializer(results, city_state)
+            return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
             error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
             return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)

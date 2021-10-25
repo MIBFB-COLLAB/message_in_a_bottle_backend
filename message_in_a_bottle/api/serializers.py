@@ -49,16 +49,16 @@ class StorySerializer(serializers.ModelSerializer):
                     output_list.append(StorySerializer.reformat_condensed(s, distance))
         return sorted(output_list, key = lambda s: s['attributes']['distance_in_miles'])
 
-    def stories_index(city_state, stories):
+    def stories_index(stories, city_state):
         return {
             'input_location': city_state,
             'stories': stories
         }
 
-    def stories_index_serializer(response):
+    def stories_index_serializer(response, city_state):
         stories = map(StorySerializer.reformat_mapquest_response, response)
         dict = {
-            'input_location': 'This is a temporary location!',
+            'input_location': city_state,
             'stories': list(stories)
         }
         return dict
