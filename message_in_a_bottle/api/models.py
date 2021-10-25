@@ -20,7 +20,7 @@ class Story(models.Model):
                 return True
         else:
             return False
-    
+
     def coords_present(request_dict):
         if 'latitude' and 'longitude' in request_dict:
             if not request_dict['latitude'] or not request_dict['longitude']:

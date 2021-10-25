@@ -5,10 +5,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class MapService():
+    def base_urls():
+        return {
+            'radius': 'http://www.mapquestapi.com/search/v2/radius',
+            'route': 'http://www.mapquestapi.com/directions/v2/route',
+            'reverse_geocode': 'http://www.mapquestapi.com/geocoding/v1/reverse'
+        }
+
+    def api_key():
+        return os.environ.get('MAPQUEST_KEY')
+
     def get_stories(lat, long, stories):
-        url = 'http://www.mapquestapi.com/search/v2/radius'
+        url = MapService.base_urls()['radius']
         params = {
-            'key': os.environ.get('MAPQUEST_KEY')
+            'key': MapService.api_key()
         }
         data = {
             'origin': {
@@ -19,7 +29,7 @@ class MapService():
             },
             'options': {
                 'maxMatches': 100,
-                'radius': 25,
+                'radius': 50,
                 'units': 'm'
             },
             'remoteDataList': stories
@@ -28,9 +38,9 @@ class MapService():
         return response.json()
 
     def get_directions(request, story):
-        url = 'http://www.mapquestapi.com/directions/v2/route'
+        url = MapService.base_urls()['route']
         params = {
-            'key': os.environ.get('MAPQUEST_KEY'),
+            'key': MapService.api_key(),
             'from': f"{request['latitude']},{request['longitude']}",
             'to': f'{story.latitude},{story.longitude}'
         }
@@ -38,15 +48,24 @@ class MapService():
         return response.json()
 
     def get_distance(lat, long, story_lat, story_long):
-        url = 'http://www.mapquestapi.com/directions/v2/route'
+        url = MapService.base_urls()['route']
         params = {
-            'key': os.environ.get('MAPQUEST_KEY'),
+            'key': MapService.api_key(),
             'from': f'{float(lat)},{float(long)}',
             'to': f'{story_lat},{story_long}'
-            }
+        }
         response = requests.get(url, params=params)
         parsed = response.json()['route']
-        if parsed['routeError']['errorCode'] == -400:
-            return parsed['distance']
-        else:
-            return 'Impossible route.'
+        route_result = parsed['routeError']['errorCode']
+        return parsed['distance'] if route_result == -400 else 'Impossible route.'
+
+    def get_city_state(lat, long):
+        url = MapService.base_urls()['reverse_geocode']
+        params = {
+            'key': MapService.api_key(),
+            'location': f'{float(lat)},{float(long)}'
+        }
+        response = requests.get(url, params=params)
+        parsed = response.json()['results'][0]['locations'][0]
+        concatenated = f"{parsed['adminArea4']}, {parsed['adminArea3']}"
+        return concatenated if concatenated != ', ' else ''

@@ -14,12 +14,12 @@ class StoryList(APIView):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_present and coords_check:
-            stories = Story.map_stories()
-            response = MapService.get_stories(request.query_params['latitude'], request.query_params['longitude'], stories)
-            if response['resultsCount'] == 0:
-                serializer = StorySerializer.stories_index_serializer([])
-            else:
-                serializer = StorySerializer.stories_index_serializer(response['searchResults'])
+            input_lat = request.query_params['latitude']
+            input_long = request.query_params['longitude']
+            city_state = MapService.get_city_state(input_lat, input_long)
+            response = MapService.get_stories(input_lat, input_long, Story.map_stories())
+            results = [] if response['resultsCount'] == 0 else response['searchResults']
+            serializer = StorySerializer.stories_index_serializer(results, city_state)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
         else:
             error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
@@ -30,6 +30,7 @@ class StoryList(APIView):
     def post(self, request, format=None):
         coords_check = Story.valid_coords(request.data)
         if coords_check:
+            request.data['location'] = MapService.get_city_state(request.data['latitude'], request.data['longitude'])
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
