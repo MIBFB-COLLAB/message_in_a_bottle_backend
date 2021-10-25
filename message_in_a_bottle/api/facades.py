@@ -7,3 +7,6 @@ class MapFacade():
     results = [] if response['resultsCount'] == 0 else response['searchResults']
     city_state = MapService.get_city_state(latitude, longitude)
     return [results, city_state]
+  
+  def get_city_state(request):
+    return MapService.get_city_state(request.data['latitude'], request.data['longitude'])

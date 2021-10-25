@@ -29,7 +29,7 @@ class StoryList(APIView):
     def post(self, request, format=None):
         coords_check = Story.valid_coords(request.data)
         if coords_check:
-            request.data['location'] = MapService.get_city_state(request.data['latitude'], request.data['longitude'])
+            request.data['location'] = MapFacade.get_city_state(request)
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
