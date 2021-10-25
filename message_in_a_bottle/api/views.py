@@ -52,12 +52,7 @@ class StoryDetail(APIView):
         coords_present = Story.coords_present(request.query_params)
         coords_check = Story.valid_coords(request.query_params) if coords_present else False
         if coords_present and coords_check:
-            distance = MapService.get_distance(
-                request.query_params['latitude'],
-                request.query_params['longitude'],
-                story.latitude,
-                story.longitude
-            )
+            distance = MapFacade.get_distance(request, story)
         else:
             distance = None
             error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()

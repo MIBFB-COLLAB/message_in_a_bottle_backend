@@ -10,3 +10,12 @@ class MapFacade():
   
   def get_city_state(request):
     return MapService.get_city_state(request.data['latitude'], request.data['longitude'])
+
+  def get_distance(request, story):
+    return MapService.get_distance(
+                request.query_params['latitude'],
+                request.query_params['longitude'],
+                story.latitude,
+                story.longitude
+            )
+            
