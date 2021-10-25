@@ -177,7 +177,7 @@ Response:
 }
 ```
 
-[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1)
+[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166)
 <br>
     Request:
 GET `/api/v1/stories/:id?latitude=12.3456&longitude=-4.5968`
@@ -202,7 +202,7 @@ Response:
 }
 ```
 
-[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1/directions)
+[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166/directions)
 <br>
 Request:
 GET `/api/v1/stories/:id/directions?latitude=1230&longitude=1209.3`
@@ -231,7 +231,7 @@ Response:
 }
 ```
 
-[Create Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
+Create Story Endpoint
 <br>
 Request:
 POST `/api/v1/stories`
@@ -265,7 +265,7 @@ Response:
 }
 ```
 
-[Update Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+Update Story Endpoint
 <br>
 Request:
 PATCH `/api/v1/stories/:id`
@@ -298,7 +298,7 @@ Response:
 }
 ```
 
-[Delete Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+Delete Story Endpoint
 <br>
 Request:
 DELETE `/api/v1/stories/:id`
