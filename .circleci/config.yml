@@ -32,6 +32,9 @@ jobs:
       - checkout
       - run:
           command: |
+            rm -rf ./message_in_a_bottle/api/tests/cassettes
+          name: Remove cassettes for build
+          command: |
             python3 -m virtualenv venv
             source venv/bin/activate
             pip install -r requirements.txt
