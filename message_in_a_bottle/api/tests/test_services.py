@@ -127,7 +127,7 @@ class TestServices(TestCase):
                 self.story_location['long']
             )
 
-        assert type(response) == float
+        assert type(response) == dict
 
     def test_get_valid_city_state(self):
         self.base_path = os.path.dirname(__file__)

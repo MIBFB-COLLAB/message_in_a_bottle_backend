@@ -49,15 +49,18 @@ Message in a Bottle is an application where users can discover stories about the
 
 ## Tools Used
 
-| Development | Testing       | Packages        |
-|   :----:    |    :----:     |    :----:       |
-| Python 3.9.7| Pytest        |                 |
-| Django      | Postman       |                 |
-| CircleCI    |               |                 |
-| PostgreSQL  |               |                 |
-| Git/Github  |               |                 |
-| Heroku      |               |                 |
-
+| Development | Testing       | Packages              |
+|   :----:    |    :----:     |    :----:             |
+| Python 3.9.7| Pytest Django | Django                |
+| Django      | Pytest-Cov    | Django CORS Headers   |
+| CircleCI    | Postman       | Django Heroku         |
+| PostgreSQL  |               | Django REST Framework |
+| Git/Github  |               | Gunicorn              |
+| Heroku      |               | Psycopg2              |
+|             |               | Pycodestyle           |
+|             |               | Python-Decouple       |
+|             |               | Python-DotENV         |
+|             |               | Requests              |
 
 
 ## Set Up
@@ -174,7 +177,7 @@ Response:
 }
 ```
 
-[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1)
+[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166)
 <br>
     Request:
 GET `/api/v1/stories/:id?latitude=12.3456&longitude=-4.5968`
@@ -199,7 +202,7 @@ Response:
 }
 ```
 
-[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/1/directions)
+[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166/directions)
 <br>
 Request:
 GET `/api/v1/stories/:id/directions?latitude=1230&longitude=1209.3`
@@ -228,7 +231,7 @@ Response:
 }
 ```
 
-[Create Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
+**Create Story Endpoint**
 <br>
 Request:
 POST `/api/v1/stories`
@@ -262,7 +265,7 @@ Response:
 }
 ```
 
-[Update Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+**Update Story Endpoint**
 <br>
 Request:
 PATCH `/api/v1/stories/:id`
@@ -295,7 +298,7 @@ Response:
 }
 ```
 
-[Delete Story Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/1)
+**Delete Story Endpoint**
 <br>
 Request:
 DELETE `/api/v1/stories/:id`
@@ -303,7 +306,7 @@ DELETE `/api/v1/stories/:id`
 
 
 ## Database Schema
-![message_in_a_bottle_schema](https://user-images.githubusercontent.com/80797707/134600560-be2d2a0d-290d-4757-b28f-1eb24a929f03.jpg)
+![MIAB DB Schema](https://user-images.githubusercontent.com/56685055/138749880-bccbafc1-3a32-43ac-8df3-5314dc65aa16.png)
 
 
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Story
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.facades import MapFacade
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +27,7 @@ class StorySerializer(serializers.ModelSerializer):
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
 
-    def stories_index(response, city_state):
+    def stories_index_serializer(response, city_state):
         stories = map(StorySerializer.reformat_mapquest_response, response)
         return {
             'input_location': city_state,
@@ -59,23 +60,15 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coords_error(response=None):
-        if response is None:
-            return {
-                'coordinates': [
-                    'Invalid latitude or longitude.'
-                ]
-            }
-        elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:
-            return {
-                'message': [
-                    'Impossible route.'
-                ]
-            }
-
-    def blank_coords():
-        return {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
-        }
+    def coords_error(request):
+        error = {'messages': [], 'code': 0}
+        if request == 'Impossible route.':
+            error['messages'].append('Impossible route.')
+            error['code'] = 2
+        elif not Story.coords_present(request):
+            error['messages'].append("Latitude or longitude can't be blank.")
+            error['code'] = 1
+        elif not Story.valid_coords(request):
+            error['messages'].append("Invalid latitude or longitude.")
+            error['code'] = 1
+        return error

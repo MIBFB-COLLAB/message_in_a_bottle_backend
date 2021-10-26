@@ -1,45 +1,44 @@
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.facades import MapFacade
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 class StoryList(APIView):
+    def errors_response(self, error):
+        return Response({'errors':StorySerializer.coords_error(error)}, status=status.HTTP_400_BAD_REQUEST)
     """
     List all stories.
     """
     def get(self, request, format=None):
-        coords_present = Story.coords_present(request.query_params)
-        coords_check = Story.valid_coords(request.query_params) if coords_present else False
-        if coords_present and coords_check:
-            input_lat = request.query_params['latitude']
-            input_long = request.query_params['longitude']
-            city_state = MapService.get_city_state(input_lat, input_long)
-            response = MapService.get_stories(input_lat, input_long, Story.map_stories())
-            results = [] if response['resultsCount'] == 0 else response['searchResults']
-            serializer = StorySerializer.stories_index(results, city_state)
-            return Response({'data':serializer}, status=status.HTTP_200_OK)
+        if StorySerializer.coords_error(request.query_params)['code'] == 1:
+            return self.errors_response(request.query_params)
         else:
-            error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
+            results = MapFacade.get_stories(request.query_params)
+            serializer = StorySerializer.stories_index_serializer(*results)
+            return Response({'data':serializer}, status=status.HTTP_200_OK)
+
     """
     Create a story.
     """
     def post(self, request, format=None):
-        coords_check = Story.valid_coords(request.data)
-        if coords_check:
-            request.data['location'] = MapService.get_city_state(request.data['latitude'], request.data['longitude'])
+        if StorySerializer.coords_error(request.data)['code'] == 1:
+            return self.errors_response(request.data)
+        else:
+            request.data['location'] = MapFacade.get_city_state(request)
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
-            return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'errors':StorySerializer.coords_error()}, status=status.HTTP_400_BAD_REQUEST)
+            return self.errors_response(serializer.errors)
 
 class StoryDetail(APIView):
+    def errors_response(self, error):
+        return Response({'errors':StorySerializer.coords_error(error)}, status=status.HTTP_400_BAD_REQUEST)
+
     def get_object(self, pk):
         try:
             return Story.objects.get(pk=pk)
@@ -49,25 +48,17 @@ class StoryDetail(APIView):
     Retrieve a story instance.
     """
     def get(self, request, pk, format=None):
-        story = self.get_object(pk)
-        coords_present = Story.coords_present(request.query_params)
-        coords_check = Story.valid_coords(request.query_params) if coords_present else False
-        if coords_present and coords_check:
-            distance = MapService.get_distance(
-                request.query_params['latitude'],
-                request.query_params['longitude'],
-                story.latitude,
-                story.longitude
-            )
+        if StorySerializer.coords_error(request.query_params)['code'] == 0:
+            story = self.get_object(pk)
+            distance = MapFacade.get_distance(request.query_params, story)
+            if distance == 'Impossible route.':
+                return self.errors_response(distance)
+            else:
+                serializer = StorySerializer(story)
+                return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            distance = None
-            error = StorySerializer.coords_error() if coords_present and not coords_check else StorySerializer.blank_coords()
-            return Response({'errors':error}, status=status.HTTP_400_BAD_REQUEST)
-        if distance is not None and distance != 'Impossible route.':
-            serializer = StorySerializer(story)
-            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
-        else:
-            return Response({'errors':StorySerializer.coords_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
+            return self.errors_response(request.query_params)
+
     """
     Update a story instance.
     """
@@ -77,7 +68,7 @@ class StoryDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({'data':serializer.reformat(serializer.data)})
-        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return self.errors_response(serializer.errors)
     """
     Delete a story instance.
     """
@@ -87,6 +78,9 @@ class StoryDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class StoryDirections(APIView):
+    def errors_response(self, error):
+        return Response({'errors':StorySerializer.coords_error(error)}, status=status.HTTP_400_BAD_REQUEST)
+
     def get_object(self, pk):
         try:
             return Story.objects.get(pk=pk)
@@ -94,13 +88,12 @@ class StoryDirections(APIView):
             raise Http404
 
     def get(self, request, pk, format = None):
-        if Story.valid_coords(request.query_params):
+        if StorySerializer.coords_error(request.query_params)['code'] == 0:
             story = self.get_object(pk)
-            response = MapService.get_directions(request.query_params, story)['route']
+            response = MapFacade.get_directions(request.query_params, story)
+            if response == 'Impossible route.':
+                return self.errors_response(response)
+            else:
+                return Response({'data': StorySerializer.story_directions_serializer(response, story)})
         else:
-            response = None
-        if response is not None and response['routeError']['errorCode'] != 2:
-            serializer = StorySerializer.story_directions_serializer(response, story)
-            return Response({'data':serializer}, status=status.HTTP_200_OK)
-        else:
-            return Response({'errors':StorySerializer.coords_error(response)}, status=status.HTTP_400_BAD_REQUEST)
+            return self.errors_response(request.query_params)

@@ -62,11 +62,12 @@ class TestStorySerializer(TestCase):
 
     def test_serializer_coords_error(self):
         self.expected = {
-            'coordinates': [
+            'code': 1,
+            'messages': [
                 'Invalid latitude or longitude.'
             ]
         }
-        self.actual = StorySerializer.coords_error()
+        self.actual = StorySerializer.coords_error({'latitude': 999999, 'longitude': 9999999})
 
         assert self.actual == self.expected
 
@@ -80,12 +81,12 @@ class TestStorySerializer(TestCase):
 
         assert self.actual == self.expected
 
-    def test_serializer_blank_coordinates(self):
-        self.expected = {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
-        }
-        self.actual = StorySerializer.blank_coords()
-
-        assert self.actual == self.expected
+    # def test_serializer_blank_coordinates(self):
+    #     self.expected = {
+    #         'coordinates': [
+    #             "Latitude or longitude can't be blank."
+    #         ]
+    #     }
+    #     self.actual = StorySerializer.blank_coords()
+    #
+    #     assert self.actual == self.expected
