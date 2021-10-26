@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Story
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.facades import MapFacade
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,6 +35,7 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def reformat_mapquest_response(story):
+        story_obj = Story.objects.get(pk=int(story['key']))
         return {
             'id': story['key'],
             'type': 'story',
@@ -41,11 +43,13 @@ class StorySerializer(serializers.ModelSerializer):
                 'title': story['name'],
                 'distance_in_miles': story['distance'],
                 'latitude': story['shapePoints'][0],
-                'longitude': story['shapePoints'][1]
+                'longitude': story['shapePoints'][1],
+                'created_at': story_obj.created_at,
+                'updated_at': story_obj.updated_at
             }
         }
 
-    def story_directions_serializer(response, story):
+    def story_directions(response, story):
         directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
         return list(directions)
 
@@ -59,23 +63,15 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def coords_error(response=None):
-        if response is None:
-            return {
-                'coordinates': [
-                    'Invalid latitude or longitude.'
-                ]
-            }
-        elif response == 'Impossible route.' or response['routeError']['errorCode'] == 2:
-            return {
-                'message': [
-                    'Impossible route.'
-                ]
-            }
-
-    def blank_coords():
-        return {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
-        }
+    def coords_error(request):
+        error = {'messages': [], 'code': 0}
+        if request == 'Impossible route.':
+            error['messages'].append('Impossible route.')
+            error['code'] = 2
+        elif not Story.coords_present(request):
+            error['messages'].append("Latitude or longitude can't be blank.")
+            error['code'] = 1
+        elif not Story.valid_coords(request):
+            error['messages'].append('Invalid latitude or longitude.')
+            error['code'] = 1
+        return error

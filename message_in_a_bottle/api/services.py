@@ -55,9 +55,7 @@ class MapService():
             'to': f'{story_lat},{story_long}'
         }
         response = requests.get(url, params=params)
-        parsed = response.json()['route']
-        route_result = parsed['routeError']['errorCode']
-        return parsed['distance'] if route_result == -400 else 'Impossible route.'
+        return response.json()
 
     def get_city_state(lat, long):
         url = MapService.base_urls()['reverse_geocode']

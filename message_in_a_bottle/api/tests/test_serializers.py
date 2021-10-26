@@ -28,7 +28,7 @@ class TestStorySerializer(TestCase):
         )
         assert Story.objects.count() == 2
 
-    def test_serializer_reformat(self):
+    def test_reformat(self):
         TestStorySerializer.test_db_setup()
         self.story = Story.objects.latest('id')
 
@@ -60,32 +60,59 @@ class TestStorySerializer(TestCase):
 
         assert self.actual == self.expected
 
-    def test_serializer_coords_error(self):
+    def test_format_directions(self):
         self.expected = {
-            'coordinates': [
-                'Invalid latitude or longitude.'
-            ]
+            'id': None,
+            'type': 'directions',
+            'attributes': {
+                'narrative': 'Turn left on Pecos St.',
+                'distance': '2 miles'
+            }
         }
-        self.actual = StorySerializer.coords_error()
+        self.actual = StorySerializer.format_directions(
+            {'narrative': 'Turn left on Pecos St.', 'distance': 2}
+        )
 
         assert self.actual == self.expected
 
-    def test_serializer_coords_error_impossible_route(self):
+    def test_coords_error_invalid_coords(self):
         self.expected = {
-            'message': [
+            'messages': [
+                'Invalid latitude or longitude.'
+            ],
+            'code': 1
+        }
+        self.actual = StorySerializer.coords_error({'latitude': 999999, 'longitude': 9999999})
+
+        assert self.actual == self.expected
+
+    def test_coords_error_missing_coords(self):
+        self.expected = {
+            'messages': [
+                "Latitude or longitude can't be blank."
+            ],
+            'code': 1
+        }
+        self.actual = StorySerializer.coords_error({})
+
+        assert self.actual == self.expected
+
+    def test_coords_error_impossible_route(self):
+        self.expected = {
+            'messages': [
                 'Impossible route.'
-            ]
+            ],
+            'code': 2
         }
         self.actual = StorySerializer.coords_error('Impossible route.')
 
         assert self.actual == self.expected
 
-    def test_serializer_blank_coordinates(self):
+    def test_coords_error_no_error(self):
         self.expected = {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
+            'messages': [],
+            'code': 0
         }
-        self.actual = StorySerializer.blank_coords()
+        self.actual = StorySerializer.coords_error({'latitude': 40.05506, 'longitude': -105.0066986})
 
         assert self.actual == self.expected

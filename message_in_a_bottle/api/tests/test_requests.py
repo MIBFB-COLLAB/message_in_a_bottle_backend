@@ -77,7 +77,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['message'] == ['Impossible route.']
+        assert errors['messages'] == ['Impossible route.']
 
     def test_get_story_invalid_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -90,7 +90,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ['Invalid latitude or longitude.']
 
     def test_get_story_empty_params(self):
         TestStoryRequests.test_db_setup()
@@ -103,7 +103,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     def test_get_story_no_params(self):
         TestStoryRequests.test_db_setup()
@@ -116,13 +116,13 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     def test_get_non_existent_story(self):
         TestStoryRequests.test_db_setup()
 
         self.invalid_id = Story.objects.latest('id').id + 1
-        self.route = f'/api/v1/stories/{self.invalid_id}'
+        self.route = f'/api/v1/stories/{self.invalid_id}?latitude={0}&longitude={0}'
 
         client = APIClient()
         response = client.get(self.route)
@@ -154,7 +154,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     def test_create_story_invalid_coordinates(self):
         self.invalid_dict = {
@@ -170,7 +170,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ['Invalid latitude or longitude.']
 
     """
     Delete a story instance:
@@ -270,7 +270,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ['Invalid latitude or longitude.']
 
     def test_get_stories_blank_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -284,7 +284,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     def test_get_stories_no_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -296,7 +296,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ["Latitude or longitude can't be blank."]
+        assert errors['messages'] == ["Latitude or longitude can't be blank."]
 
     """
     Get directions to a single story:
@@ -336,7 +336,7 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['message'] == ['Impossible route.']
+        assert errors['messages'] == ['Impossible route.']
 
     def test_get_directions_invalid_coordinates(self):
         TestStoryRequests.test_db_setup()
@@ -351,4 +351,4 @@ class TestStoryRequests(TestCase):
         errors = response.data['errors']
 
         assert response.status_code == 400
-        assert errors['coordinates'] == ['Invalid latitude or longitude.']
+        assert errors['messages'] == ['Invalid latitude or longitude.']

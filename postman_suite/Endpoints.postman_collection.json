@@ -32,6 +32,8 @@
 									"        pm.expect(attributes['latitude']).not.to.be.null;",
 									"        pm.expect(attributes['longitude']).not.to.be.null;",
 									"        pm.expect(attributes['distance_in_miles']).not.to.be.null;",
+									"        pm.expect(attributes['created_at']).not.to.be.null;",
+									"        pm.expect(attributes['updated_at']).not.to.be.null;",
 									"    }",
 									"});"
 								],
@@ -134,7 +136,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -184,7 +187,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -234,7 +238,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -336,7 +341,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['message']).to.eql(['Impossible route.']);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql(['Impossible route.']);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -387,7 +393,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -438,7 +445,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -489,7 +497,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -606,8 +615,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']).not.to.be.null;",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});",
 									""
 								],
@@ -674,7 +683,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Here's Johnny!\",\n    \"message\":\"allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy\",\n    \"name\":\"Jack Torrance\",\n    \"longitude\":125.456892,\n    \"latitude\":-18.982791\n}",
+							"raw": "{\n    \"title\":\"Here's Johnny!\",\n    \"message\":\"allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy\",\n    \"name\":\"Jack Torrance\",\n    \"latitude\":40.3830,\n    \"longitude\":105.5190\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -708,8 +717,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData['errors']).not.to.be.null;",
-									"    pm.expect(jsonData['errors']['coordinates']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});",
 									""
 								],
