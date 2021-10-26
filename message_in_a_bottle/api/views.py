@@ -80,13 +80,13 @@ class StoryDirections(APIView):
             raise Http404
 
     def get(self, request, pk, format = None):
-        if Story.valid_coords(request.query_params):
+        if StorySerializer.coords_error(request.query_params)['code'] == 0:
             story = self.get_object(pk)
-            response = MapFacade.get_directions(request, story)
+            distance = MapFacade.get_distance(request.query_params, story)
+            if distance == 'Impossible route.':
+                return Response({'errors':StorySerializer.coords_error(distance)}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                serializer = StorySerializer(story)
+                return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         else:
-            response = None
-        if response is not None and response['routeError']['errorCode'] != 2:
-            serializer = StorySerializer.story_directions_serializer(response, story)
-            return Response({'data':serializer}, status=status.HTTP_200_OK)
-        else:
-            return Response({'errors':StorySerializer.coords_error(response)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors':StorySerializer.coords_error(request.query_params)}, status=status.HTTP_400_BAD_REQUEST)

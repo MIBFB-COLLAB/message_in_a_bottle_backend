@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Story
 from message_in_a_bottle.api.services import MapService
+from message_in_a_bottle.api.facades import MapFacade
 
 class StorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,13 +39,13 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def stories_near_user(from_lat, from_long, stories):
+    def stories_near_user(request, stories):
         output_list = []
         for s in stories:
-            delta_lat = abs(float(from_lat) - s.latitude)
-            delta_long = abs(float(from_long) - s.longitude)
+            delta_lat = abs(float(request['latitude']) - s.latitude)
+            delta_long = abs(float(request['longitude']) - s.longitude)
             if delta_lat <= 2 and delta_long <= 2:
-                distance = MapService.get_distance(from_lat, from_long, s.latitude, s.longitude)
+                distance = MapFacade.get_distance(request, s)
                 if distance != 'Impossible route.' and distance <= 25:
                     output_list.append(StorySerializer.reformat_condensed(s, distance))
         return sorted(output_list, key = lambda s: s['attributes']['distance_in_miles'])

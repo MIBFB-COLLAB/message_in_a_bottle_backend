@@ -62,16 +62,6 @@ class TestStorySerializer(TestCase):
 
         assert self.actual == self.expected
 
-    def test_serializer_blank_coordinates(self):
-        self.expected = {
-            'coordinates': [
-                "Latitude or longitude can't be blank."
-            ]
-        }
-        self.actual = StorySerializer.blank_coords()
-
-        assert self.actual == self.expected
-
     def test_stories_near_user(self):
         self.story_dict = TestStorySerializer.test_db_setup(return_dict=True)
         self.lat = self.story_dict['latitude']

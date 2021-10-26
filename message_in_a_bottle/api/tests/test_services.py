@@ -97,7 +97,7 @@ class TestServices(TestCase):
             self.story['long']
         )
 
-        assert type(response) == float
+        assert type(response) == dict
 
     def test_get_valid_city_state(self):
         self.user_location = {
