@@ -33,11 +33,9 @@ jobs:
       - run:
           command: |
             rm -rf ./message_in_a_bottle/api/tests/cassettes
-          name: Remove cassettes for build
-          command: |
             python3 -m virtualenv venv
             source venv/bin/activate
             pip install -r requirements.txt
             export DJANGO_SETTINGS_MODULE=message_in_a_bottle.settings
             pytest --cov
-          name: Activate venv, install requirements, and run test suite
+          name: Remove VCR cassettes, activate venv, install requirements, and run test suite
