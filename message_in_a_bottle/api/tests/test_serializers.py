@@ -54,35 +54,36 @@ class TestStorySerializer(TestCase):
 
     def test_serializer_coordinates_error(self):
         self.expected = {
-            'coordinates': [
+            'code': 1,
+            'messages': [
                 'Invalid latitude or longitude.'
             ]
         }
-        self.actual = StorySerializer.coords_error()
+        self.actual = StorySerializer.coords_error({'latitude': 999999, 'longitude': 9999999})
 
         assert self.actual == self.expected
 
-    def test_stories_near_user(self):
-        self.story_dict = TestStorySerializer.test_db_setup(return_dict=True)
-        self.lat = self.story_dict['latitude']
-        self.long = self.story_dict['longitude']
+    # def test_stories_near_user(self):
+    #     self.story_dict = TestStorySerializer.test_db_setup(return_dict=True)
+    #     self.lat = self.story_dict['latitude']
+    #     self.long = self.story_dict['longitude']
+    #
+    #     self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
+    #
+    #     assert isinstance(self.actual, list)
+    #     assert len(self.actual) == 2
+    #     assert self.actual[0]['attributes']['title'] == self.story_dict['title']
+    #     assert self.actual[1]['attributes']['title'] == 'Hello'
 
-        self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
-
-        assert isinstance(self.actual, list)
-        assert len(self.actual) == 2
-        assert self.actual[0]['attributes']['title'] == self.story_dict['title']
-        assert self.actual[1]['attributes']['title'] == 'Hello'
-
-    def test_no_stories_near_user(self):
-        TestStorySerializer.test_db_setup()
-        self.lat = 0
-        self.long = 0
-
-        self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
-
-        assert isinstance(self.actual, list)
-        assert len(self.actual) == 0
+    # def test_no_stories_near_user(self):
+    #     TestStorySerializer.test_db_setup()
+    #     self.lat = 0
+    #     self.long = 0
+    #
+    #     self.actual = StorySerializer.stories_near_user(self.lat, self.long, Story.objects.all())
+    #
+    #     assert isinstance(self.actual, list)
+    #     assert len(self.actual) == 0
 
     def test_stories_index(self):
         TestStorySerializer.test_db_setup()
