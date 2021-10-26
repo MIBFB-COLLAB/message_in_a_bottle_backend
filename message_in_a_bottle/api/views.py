@@ -92,5 +92,5 @@ class StoryDirections(APIView):
             response = MapFacade.get_directions(request.query_params, story)
             if response == 'Impossible route.':
                 return self.errors_response(response)
-            return Response({'data': StorySerializer.story_directions(response, story)})
+            return Response({'data':StorySerializer.story_directions(response, story)})
         return self.errors_response(request.query_params)
