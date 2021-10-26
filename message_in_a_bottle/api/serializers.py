@@ -35,6 +35,7 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def reformat_mapquest_response(story):
+        story_obj = Story.objects.get(pk=int(story['key']))
         return {
             'id': story['key'],
             'type': 'story',
@@ -42,7 +43,9 @@ class StorySerializer(serializers.ModelSerializer):
                 'title': story['name'],
                 'distance_in_miles': story['distance'],
                 'latitude': story['shapePoints'][0],
-                'longitude': story['shapePoints'][1]
+                'longitude': story['shapePoints'][1],
+                'created_at': story_obj.created_at,
+                'updated_at': story_obj.updated_at
             }
         }
 

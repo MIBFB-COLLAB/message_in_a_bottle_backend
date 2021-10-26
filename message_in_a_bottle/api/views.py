@@ -33,7 +33,7 @@ class StoryList(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
-            return self.errors_response(serializer.errors)
+            return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def errors_response(self, error):
@@ -56,8 +56,7 @@ class StoryDetail(APIView):
             else:
                 serializer = StorySerializer(story)
                 return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
-        else:
-            return self.errors_response(request.query_params)
+        return self.errors_response(request.query_params)
 
     """
     Update a story instance.
@@ -93,7 +92,5 @@ class StoryDirections(APIView):
             response = MapFacade.get_directions(request.query_params, story)
             if response == 'Impossible route.':
                 return self.errors_response(response)
-            else:
-                return Response({'data': StorySerializer.story_directions(response, story)})
-        else:
-            return self.errors_response(request.query_params)
+            return Response({'data': StorySerializer.story_directions(response, story)})
+        return self.errors_response(request.query_params)
