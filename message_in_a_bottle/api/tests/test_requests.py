@@ -1,3 +1,4 @@
+import vcr
 import pytest
 from django.test import TestCase
 from rest_framework.test import APIClient
@@ -5,6 +6,7 @@ from django.urls import reverse
 from message_in_a_bottle.api.models import Story
 from message_in_a_bottle.api.serializers import StorySerializer
 
+@pytest.mark.vcr()
 @pytest.mark.django_db
 class TestStoryRequests(TestCase):
     """
