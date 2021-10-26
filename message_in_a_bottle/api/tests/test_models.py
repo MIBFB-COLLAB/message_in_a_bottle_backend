@@ -5,7 +5,7 @@ from django.test import TestCase
 @pytest.mark.django_db
 class TestModels(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def set_up_test_data(cls):
         Story.objects.create(
             title='My Story',
             message='I said hi.',
@@ -14,27 +14,28 @@ class TestModels(TestCase):
         )
 
     def test_mapquest_data_dict(self):
-        TestModels.setUpTestData()
-        story = Story.objects.all()[0]
+        TestModels.set_up_test_data()
+        self.story = Story.objects.all()[0]
 
-        assert Story.mapquest_data_dict(story) == {
-            "key": str(story.id),
-            "name": story.title,
-            "shapePoints": [
-                story.latitude, story.longitude
+        assert Story.mapquest_data_dict(self.story) == {
+            'key': str(self.story.id),
+            'name': self.story.title,
+            'shapePoints': [
+                self.story.latitude, self.story.longitude
             ]
         }
 
     def test_map_stories(self):
-        story = Story.objects.all()[0]
+        TestModels.set_up_test_data()
+        self.story = Story.objects.all()[0]
 
         assert len(Story.objects.all()) == 1
 
         assert Story.map_stories() ==[{
-            'key': str(story.id),
-            'name': story.title,
+            'key': str(self.story.id),
+            'name': self.story.title,
             'shapePoints': [
-                story.latitude, story.longitude
+                self.story.latitude, self.story.longitude
             ]}
         ]
 
