@@ -6,7 +6,7 @@ from message_in_a_bottle.api.serializers import StorySerializer
 @pytest.mark.django_db
 class TestStorySerializer(TestCase):
     @classmethod
-    def test_db_setup(cls, return_dict=False):
+    def test_db_setup(cls):
         assert Story.objects.count() == 0
         cls.story_dict = {
             'title': 'My Cool Story',
@@ -27,8 +27,6 @@ class TestStorySerializer(TestCase):
             longitude = cls.story_dict['longitude']
         )
         assert Story.objects.count() == 2
-        if return_dict:
-            return cls.story_dict
 
     def test_serializer_reformat(self):
         TestStorySerializer.test_db_setup()
