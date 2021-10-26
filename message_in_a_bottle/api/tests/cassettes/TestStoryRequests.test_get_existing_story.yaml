@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.26.0
+    method: GET
+    uri: http://www.mapquestapi.com/directions/v2/route?from=39.757118942673%2C-105.003256157079&key=DUMMY&manMaps=False&to=39.865426458967676%2C-104.67452255667705
+  response:
+    body:
+      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-104.668533,\"lat\":39.756947},\"ul\":{\"lng\":-105.004082,\"lat\":39.913952}},\"distance\":27.612,\"hasTimedRestriction\":false,\"hasTunnel\":false,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"00:36:36\",\"sessionId\":\"61788616-0015-5f21-02b4-35bf-0232ffaff0bb\",\"hasAccessRestriction\":false,\"realTime\":2456,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":1.33,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
+        to TERMINAL C LOOP.\",\"distance\":27.612,\"hasTimedRestriction\":false,\"hasTunnel\":false,\"hasHighway\":true,\"index\":0,\"formattedTime\":\"00:36:36\",\"origIndex\":4,\"hasAccessRestriction\":false,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"roadGradeStrategy\":[[]],\"destIndex\":10,\"time\":2196,\"hasUnpaved\":false,\"origNarrative\":\"Go
+        north on I-25 N/US-87 N.\",\"maneuvers\":[{\"distance\":0.017,\"streets\":[\"Bassett
+        St\"],\"narrative\":\"Start out going northeast on Bassett St toward 18th
+        St.\",\"turnType\":6,\"startPoint\":{\"lng\":-105.003128,\"lat\":39.756947},\"index\":0,\"formattedTime\":\"00:00:02\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":2,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/icon-dirs-start_sm.gif\",\"direction\":3},{\"distance\":0.087,\"streets\":[\"18th
+        St\"],\"narrative\":\"Turn left onto 18th St.\",\"turnType\":6,\"startPoint\":{\"lng\":-105.002899,\"lat\":39.757122},\"index\":1,\"formattedTime\":\"00:00:15\",\"directionName\":\"Northwest\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":15,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":2},{\"distance\":0.175,\"streets\":[\"Little
+        Raven St\"],\"narrative\":\"Turn right onto Little Raven St.\",\"turnType\":2,\"startPoint\":{\"lng\":-105.004082,\"lat\":39.757996},\"index\":2,\"formattedTime\":\"00:00:42\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":42,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":3},{\"distance\":0.014,\"streets\":[\"20th
+        St\"],\"narrative\":\"Turn left onto 20th St.\",\"turnType\":6,\"startPoint\":{\"lng\":-105.001747,\"lat\":39.759689},\"index\":3,\"formattedTime\":\"00:00:03\",\"directionName\":\"Northwest\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":3,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":2},{\"distance\":4.021,\"streets\":[\"I-25
+        N\",\"US-87 N\"],\"narrative\":\"Merge onto I-25 N/US-87 N toward Ft Collins.\",\"turnType\":10,\"startPoint\":{\"lng\":-105.001968,\"lat\":39.759796},\"index\":4,\"formattedTime\":\"00:04:44\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"25\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=25&d=NORTH\",\"direction\":1},{\"extraText\":\"\",\"text\":\"87\",\"type\":2,\"url\":\"http://icons.mqcdn.com/icons/rs2.png?n=87&d=NORTH\",\"direction\":1}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":284,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":1},{\"distance\":0.216,\"streets\":[],\"narrative\":\"Take
+        the I-76 E exit, EXIT 216, toward Fort Morgan.\",\"turnType\":14,\"startPoint\":{\"lng\":-104.98278,\"lat\":39.811771},\"index\":5,\"formattedTime\":\"00:00:18\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"216\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=216&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":18,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_gr_exitright_sm.gif\",\"direction\":1},{\"distance\":10.691,\"streets\":[\"I-76
+        E\"],\"narrative\":\"Merge onto I-76 E via EXIT 216A toward Fort Morgan.\",\"turnType\":10,\"startPoint\":{\"lng\":-104.982483,\"lat\":39.814892},\"index\":6,\"formattedTime\":\"00:09:51\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"76\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=76&d=EAST\",\"direction\":8},{\"extraText\":\"\",\"text\":\"216A\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=216A&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":591,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":8},{\"distance\":0.272,\"streets\":[],\"narrative\":\"Take
+        the CO-2 exit, EXIT 16, toward Sable Blvd.\",\"turnType\":14,\"startPoint\":{\"lng\":-104.829613,\"lat\":39.9062},\"index\":7,\"formattedTime\":\"00:00:18\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"16\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=16&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":18,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_gr_exitright_sm.gif\",\"direction\":3},{\"distance\":0.022,\"streets\":[],\"narrative\":\"Keep
+        left at the fork in the ramp.\",\"turnType\":17,\"startPoint\":{\"lng\":-104.825035,\"lat\":39.907959},\"index\":8,\"formattedTime\":\"00:00:09\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":9,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_fork_left2_sm.gif\",\"direction\":3},{\"distance\":0.579,\"streets\":[\"CO-2\"],\"narrative\":\"Turn
+        left onto Highway 2/CO-2. Continue to follow CO-2.\",\"turnType\":6,\"startPoint\":{\"lng\":-104.824669,\"lat\":39.908104},\"index\":9,\"formattedTime\":\"00:00:55\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"2\",\"type\":505,\"url\":\"http://icons.mqcdn.com/icons/rs505.png?n=2\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":1024,\"time\":55,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":1},{\"distance\":8.008,\"streets\":[\"E
+        120th Ave\"],\"narrative\":\"Turn right onto E 120th Ave.\",\"turnType\":2,\"startPoint\":{\"lng\":-104.818977,\"lat\":39.913826},\"index\":10,\"formattedTime\":\"00:10:31\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":1024,\"time\":631,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":8},{\"distance\":0.669,\"streets\":[\"Trussville
+        St\"],\"narrative\":\"Turn right onto Trussville St.\",\"turnType\":2,\"startPoint\":{\"lng\":-104.668549,\"lat\":39.913952},\"index\":11,\"formattedTime\":\"00:01:39\",\"directionName\":\"South\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":99,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":4},{\"distance\":0.358,\"streets\":[\"E
+        114th Ave\"],\"narrative\":\"Turn right onto E 114th Ave.\",\"turnType\":2,\"startPoint\":{\"lng\":-104.668533,\"lat\":39.904259},\"index\":12,\"formattedTime\":\"00:00:56\",\"directionName\":\"West\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":56,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":7},{\"distance\":1.97,\"streets\":[\"Queensburg
+        St\"],\"narrative\":\"Turn left onto Queensburg St.\",\"turnType\":6,\"startPoint\":{\"lng\":-104.67527,\"lat\":39.904305},\"index\":13,\"formattedTime\":\"00:04:55\",\"directionName\":\"South\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":295,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":4},{\"distance\":0.248,\"streets\":[\"E
+        99th Ave\"],\"narrative\":\"Turn left onto E 99th Ave.\",\"turnType\":6,\"startPoint\":{\"lng\":-104.675674,\"lat\":39.875751},\"index\":14,\"formattedTime\":\"00:00:37\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":37,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":8},{\"distance\":0.057,\"streets\":[\"E
+        99th Ave\"],\"narrative\":\"Keep right at the fork to continue on E 99th Ave.\",\"turnType\":16,\"startPoint\":{\"lng\":-104.671005,\"lat\":39.87569},\"index\":15,\"formattedTime\":\"00:00:09\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":9,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_fork_right2_sm.gif\",\"direction\":8},{\"distance\":0.208,\"streets\":[\"N
+        Titus St\"],\"narrative\":\"Turn right onto N Titus St.\",\"turnType\":2,\"startPoint\":{\"lng\":-104.66993,\"lat\":39.875675},\"index\":16,\"formattedTime\":\"00:00:32\",\"directionName\":\"South\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":32,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":4},{\"distance\":0,\"streets\":[],\"narrative\":\"TERMINAL
+        C LOOP.\",\"turnType\":-1,\"startPoint\":{\"lng\":-104.66993,\"lat\":39.872658},\"index\":17,\"formattedTime\":\"00:00:00\",\"directionName\":\"\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":0,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/icon-dirs-end_sm.gif\",\"direction\":0}],\"hasFerry\":false}],\"options\":{\"arteryWeights\":[],\"cyclingRoadFactor\":1,\"timeType\":0,\"useTraffic\":false,\"returnLinkDirections\":false,\"countryBoundaryDisplay\":true,\"enhancedNarrative\":false,\"locale\":\"en_US\",\"tryAvoidLinkIds\":[],\"drivingStyle\":2,\"doReverseGeocode\":true,\"generalize\":-1,\"mustAvoidLinkIds\":[],\"sideOfStreetDisplay\":true,\"routeType\":\"FASTEST\",\"avoidTimedConditions\":false,\"routeNumber\":0,\"shapeFormat\":\"raw\",\"maxWalkingDistance\":-1,\"destinationManeuverDisplay\":true,\"transferPenalty\":-1,\"narrativeType\":\"text\",\"walkingSpeed\":-1,\"urbanAvoidFactor\":-1,\"stateBoundaryDisplay\":true,\"unit\":\"M\",\"highwayEfficiency\":22,\"maxLinkId\":0,\"maneuverPenalty\":-1,\"avoidTripIds\":[],\"filterZoneFactor\":-1,\"manmaps\":\"false\"},\"locations\":[{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-105.003256,\"lat\":39.757119},\"adminArea4\":\"Denver\",\"adminArea5\":\"Denver\",\"postalCode\":\"80202\",\"adminArea1\":\"US\",\"adminArea3\":\"CO\",\"type\":\"s\",\"sideOfStreet\":\"L\",\"geocodeQualityCode\":\"L1AAA\",\"adminArea4Type\":\"County\",\"linkId\":20333966,\"street\":\"1783
+        Bassett St\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"ADDRESS\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-105.003256,\"lat\":39.757119}},{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-104.674523,\"lat\":39.865426},\"adminArea4\":\"Denver\",\"adminArea5\":\"Denver\",\"postalCode\":\"80249\",\"adminArea1\":\"US\",\"adminArea3\":\"CO\",\"type\":\"s\",\"sideOfStreet\":\"N\",\"geocodeQualityCode\":\"B1AAA\",\"adminArea4Type\":\"County\",\"linkId\":50528100,\"street\":\"Terminal
+        C Loop\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"STREET\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-104.674523,\"lat\":39.865426}}],\"time\":2196,\"hasUnpaved\":false,\"locationSequence\":[0,1],\"hasFerry\":false},\"info\":{\"statuscode\":0,\"copyright\":{\"imageAltText\":\"\xA9
+        2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"text\":\"\xA9
+        2021 MapQuest, Inc.\"},\"messages\":[]}}"
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - JSESSIONID=FA5C97AD0ED3B8D2FA0A8116313B0162; Path=/directions; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      status:
+      - success
+      transactionWeight:
+      - '1'
+    status:
+      code: 200
+      message: ''
+version: 1

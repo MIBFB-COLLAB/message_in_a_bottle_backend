@@ -1,0 +1,79 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.26.0
+    method: POST
+    uri: http://www.mapquestapi.com/directions/v2/route?from=34.134529719319424%2C-118.29851756023974&key=DUMMY&manMaps=False&to=39.757118942673%2C-105.003256157079
+  response:
+    body:
+      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-105.001808,\"lat\":34.120037},\"ul\":{\"lng\":-118.287804,\"lat\":39.76078}},\"distance\":1018.6821,\"hasTimedRestriction\":false,\"hasTunnel\":true,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"14:27:02\",\"sessionId\":\"61788615-0182-5f21-02b4-3503-02800b4e6beb\",\"hasAccessRestriction\":false,\"realTime\":61677,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":52.76,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
+        to 1783 BASSETT ST.\",\"distance\":1018.6821,\"hasTimedRestriction\":false,\"hasTunnel\":true,\"hasHighway\":true,\"index\":0,\"formattedTime\":\"14:27:02\",\"origIndex\":5,\"hasAccessRestriction\":false,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"roadGradeStrategy\":[[]],\"destIndex\":12,\"time\":52022,\"hasUnpaved\":false,\"origNarrative\":\"Go
+        east on CA-134 E.\",\"maneuvers\":[{\"distance\":0.12,\"streets\":[\"Griffith
+        Park\"],\"narrative\":\"Start out going east on Griffith Park toward Griffith
+        Park Dr.\",\"turnType\":0,\"startPoint\":{\"lng\":-118.287804,\"lat\":34.134884},\"index\":0,\"formattedTime\":\"00:01:15\",\"directionName\":\"East\",\"maneuverNotes\":[{\"manNoteType\":\"11\",\"manNote\":\"Closed
+        to vehicle traffic: Everyday 10:00 PM to 5:00 AM\"}],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":75,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/icon-dirs-start_sm.gif\",\"direction\":8},{\"distance\":0.241,\"streets\":[\"Griffith
+        Park Dr\"],\"narrative\":\"Turn slight right onto Griffith Park Dr.\",\"turnType\":1,\"startPoint\":{\"lng\":-118.286064,\"lat\":34.135544},\"index\":1,\"formattedTime\":\"00:00:55\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":55,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_slight_right_sm.gif\",\"direction\":8},{\"distance\":0.814,\"streets\":[\"Crystal
+        Springs Dr\"],\"narrative\":\"Turn left onto Crystal Springs Dr.\",\"turnType\":6,\"startPoint\":{\"lng\":-118.282066,\"lat\":34.13538},\"index\":2,\"formattedTime\":\"00:02:02\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":122,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":1},{\"distance\":0.304,\"streets\":[\"Western
+        Heritage Way\"],\"narrative\":\"Crystal Springs Dr becomes Western Heritage
+        Way.\",\"turnType\":0,\"startPoint\":{\"lng\":-118.284416,\"lat\":34.146637},\"index\":3,\"formattedTime\":\"00:00:57\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":57,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_straight_sm.gif\",\"direction\":1},{\"distance\":0.216,\"streets\":[\"Zoo
+        Dr\"],\"narrative\":\"Turn right onto Zoo Dr.\",\"turnType\":2,\"startPoint\":{\"lng\":-118.282272,\"lat\":34.149605},\"index\":4,\"formattedTime\":\"00:00:35\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":1024,\"time\":35,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":3},{\"distance\":8.555,\"streets\":[\"CA-134
+        E\"],\"narrative\":\"Merge onto CA-134 E via the ramp on the left toward Pasadena.\",\"turnType\":11,\"startPoint\":{\"lng\":-118.279625,\"lat\":34.151516},\"index\":5,\"formattedTime\":\"00:08:30\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"134\",\"type\":504,\"url\":\"http://icons.mqcdn.com/icons/rs504.png?n=134&d=EAST\",\"direction\":8}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":510,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_left_sm.gif\",\"direction\":8},{\"distance\":19.393,\"streets\":[\"I-210
+        E\"],\"narrative\":\"CA-134 E becomes I-210 E.\",\"turnType\":0,\"startPoint\":{\"lng\":-118.143784,\"lat\":34.151688},\"index\":6,\"formattedTime\":\"00:18:29\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"210\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=210&d=EAST\",\"direction\":8}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":1109,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_straight_sm.gif\",\"direction\":8},{\"distance\":18.048,\"streets\":[\"CA-210
+        E\"],\"narrative\":\"I-210 E becomes CA-210 E.\",\"turnType\":0,\"startPoint\":{\"lng\":-117.819527,\"lat\":34.120037},\"index\":7,\"formattedTime\":\"00:17:02\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"210\",\"type\":504,\"url\":\"http://icons.mqcdn.com/icons/rs504.png?n=210&d=EAST\",\"direction\":8}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":1022,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_straight_sm.gif\",\"direction\":8},{\"distance\":464.876,\"streets\":[\"I-15
+        N\"],\"narrative\":\"Merge onto I-15 N via EXIT 64A toward Barstow (Passing
+        through Nevada and Arizona, then crossing into Utah).\",\"turnType\":10,\"startPoint\":{\"lng\":-117.510628,\"lat\":34.136162},\"index\":8,\"formattedTime\":\"06:30:58\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"15\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=15&d=NORTH\",\"direction\":1},{\"extraText\":\"\",\"text\":\"64A\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=64A&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":23458,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":1},{\"distance\":493.783,\"streets\":[\"I-70
+        E\"],\"narrative\":\"Merge onto I-70 E via EXIT 132 toward Denver/Richfield
+        (Crossing into Colorado).\",\"turnType\":10,\"startPoint\":{\"lng\":-112.603279,\"lat\":38.574036},\"index\":9,\"formattedTime\":\"06:52:28\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"70\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=70&d=EAST\",\"direction\":8},{\"extraText\":\"\",\"text\":\"132\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=132&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":3200,\"time\":24748,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":8},{\"distance\":8.406,\"streets\":[\"US-6
+        E\"],\"narrative\":\"Merge onto US-6 E via EXIT 261.\",\"turnType\":10,\"startPoint\":{\"lng\":-105.181892,\"lat\":39.723522},\"index\":10,\"formattedTime\":\"00:08:26\",\"directionName\":\"East\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"6\",\"type\":2,\"url\":\"http://icons.mqcdn.com/icons/rs2.png?n=6&d=EAST\",\"direction\":8},{\"extraText\":\"\",\"text\":\"261\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=261&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":506,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":8},{\"distance\":3.281,\"streets\":[\"I-25
+        N\",\"US-85 N\",\"US-6 E\",\"US-87 N\"],\"narrative\":\"Merge onto I-25 N/US-85
+        N/US-6 E/US-87 N toward Ft Collins.\",\"turnType\":10,\"startPoint\":{\"lng\":-105.024651,\"lat\":39.725426},\"index\":11,\"formattedTime\":\"00:04:00\",\"directionName\":\"North\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"25\",\"type\":1,\"url\":\"http://icons.mqcdn.com/icons/rs1.png?n=25&d=NORTH\",\"direction\":1},{\"extraText\":\"\",\"text\":\"85\",\"type\":2,\"url\":\"http://icons.mqcdn.com/icons/rs2.png?n=85&d=NORTH\",\"direction\":1},{\"extraText\":\"\",\"text\":\"6\",\"type\":2,\"url\":\"http://icons.mqcdn.com/icons/rs2.png?n=6&d=EAST\",\"direction\":8},{\"extraText\":\"\",\"text\":\"87\",\"type\":2,\"url\":\"http://icons.mqcdn.com/icons/rs2.png?n=87&d=NORTH\",\"direction\":1}],\"transportMode\":\"AUTO\",\"attributes\":1152,\"time\":240,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_merge_right_sm.gif\",\"direction\":1},{\"distance\":0.224,\"streets\":[],\"narrative\":\"Take
+        the 20th Street exit, EXIT 212C.\",\"turnType\":14,\"startPoint\":{\"lng\":-105.007561,\"lat\":39.758884},\"index\":12,\"formattedTime\":\"00:00:19\",\"directionName\":\"Northeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[{\"extraText\":\"\",\"text\":\"212C\",\"type\":1001,\"url\":\"http://icons.mqcdn.com/icons/rs1001.png?n=212C&d=RIGHT\",\"direction\":0}],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":19,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_gr_exitright_sm.gif\",\"direction\":3},{\"distance\":0.15,\"streets\":[\"20th
+        St\"],\"narrative\":\"Turn right onto 20th St.\",\"turnType\":2,\"startPoint\":{\"lng\":-105.004166,\"lat\":39.76078},\"index\":13,\"formattedTime\":\"00:00:17\",\"directionName\":\"Southeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":1024,\"time\":17,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":5},{\"distance\":0.167,\"streets\":[\"Little
+        Raven St\"],\"narrative\":\"Turn right onto Little Raven St.\",\"turnType\":2,\"startPoint\":{\"lng\":-105.001808,\"lat\":39.759598},\"index\":14,\"formattedTime\":\"00:00:32\",\"directionName\":\"Southwest\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":32,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":6},{\"distance\":0.087,\"streets\":[\"18th
+        St\"],\"narrative\":\"Turn left onto 18th St.\",\"turnType\":6,\"startPoint\":{\"lng\":-105.004082,\"lat\":39.757996},\"index\":15,\"formattedTime\":\"00:00:15\",\"directionName\":\"Southeast\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":15,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_left_sm.gif\",\"direction\":5},{\"distance\":0.017,\"streets\":[\"Bassett
+        St\"],\"narrative\":\"Turn right onto Bassett St.\",\"turnType\":2,\"startPoint\":{\"lng\":-105.002899,\"lat\":39.757122},\"index\":16,\"formattedTime\":\"00:00:02\",\"directionName\":\"Southwest\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":2,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/rs_right_sm.gif\",\"direction\":6},{\"distance\":0,\"streets\":[],\"narrative\":\"1783
+        BASSETT ST is on the right.\",\"turnType\":-1,\"startPoint\":{\"lng\":-105.003128,\"lat\":39.756947},\"index\":17,\"formattedTime\":\"00:00:00\",\"directionName\":\"\",\"maneuverNotes\":[],\"linkIds\":[],\"signs\":[],\"transportMode\":\"AUTO\",\"attributes\":0,\"time\":0,\"iconUrl\":\"http://content.mqcdn.com/mqsite/turnsigns/icon-dirs-end_sm.gif\",\"direction\":0}],\"hasFerry\":false}],\"options\":{\"arteryWeights\":[],\"cyclingRoadFactor\":1,\"timeType\":0,\"useTraffic\":false,\"returnLinkDirections\":false,\"countryBoundaryDisplay\":true,\"enhancedNarrative\":false,\"locale\":\"en_US\",\"tryAvoidLinkIds\":[],\"drivingStyle\":2,\"doReverseGeocode\":true,\"generalize\":-1,\"mustAvoidLinkIds\":[],\"sideOfStreetDisplay\":true,\"routeType\":\"FASTEST\",\"avoidTimedConditions\":false,\"routeNumber\":0,\"shapeFormat\":\"raw\",\"maxWalkingDistance\":-1,\"destinationManeuverDisplay\":true,\"transferPenalty\":-1,\"narrativeType\":\"text\",\"walkingSpeed\":-1,\"urbanAvoidFactor\":-1,\"stateBoundaryDisplay\":true,\"unit\":\"M\",\"highwayEfficiency\":22,\"maxLinkId\":0,\"maneuverPenalty\":-1,\"avoidTripIds\":[],\"filterZoneFactor\":-1,\"manmaps\":\"false\"},\"locations\":[{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-118.298518,\"lat\":34.13453},\"adminArea4\":\"Los
+        Angeles\",\"adminArea5\":\"Los Angeles\",\"postalCode\":\"90027\",\"adminArea1\":\"US\",\"adminArea3\":\"CA\",\"type\":\"s\",\"sideOfStreet\":\"N\",\"geocodeQualityCode\":\"B1AAA\",\"adminArea4Type\":\"County\",\"linkId\":52163325,\"street\":\"Fire
+        Rd\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"STREET\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-118.298518,\"lat\":34.13453}},{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-105.003256,\"lat\":39.757119},\"adminArea4\":\"Denver\",\"adminArea5\":\"Denver\",\"postalCode\":\"80202\",\"adminArea1\":\"US\",\"adminArea3\":\"CO\",\"type\":\"s\",\"sideOfStreet\":\"L\",\"geocodeQualityCode\":\"L1AAA\",\"adminArea4Type\":\"County\",\"linkId\":20333966,\"street\":\"1783
+        Bassett St\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"ADDRESS\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-105.003256,\"lat\":39.757119}}],\"time\":52022,\"hasUnpaved\":false,\"locationSequence\":[0,1],\"hasFerry\":false},\"info\":{\"statuscode\":0,\"copyright\":{\"imageAltText\":\"\xA9
+        2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"text\":\"\xA9
+        2021 MapQuest, Inc.\"},\"messages\":[]}}"
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - JSESSIONID=0808FCBE8FFEA016943A723F17FA72F6; Path=/directions; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      status:
+      - success
+      transactionWeight:
+      - '1'
+    status:
+      code: 200
+      message: ''
+version: 1

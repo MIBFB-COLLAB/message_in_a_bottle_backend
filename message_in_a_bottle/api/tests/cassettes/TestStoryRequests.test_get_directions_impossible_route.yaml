@@ -1,0 +1,51 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.26.0
+    method: POST
+    uri: http://www.mapquestapi.com/directions/v2/route?from=21.393936208637445%2C-157.8674605018104&key=DUMMY&manMaps=False&to=39.757118942673%2C-105.003256157079
+  response:
+    body:
+      string: "{\"route\":{\"routeError\":{\"errorCode\":2,\"message\":\"\"}},\"info\":{\"statuscode\":402,\"copyright\":{\"imageAltText\":\"\xA9
+        2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"text\":\"\xA9
+        2021 MapQuest, Inc.\"},\"messages\":[\"We are unable to route with the given
+        locations.\"]}}"
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '278'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Pragma:
+      - no-cache
+      Set-Cookie:
+      - JSESSIONID=2C314783E74055837F4738091304EC35; Path=/directions; HttpOnly
+      status:
+      - success
+      transactionWeight:
+      - '1'
+    status:
+      code: 200
+      message: ''
+version: 1
