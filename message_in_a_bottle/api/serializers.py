@@ -27,7 +27,7 @@ class StorySerializer(serializers.ModelSerializer):
             output_dict['attributes']['distance_in_miles'] = return_distance
         return output_dict
 
-    def stories_index_serializer(response, city_state):
+    def stories_index(response, city_state):
         stories = map(StorySerializer.reformat_mapquest_response, response)
         return {
             'input_location': city_state,
@@ -46,7 +46,7 @@ class StorySerializer(serializers.ModelSerializer):
             }
         }
 
-    def story_directions_serializer(response, story):
+    def story_directions(response, story):
         directions = map(StorySerializer.format_directions, response['legs'][0]['maneuvers'])
         return list(directions)
 
@@ -69,6 +69,6 @@ class StorySerializer(serializers.ModelSerializer):
             error['messages'].append("Latitude or longitude can't be blank.")
             error['code'] = 1
         elif not Story.valid_coords(request):
-            error['messages'].append("Invalid latitude or longitude.")
+            error['messages'].append('Invalid latitude or longitude.')
             error['code'] = 1
         return error

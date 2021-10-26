@@ -18,7 +18,7 @@ class StoryList(APIView):
             return self.errors_response(request.query_params)
         else:
             results = MapFacade.get_stories(request.query_params)
-            serializer = StorySerializer.stories_index_serializer(*results)
+            serializer = StorySerializer.stories_index(*results)
             return Response({'data':serializer}, status=status.HTTP_200_OK)
 
     """
@@ -28,7 +28,7 @@ class StoryList(APIView):
         if StorySerializer.coords_error(request.data)['code'] == 1:
             return self.errors_response(request.data)
         else:
-            request.data['location'] = MapFacade.get_city_state(request)
+            request.data['location'] = MapFacade.get_city_state(request.data)
             serializer = StorySerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -48,7 +48,7 @@ class StoryDetail(APIView):
     Retrieve a story instance.
     """
     def get(self, request, pk, format=None):
-        if StorySerializer.coords_error(request.query_params)['code'] == 0:
+        if StorySerializer.coords_error(request.query_params)['code'] not in [1, 2]:
             story = self.get_object(pk)
             distance = MapFacade.get_distance(request.query_params, story)
             if distance == 'Impossible route.':
@@ -88,12 +88,12 @@ class StoryDirections(APIView):
             raise Http404
 
     def get(self, request, pk, format = None):
-        if StorySerializer.coords_error(request.query_params)['code'] == 0:
+        if StorySerializer.coords_error(request.query_params)['code'] not in [1, 2]:
             story = self.get_object(pk)
             response = MapFacade.get_directions(request.query_params, story)
             if response == 'Impossible route.':
                 return self.errors_response(response)
             else:
-                return Response({'data': StorySerializer.story_directions_serializer(response, story)})
+                return Response({'data': StorySerializer.story_directions(response, story)})
         else:
             return self.errors_response(request.query_params)

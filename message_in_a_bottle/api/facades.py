@@ -9,22 +9,18 @@ class MapFacade():
     return [results, city_state]
 
   def get_city_state(request):
-    return MapService.get_city_state(request.data['latitude'], request.data['longitude'])
+    return MapService.get_city_state(request['latitude'], request['longitude'])
 
   def get_distance(request, story):
       response = MapService.get_distance(
-                  request['latitude'],
-                  request['longitude'],
-                  story.latitude,
-                  story.longitude
-              )
+                    request['latitude'],
+                    request['longitude'],
+                    story.latitude,
+                    story.longitude
+                 )
       route_result = response['route']['routeError']['errorCode']
       return response['route']['distance'] if route_result == -400 else 'Impossible route.'
 
-
   def get_directions(request, story):
       response = MapService.get_directions(request, story)['route']
-      if response['routeError']['errorCode'] == 2:
-          return 'Impossible route.'
-      else:
-          return response
+      return 'Impossible route.' if response['routeError']['errorCode'] == 2 else response
