@@ -28,11 +28,10 @@ class StorySerializer(serializers.ModelSerializer):
 
     def stories_index(response, city_state):
         stories = map(StorySerializer.reformat_mapquest_response, response)
-        output_dict = {
+        return {
             'input_location': city_state,
             'stories': list(stories)
         }
-        return output_dict
 
     def reformat_mapquest_response(story):
         return {
