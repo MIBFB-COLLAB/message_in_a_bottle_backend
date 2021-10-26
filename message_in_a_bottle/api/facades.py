@@ -23,4 +23,8 @@ class MapFacade():
 
 
   def get_directions(request, story):
-    return MapService.get_directions(request.query_params, story)['route']
+      response = MapService.get_directions(request, story)['route']
+      if response['routeError']['errorCode'] == 2:
+          return 'Impossible route.'
+      else:
+          return response
