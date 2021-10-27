@@ -118,14 +118,21 @@ class TestServices(TestCase):
             'long': -105.00325615707887
         }
 
-        with Mocker() as mocker:
-            mocker.get(MapService.base_urls()['route'], json=json_blob, status_code=200)
-            response = MapService.get_distance(
-                self.user_location['lat'],
-                self.user_location['long'],
-                self.story_location['lat'],
-                self.story_location['long']
-            )
+        # with Mocker() as mocker:
+        #     mocker.get(MapService.base_urls()['route'], json=json_blob, status_code=200)
+        #     response = MapService.get_distance(
+        #         self.user_location['lat'],
+        #         self.user_location['long'],
+        #         self.story_location['lat'],
+        #         self.story_location['long']
+        #     )
+
+        response = MapService.get_distance(
+            self.user_location['lat'],
+            self.user_location['long'],
+            self.story_location['lat'],
+            self.story_location['long']
+        )
 
         assert type(response) == dict
 

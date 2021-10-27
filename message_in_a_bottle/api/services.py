@@ -57,8 +57,11 @@ class MapService():
             'manMaps': False
         }
         response = requests.get(url, params=params)
-        return response.json()
-
+        import pdb; pdb.set_trace()
+        if response.status_code != 403:
+            return response.json()
+        else:
+            return {'route': {'distance': 'exceeded rate limite', 'routeError': {'errorCode': 403}}}
     def get_city_state(lat, long):
         url = MapService.base_urls()['reverse_geocode']
         params = {
