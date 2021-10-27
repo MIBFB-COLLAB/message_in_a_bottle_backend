@@ -42,7 +42,8 @@ class MapService():
         params = {
             'key': MapService.api_key(),
             'from': f"{request['latitude']},{request['longitude']}",
-            'to': f'{story.latitude},{story.longitude}'
+            'to': f'{story.latitude},{story.longitude}',
+            'manMaps': False
         }
         response = requests.post(url, params=params)
         return response.json()
@@ -52,7 +53,8 @@ class MapService():
         params = {
             'key': MapService.api_key(),
             'from': f'{float(lat)},{float(long)}',
-            'to': f'{story_lat},{story_long}'
+            'to': f'{story_lat},{story_long}',
+            'manMaps': False
         }
         response = requests.get(url, params=params)
         return response.json()
@@ -61,7 +63,8 @@ class MapService():
         url = MapService.base_urls()['reverse_geocode']
         params = {
             'key': MapService.api_key(),
-            'location': f'{float(lat)},{float(long)}'
+            'location': f'{float(lat)},{float(long)}',
+            'thumbMaps': False
         }
         response = requests.get(url, params=params)
         parsed = response.json()['results'][0]['locations'][0]

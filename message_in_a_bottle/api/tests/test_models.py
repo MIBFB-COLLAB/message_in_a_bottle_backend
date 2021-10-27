@@ -30,7 +30,6 @@ class TestModels(TestCase):
         self.story = Story.objects.all()[0]
 
         assert len(Story.objects.all()) == 1
-
         assert Story.map_stories() ==[{
             'key': str(self.story.id),
             'name': self.story.title,

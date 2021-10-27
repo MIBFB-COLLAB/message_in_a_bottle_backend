@@ -1,0 +1,114 @@
+interactions:
+- request:
+    body: "{\n \"origin\": {\n  \"latLng\": {\n   \"lat\": 39.74822614190254,\n   \"lng\":
+      -104.99898275758112\n  }\n },\n \"options\": {\n  \"maxMatches\": 100,\n  \"radius\":
+      50,\n  \"units\": \"m\"\n },\n \"remoteDataList\": [\n  {\n   \"key\": \"60\",\n
+      \  \"name\": \"Union Station\",\n   \"shapePoints\": [\n    39.757118942673,\n
+      \   -105.003256157079\n   ]\n  },\n  {\n   \"key\": \"61\",\n   \"name\": \"Gates
+      Crescent Park\",\n   \"shapePoints\": [\n    39.749379471614546,\n    -105.01696456480278\n
+      \  ]\n  },\n  {\n   \"key\": \"62\",\n   \"name\": \"Botanic Gardens\",\n   \"shapePoints\":
+      [\n    39.733903355068456,\n    -104.95994497497446\n   ]\n  },\n  {\n   \"key\":
+      \"63\",\n   \"name\": \"DIA\",\n   \"shapePoints\": [\n    39.865426458967676,\n
+      \   -104.67452255667705\n   ]\n  }\n ]\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '687'
+      User-Agent:
+      - python-requests/2.26.0
+    method: POST
+    uri: http://www.mapquestapi.com/search/v2/radius?key=DUMMY
+  response:
+    body:
+      string: "{\"resultsCount\":4,\"origin\":{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-104.998983,\"lat\":39.748226},\"adminArea4\":\"\",\"adminArea5\":\"\",\"postalCode\":\"\",\"adminArea1\":\"\",\"adminArea3\":\"\",\"type\":\"s\",\"sideOfStreet\":\"N\",\"geocodeQualityCode\":\"XXXXX\",\"adminArea4Type\":\"County\",\"linkId\":0,\"street\":\"\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"LATLNG\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-104.998983,\"lat\":39.748226}},\"totalPages\":1,\"options\":{\"kmlStyleUrl\":\"http://search-b2b.cloud.mapquest.com/kml-default.kml\",\"shapeFormat\":\"raw\",\"maxMatches\":100,\"pageSize\":4,\"ambiguities\":true,\"units\":\"m\",\"currentPage\":1,\"radius\":50},\"remoteDataList\":[{\"name\":\"Union
+        Station\",\"key\":\"60\",\"shapePoints\":[39.7571189,-105.0032562]},{\"name\":\"Gates
+        Crescent Park\",\"key\":\"61\",\"shapePoints\":[39.7493795,-105.0169646]},{\"name\":\"Botanic
+        Gardens\",\"key\":\"62\",\"shapePoints\":[39.7339034,-104.959945]},{\"name\":\"DIA\",\"key\":\"63\",\"shapePoints\":[39.8654265,-104.6745226]}],\"searchResults\":[{\"distanceUnit\":\"m\",\"distance\":0.6558,\"name\":\"Union
+        Station\",\"sourceName\":\"remoteData\",\"resultNumber\":1,\"key\":\"60\",\"shapePoints\":[39.7571189,-105.0032562]},{\"distanceUnit\":\"m\",\"distance\":0.9596,\"name\":\"Gates
+        Crescent Park\",\"sourceName\":\"remoteData\",\"resultNumber\":2,\"key\":\"61\",\"shapePoints\":[39.7493795,-105.0169646]},{\"distanceUnit\":\"m\",\"distance\":2.3006,\"name\":\"Botanic
+        Gardens\",\"sourceName\":\"remoteData\",\"resultNumber\":3,\"key\":\"62\",\"shapePoints\":[39.7339034,-104.959945]},{\"distanceUnit\":\"m\",\"distance\":19.0518,\"name\":\"DIA\",\"sourceName\":\"remoteData\",\"resultNumber\":4,\"key\":\"63\",\"shapePoints\":[39.8654265,-104.6745226]}],\"info\":{\"copyright\":{\"imageAltText\":\"\xA9
+        2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"text\":\"\xA9
+        2021 MapQuest, Inc.\"},\"messages\":[],\"statusCode\":0}}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Disposition:
+      - inline; filename="results.json"
+      Content-Length:
+      - '1772'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Pragma:
+      - no-cache
+      status:
+      - success
+      transactionWeight:
+      - '1'
+    status:
+      code: 200
+      message: ''
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.26.0
+    method: GET
+    uri: http://www.mapquestapi.com/geocoding/v1/reverse?key=DUMMY&location=39.74822614190254%2C-104.99898275758112&thumbMaps=False
+  response:
+    body:
+      string: '{"info":{"statuscode":0,"copyright":{"text":"\u00A9 2021 MapQuest,
+        Inc.","imageUrl":"http://api.mqcdn.com/res/mqlogo.gif","imageAltText":"\u00A9
+        2021 MapQuest, Inc."},"messages":[]},"options":{"maxResults":1,"thumbMaps":false,"ignoreLatLngInput":false},"results":[{"providedLocation":{"latLng":{"lat":39.74822614190254,"lng":-104.99898275758112}},"locations":[{"street":"1459
+        Larimer St","adminArea6":"","adminArea6Type":"Neighborhood","adminArea5":"Denver","adminArea5Type":"City","adminArea4":"Denver","adminArea4Type":"County","adminArea3":"CO","adminArea3Type":"State","adminArea1":"US","adminArea1Type":"Country","postalCode":"80202-1704","geocodeQualityCode":"L1AAA","geocodeQuality":"ADDRESS","dragPoint":false,"sideOfStreet":"L","linkId":"0","unknownInput":"","type":"s","latLng":{"lat":39.748099,"lng":-104.998883},"displayLatLng":{"lat":39.748099,"lng":-104.998883}}]}]}'
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '880'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      GeocodeTransactionCount:
+      - '0'
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:58 GMT
+      Pragma:
+      - no-cache
+      ReverseGeocodeTransactionCount:
+      - '1'
+      Set-Cookie:
+      - JSESSIONID=F2AF7A74BFB72BBAB2D4E0A691EE00EE; Path=/; HttpOnly
+      status:
+      - success
+      transactionWeight:
+      - '1.0'
+    status:
+      code: 200
+      message: ''
+version: 1

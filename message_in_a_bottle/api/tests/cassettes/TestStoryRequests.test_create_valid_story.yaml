@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.26.0
+    method: GET
+    uri: http://www.mapquestapi.com/geocoding/v1/reverse?key=DUMMY&location=39.757118942673%2C-105.003256157079&thumbMaps=False
+  response:
+    body:
+      string: '{"info":{"statuscode":0,"copyright":{"text":"\u00A9 2021 MapQuest,
+        Inc.","imageUrl":"http://api.mqcdn.com/res/mqlogo.gif","imageAltText":"\u00A9
+        2021 MapQuest, Inc."},"messages":[]},"options":{"maxResults":1,"thumbMaps":false,"ignoreLatLngInput":false},"results":[{"providedLocation":{"latLng":{"lat":39.757118942673,"lng":-105.003256157079}},"locations":[{"street":"1783
+        Bassett St","adminArea6":"","adminArea6Type":"Neighborhood","adminArea5":"Denver","adminArea5Type":"City","adminArea4":"Denver","adminArea4Type":"County","adminArea3":"CO","adminArea3Type":"State","adminArea1":"US","adminArea1Type":"Country","postalCode":"80202","geocodeQualityCode":"L1AAA","geocodeQuality":"ADDRESS","dragPoint":false,"sideOfStreet":"L","linkId":"0","unknownInput":"","type":"s","latLng":{"lat":39.756949,"lng":-105.003125},"displayLatLng":{"lat":39.756949,"lng":-105.003125}}]}]}'
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '871'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:56 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      GeocodeTransactionCount:
+      - '0'
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:56 GMT
+      Pragma:
+      - no-cache
+      ReverseGeocodeTransactionCount:
+      - '1'
+      Set-Cookie:
+      - JSESSIONID=C0276CA51F7474F5AB6E20B165A576F0; Path=/; HttpOnly
+      status:
+      - success
+      transactionWeight:
+      - '1.0'
+    status:
+      code: 200
+      message: ''
+version: 1

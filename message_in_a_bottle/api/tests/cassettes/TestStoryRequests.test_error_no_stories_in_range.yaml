@@ -1,0 +1,112 @@
+interactions:
+- request:
+    body: "{\n \"origin\": {\n  \"latLng\": {\n   \"lat\": 34.134529719319424,\n   \"lng\":
+      -118.29851756023974\n  }\n },\n \"options\": {\n  \"maxMatches\": 100,\n  \"radius\":
+      50,\n  \"units\": \"m\"\n },\n \"remoteDataList\": [\n  {\n   \"key\": \"20\",\n
+      \  \"name\": \"Union Station\",\n   \"shapePoints\": [\n    39.757118942673,\n
+      \   -105.003256157079\n   ]\n  },\n  {\n   \"key\": \"21\",\n   \"name\": \"Gates
+      Crescent Park\",\n   \"shapePoints\": [\n    39.749379471614546,\n    -105.01696456480278\n
+      \  ]\n  },\n  {\n   \"key\": \"22\",\n   \"name\": \"Botanic Gardens\",\n   \"shapePoints\":
+      [\n    39.733903355068456,\n    -104.95994497497446\n   ]\n  },\n  {\n   \"key\":
+      \"23\",\n   \"name\": \"DIA\",\n   \"shapePoints\": [\n    39.865426458967676,\n
+      \   -104.67452255667705\n   ]\n  }\n ]\n}"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '688'
+      User-Agent:
+      - python-requests/2.26.0
+    method: POST
+    uri: http://www.mapquestapi.com/search/v2/radius?key=DUMMY
+  response:
+    body:
+      string: "{\"resultsCount\":0,\"origin\":{\"dragPoint\":false,\"displayLatLng\":{\"lng\":-118.298518,\"lat\":34.13453},\"adminArea4\":\"\",\"adminArea5\":\"\",\"postalCode\":\"\",\"adminArea1\":\"\",\"adminArea3\":\"\",\"type\":\"s\",\"sideOfStreet\":\"N\",\"geocodeQualityCode\":\"XXXXX\",\"adminArea4Type\":\"County\",\"linkId\":0,\"street\":\"\",\"adminArea5Type\":\"City\",\"geocodeQuality\":\"LATLNG\",\"adminArea1Type\":\"Country\",\"adminArea3Type\":\"State\",\"latLng\":{\"lng\":-118.298518,\"lat\":34.13453}},\"totalPages\":1,\"options\":{\"kmlStyleUrl\":\"http://search-b2b.cloud.mapquest.com/kml-default.kml\",\"shapeFormat\":\"raw\",\"maxMatches\":100,\"pageSize\":0,\"ambiguities\":true,\"units\":\"m\",\"currentPage\":1,\"radius\":50},\"remoteDataList\":[{\"name\":\"Union
+        Station\",\"key\":\"20\",\"shapePoints\":[39.7571189,-105.0032562]},{\"name\":\"Gates
+        Crescent Park\",\"key\":\"21\",\"shapePoints\":[39.7493795,-105.0169646]},{\"name\":\"Botanic
+        Gardens\",\"key\":\"22\",\"shapePoints\":[39.7339034,-104.959945]},{\"name\":\"DIA\",\"key\":\"23\",\"shapePoints\":[39.8654265,-104.6745226]}],\"info\":{\"copyright\":{\"imageAltText\":\"\xA9
+        2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"text\":\"\xA9
+        2021 MapQuest, Inc.\"},\"messages\":[],\"statusCode\":0}}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Disposition:
+      - inline; filename="results.json"
+      Content-Length:
+      - '1130'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Pragma:
+      - no-cache
+      status:
+      - success
+      transactionWeight:
+      - '1'
+    status:
+      code: 200
+      message: ''
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.26.0
+    method: GET
+    uri: http://www.mapquestapi.com/geocoding/v1/reverse?key=DUMMY&location=34.134529719319424%2C-118.29851756023974&thumbMaps=False
+  response:
+    body:
+      string: '{"info":{"statuscode":0,"copyright":{"text":"\u00A9 2021 MapQuest,
+        Inc.","imageUrl":"http://api.mqcdn.com/res/mqlogo.gif","imageAltText":"\u00A9
+        2021 MapQuest, Inc."},"messages":[]},"options":{"maxResults":1,"thumbMaps":false,"ignoreLatLngInput":false},"results":[{"providedLocation":{"latLng":{"lat":34.134529719319424,"lng":-118.29851756023974}},"locations":[{"street":"Fire
+        Rd","adminArea6":"","adminArea6Type":"Neighborhood","adminArea5":"Los Angeles","adminArea5Type":"City","adminArea4":"Los
+        Angeles","adminArea4Type":"County","adminArea3":"CA","adminArea3Type":"State","adminArea1":"US","adminArea1Type":"Country","postalCode":"90027","geocodeQualityCode":"B1AAA","geocodeQuality":"STREET","dragPoint":false,"sideOfStreet":"R","linkId":"0","unknownInput":"","type":"s","latLng":{"lat":34.134046,"lng":-118.299195},"displayLatLng":{"lat":34.134046,"lng":-118.299195}}]}]}'
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,POST
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Length:
+      - '877'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Expires:
+      - Mon, 20 Dec 1998 01:00:00 GMT
+      GeocodeTransactionCount:
+      - '0'
+      Last-Modified:
+      - Tue, 26 Oct 2021 22:49:57 GMT
+      Pragma:
+      - no-cache
+      ReverseGeocodeTransactionCount:
+      - '1'
+      Set-Cookie:
+      - JSESSIONID=33492946453011C8853F9746CB23CD16; Path=/; HttpOnly
+      status:
+      - success
+      transactionWeight:
+      - '1.0'
+    status:
+      code: 200
+      message: ''
+version: 1
