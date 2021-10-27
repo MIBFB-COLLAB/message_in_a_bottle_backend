@@ -14,7 +14,7 @@ interactions:
     uri: http://www.mapquestapi.com/directions/v2/route?from=39.757118942673%2C-105.003256157079&key=DUMMY&manMaps=False&to=39.865426458967676%2C-104.67452255667705
   response:
     body:
-      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-104.668533,\"lat\":39.756947},\"ul\":{\"lng\":-105.004082,\"lat\":39.913952}},\"distance\":27.612,\"hasTimedRestriction\":false,\"hasTunnel\":false,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"00:36:36\",\"sessionId\":\"61788616-0015-5f21-02b4-35bf-0232ffaff0bb\",\"hasAccessRestriction\":false,\"realTime\":2456,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":1.33,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
+      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-104.668533,\"lat\":39.756947},\"ul\":{\"lng\":-105.004082,\"lat\":39.913952}},\"distance\":27.612,\"hasTimedRestriction\":false,\"hasTunnel\":false,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"00:36:36\",\"sessionId\":\"61797d5c-03c8-6750-02b4-32bc-0ae93520e47d\",\"hasAccessRestriction\":false,\"realTime\":2146,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":1.33,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
         to TERMINAL C LOOP.\",\"distance\":27.612,\"hasTimedRestriction\":false,\"hasTunnel\":false,\"hasHighway\":true,\"index\":0,\"formattedTime\":\"00:36:36\",\"origIndex\":4,\"hasAccessRestriction\":false,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"roadGradeStrategy\":[[]],\"destIndex\":10,\"time\":2196,\"hasUnpaved\":false,\"origNarrative\":\"Go
         north on I-25 N/US-87 N.\",\"maneuvers\":[{\"distance\":0.017,\"streets\":[\"Bassett
         St\"],\"narrative\":\"Start out going northeast on Bassett St toward 18th
@@ -50,15 +50,15 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 26 Oct 2021 22:49:58 GMT
+      - Wed, 27 Oct 2021 16:25:01 GMT
       Expires:
       - Mon, 20 Dec 1998 01:00:00 GMT
       Last-Modified:
-      - Tue, 26 Oct 2021 22:49:58 GMT
+      - Wed, 27 Oct 2021 16:25:01 GMT
       Pragma:
       - no-cache
       Set-Cookie:
-      - JSESSIONID=FA5C97AD0ED3B8D2FA0A8116313B0162; Path=/directions; HttpOnly
+      - JSESSIONID=80F72F624837635FA0E65223923D4115; Path=/directions; HttpOnly
       Transfer-Encoding:
       - chunked
       status:

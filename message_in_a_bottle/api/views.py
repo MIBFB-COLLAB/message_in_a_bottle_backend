@@ -85,7 +85,9 @@ class StoryDirections(APIView):
             return Story.objects.get(pk=pk)
         except Story.DoesNotExist:
             raise Http404
-
+    """
+    Get directions to a story.
+    """
     def get(self, request, pk, format = None):
         if StorySerializer.coords_error(request.query_params)['code'] not in [1, 2]:
             story = self.get_object(pk)
