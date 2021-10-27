@@ -8,24 +8,26 @@
 <h4 align="center">RESTful API for Message in a Bottle frontend application consumption.</h4>
 
 <p align="center">
-  <a href="https://github.com/marlitas/rails_engine/graphs/contributors">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="contributors_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/network/members">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/network/members">
     <img src="https://img.shields.io/github/forks/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="forks_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/stargazers">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/stargazers">
     <img src="https://img.shields.io/github/stars/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="stars_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/issues">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/issues">
     <img src="https://img.shields.io/github/issues/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="issues_badge">
+  <img src="https://img.shields.io/circleci/build/github/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge">
+  <img src="https://img.shields.io/badge/API_version-V1-or.svg?&style=for-the-badge&logoColor=white">
 
 
 <!-- CONTENTS -->
 <p align="center">
   <a href="#about-the-project">About The Project</a> •
   <a href="#tools-used">Tools Used</a> •
-  <a href="#set-up">Set Up</a> •
+  <a href="#local-set-up">Local Set Up</a> •
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#database-schema">Database Schema</a> •
@@ -42,19 +44,21 @@ Message in a Bottle is an application where users can discover stories about the
 ### Learning Goals
 
 * Building a RESTful API with a Django/Python backend
-* Collaborating with a Front End team
+* Collaborating with a Front-End dev team
 * Geolocation calls and tracking
-* Python TDD practices
+* Apply best practices learned during Turing to new language and framework
+  * e.g. TDD, OOP, REST, MVC(Rails) <--> MTV(Django)
+* Make use of the `git rebase` workflow
 
 
 ## Tools Used
 
 | Development | Testing       | Packages              |
 |   :----:    |    :----:     |    :----:             |
-| Python 3.9.7| Pytest Django | Django                |
+| Python 3.9.7| Pytest-Django | Django                |
 | Django      | Pytest-Cov    | Django CORS Headers   |
 | CircleCI    | Postman       | Django Heroku         |
-| PostgreSQL  |               | Django REST Framework |
+| PostgreSQL  | VCRPY         | Django REST Framework |
 | Git/Github  |               | Gunicorn              |
 | Heroku      |               | Psycopg2              |
 |             |               | Pycodestyle           |
@@ -63,70 +67,68 @@ Message in a Bottle is an application where users can discover stories about the
 |             |               | Requests              |
 
 
-## Set Up
+## Local Set Up
 
-1. To clone and run this application, you'll need Python 3.8.2 and Django. Using [rbenv](https://github.com/rbenv/rbenv) you can install Ruby 2.7.2 (if you don't have it already) with:
+1. To clone and run this application, you'll need Python 3.9.7 and Django 3.2.8. Using the official [Python docs](https://docs.python-guide.org/starting/installation/), follow instructions to install `python3` for your local OS.
+
+2. You can check for a successful installation using this command:
 ```sh
-rbenv install 2.7.2
+$ python3 -V
+> Python 3.9.7
 ```
-2. With rbenv you can set up your Ruby version for a directory and all subdirectories within it. Change into a directory that will eventually contain this repo and then run:
-```sh
-rbenv local 2.7.2
-```
-You can check that your Ruby version is correct with `ruby -v`
 
-3. Once you have verified your Ruby version is 2.7.2, check if you have Rails. From the command line:
-```sh
-rails -v
-```
-4. If you get a message saying rails is not installed or you do not have version 5.2.5, run
-```sh
-gem install rails --version 5.2.5
-```
-5. You may need to quit and restart your terminal session to see these changes show up
-
-
-
-## Run Locally
+## Installation
 
 1. Fork this repo
 2. Clone your new repo
-   ```sh
-   git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
-   ```
+  ```sh
+  git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
+  ```
 3. Create and Invoke your virtual environment
   ```sh
   python3 -m virtualenv venv
-
-  source <virtual env>/bin/activate
+  source venv/bin/activate
   ```
 4. Install dependencies
-   ```sh
-   python -m pip install -r requirements.txt
-   ```
+  ```sh
+  (venv) python -m pip install -r requirements.txt
+  ```
 5. Setup the database
   ```sh
-  psql
+  $ psql
 
   CREATE DATABASE <project name>;
-
   CREATE USER <user name> WITH PASSWORD <password>;
-
-  ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
-  ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
-  ALTER ROLE myprojectuser SET timezone TO 'UTC';
-
-  GRANT ALL PRIVILEGES ON DATABASE <project name TO <user name>;
-
+  ALTER ROLE <user name> SET client_encoding TO 'utf8';
+  ALTER ROLE <user name> SET default_transaction_isolation TO 'read committed';
+  ALTER ROLE <user name> SET timezone TO 'UTC';
+  GRANT ALL PRIVILEGES ON DATABASE <project name> TO <user name>;
+  \q
   ```
 6. Add PostgreSQL database info to settings.py file
+  ```python
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<project name>',
+        'USER': '<user name>',
+        'PASSWORD': '<password>',
+        'HOST': '<host>',
+        'PORT': '<port>',
+    }
+  }
+  ```
 
-7. python manage.py migrate
+7. Migrate database:
+  ```sh
+  (venv) python manage.py makemigrations
+  (venv) python manage.py migrate
+  ```
 
 
 ## How To Use
 
-To experience the UI our frontend team built please [visit](link). Otherwise you may hit our endpoints through an http request helper such as Postman.
+To experience the front-end UI, please visit the application [here](https://message-in-a-bottle-fe-app.herokuapp.com/). Otherwise, you can hit our endpoints through an API client, such as Postman or HTTPie.
 
 
 
