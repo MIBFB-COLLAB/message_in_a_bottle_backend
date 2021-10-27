@@ -24,12 +24,17 @@
 									"    pm.expect(jsonData['data']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['stories']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['input_location']).not.to.eql('This is a temporary location!');",
-									"    jsonData[\"data\"][\"stories\"].forEach(function(s) {",
+									"    // Call .forEach on JSON 'stories' array to iterate through objects:",
+									"    jsonData['data']['stories'].forEach(function(s) {",
 									"        pm.expect(s['id']).not.to.be.null;",
 									"        pm.expect(s['type']).to.eql('story');",
-									"        pm.expect(s['title']).not.to.be.null;",
-									"        pm.expect(s['latitude']).not.to.be.null;",
-									"        pm.expect(s['longitude']).not.to.be.null;",
+									"        var attributes = s['attributes'];",
+									"        pm.expect(attributes['title']).not.to.be.null;",
+									"        pm.expect(attributes['latitude']).not.to.be.null;",
+									"        pm.expect(attributes['longitude']).not.to.be.null;",
+									"        pm.expect(attributes['distance_in_miles']).not.to.be.null;",
+									"        pm.expect(attributes['created_at']).not.to.be.null;",
+									"        pm.expect(attributes['updated_at']).not.to.be.null;",
 									"    });",
 									"});"
 								],
@@ -535,14 +540,14 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[\"data\"]).not.to.be.null;",
-									"    // Call .forEach on JSON data array",
-									"    jsonData[\"data\"].forEach(function(d) {",
-									"        pm.expect(d[\"id\"]).to.be.null;",
-									"        pm.expect(d[\"type\"]).to.eql(\"directions\");",
-									"        var attributes = d[\"attributes\"];",
-									"        pm.expect(attributes[\"narrative\"]).not.to.be.null;",
-									"        pm.expect(attributes[\"distance\"]).not.to.be.null;",
+									"    pm.expect(jsonData['data']).not.to.be.null;",
+									"    // Call .forEach on JSON 'data' array to iterate through objects:",
+									"    jsonData['data'].forEach(function(d) {",
+									"        pm.expect(d['id']).to.be.null;",
+									"        pm.expect(d['type']).to.eql('directions');",
+									"        var attributes = d['attributes'];",
+									"        pm.expect(attributes['narrative']).not.to.be.null;",
+									"        pm.expect(attributes['distance']).not.to.be.null;",
 									"    });",
 									"});"
 								],
@@ -580,7 +585,7 @@
 					"response": []
 				},
 				{
-					"name": "Story Directions (valid Params bad route)",
+					"name": "Story Directions (valid Params bad Route)",
 					"event": [
 						{
 							"listen": "test",
@@ -592,8 +597,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Impossible route.\"]);",
-									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Impossible route.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -642,8 +647,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Invalid latitude or longitude.\"]);",
-									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql(['Invalid latitude or longitude.']);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -692,8 +697,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Latitude or longitude can't be blank.\"]);",
-									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -742,8 +747,8 @@
 									"",
 									"pm.test(\"JSON Response Validation\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Latitude or longitude can't be blank.\"]);",
-									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"    pm.expect(jsonData['errors']['messages']).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData['errors']['code']).not.to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
