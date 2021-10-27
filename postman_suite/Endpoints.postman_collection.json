@@ -24,17 +24,13 @@
 									"    pm.expect(jsonData['data']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['stories']).not.to.be.null;",
 									"    pm.expect(jsonData['data']['input_location']).not.to.eql('This is a temporary location!');",
-									"    for (var s = 0; s < jsonData['data'].length; s++) {",
+									"    jsonData[\"data\"][\"stories\"].forEach(function(s) {",
 									"        pm.expect(s['id']).not.to.be.null;",
 									"        pm.expect(s['type']).to.eql('story');",
-									"        var attributes = s['attributes'];",
-									"        pm.expect(attributes['title']).not.to.be.null;",
-									"        pm.expect(attributes['latitude']).not.to.be.null;",
-									"        pm.expect(attributes['longitude']).not.to.be.null;",
-									"        pm.expect(attributes['distance_in_miles']).not.to.be.null;",
-									"        pm.expect(attributes['created_at']).not.to.be.null;",
-									"        pm.expect(attributes['updated_at']).not.to.be.null;",
-									"    }",
+									"        pm.expect(s['title']).not.to.be.null;",
+									"        pm.expect(s['latitude']).not.to.be.null;",
+									"        pm.expect(s['longitude']).not.to.be.null;",
+									"    });",
 									"});"
 								],
 								"type": "text/javascript"
@@ -521,6 +517,253 @@
 								"v1",
 								"stories",
 								"{{story_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Directions (valid Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"data\"]).not.to.be.null;",
+									"    // Call .forEach on JSON data array",
+									"    jsonData[\"data\"].forEach(function(d) {",
+									"        pm.expect(d[\"id\"]).to.be.null;",
+									"        pm.expect(d[\"type\"]).to.eql(\"directions\");",
+									"        var attributes = d[\"attributes\"];",
+									"        pm.expect(attributes[\"narrative\"]).not.to.be.null;",
+									"        pm.expect(attributes[\"distance\"]).not.to.be.null;",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}/directions?latitude=39.98506&longitude=-105.1066986",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}",
+								"directions"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "39.98506"
+								},
+								{
+									"key": "longitude",
+									"value": "-105.1066986"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Directions (valid Params bad route)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Impossible route.\"]);",
+									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}/directions?latitude=0&longitude=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}",
+								"directions"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "0"
+								},
+								{
+									"key": "longitude",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Directions (bad Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Invalid latitude or longitude.\"]);",
+									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}/directions?latitude=139.98506&longitude=-205.1066986",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}",
+								"directions"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "139.98506"
+								},
+								{
+									"key": "longitude",
+									"value": "-205.1066986"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Directions (blank Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}/directions?latitude=&longitude=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}",
+								"directions"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Directions (no Params)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Unsuccessful GET Request\", function () {",
+									"    pm.expect(pm.response.code).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"JSON Response Validation\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[\"errors\"][\"messages\"]).to.eql([\"Latitude or longitude can't be blank.\"]);",
+									"    pm.expect(jsonData[\"errors\"][\"code\"]).not.to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/stories/{{story_id}}/directions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stories",
+								"{{story_id}}",
+								"directions"
 							]
 						}
 					},
