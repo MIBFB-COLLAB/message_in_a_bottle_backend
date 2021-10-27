@@ -64,14 +64,15 @@ class StorySerializer(serializers.ModelSerializer):
         }
 
     def coords_error(request):
-        error = {'messages': [], 'code': 0}
+        # '-400' is what MapQuest API returns for a 'successful' route request
+        error_dict = {'messages': [], 'code': -400}
         if request == 'Impossible route.':
-            error['messages'].append('Impossible route.')
-            error['code'] = 2
+            error_dict['messages'].append('Impossible route.')
+            error_dict['code'] = 2
         elif not Story.coords_present(request):
-            error['messages'].append("Latitude or longitude can't be blank.")
-            error['code'] = 1
+            error_dict['messages'].append("Latitude or longitude can't be blank.")
+            error_dict['code'] = 1
         elif not Story.valid_coords(request):
-            error['messages'].append('Invalid latitude or longitude.')
-            error['code'] = 1
-        return error
+            error_dict['messages'].append('Invalid latitude or longitude.')
+            error_dict['code'] = 1
+        return error_dict

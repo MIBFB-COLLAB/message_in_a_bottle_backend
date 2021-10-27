@@ -15,6 +15,16 @@ class MapService():
     def api_key():
         return os.environ.get('MAPQUEST_KEY')
 
+    def rate_limit_hit():
+        return {
+            'route': {
+                'distance': 'rate limit exceeded',
+                'routeError': {
+                    'errorCode': 2
+                }
+            }
+        }
+
     def get_stories(lat, long, stories):
         url = MapService.base_urls()['radius']
         params = {
@@ -35,7 +45,7 @@ class MapService():
             'remoteDataList': stories
         }
         response = requests.post(url, params=params, data=json.dumps(data, indent=1))
-        return response.json()
+        return response.json() if response.status_code != 403 else {'resultsCount': 0}
 
     def get_directions(request, story):
         url = MapService.base_urls()['route']
@@ -46,7 +56,7 @@ class MapService():
             'manMaps': False
         }
         response = requests.post(url, params=params)
-        return response.json()
+        return response.json() if response.status_code != 403 else MapService.rate_limit_hit()
 
     def get_distance(lat, long, story_lat, story_long):
         url = MapService.base_urls()['route']
@@ -57,7 +67,7 @@ class MapService():
             'manMaps': False
         }
         response = requests.get(url, params=params)
-        return response.json()
+        return response.json() if response.status_code != 403 else MapService.rate_limit_hit()
 
     def get_city_state(lat, long):
         url = MapService.base_urls()['reverse_geocode']
@@ -67,6 +77,8 @@ class MapService():
             'thumbMaps': False
         }
         response = requests.get(url, params=params)
-        parsed = response.json()['results'][0]['locations'][0]
-        concatenated = f"{parsed['adminArea4']}, {parsed['adminArea3']}"
-        return concatenated if concatenated != ', ' else ''
+        if response.status_code != 403:
+            parsed = response.json()['results'][0]['locations'][0]
+            concatenated = f"{parsed['adminArea4']}, {parsed['adminArea3']}"
+            return concatenated if concatenated != ', ' else ''
+        return ''

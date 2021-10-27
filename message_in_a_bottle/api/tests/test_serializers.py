@@ -61,8 +61,6 @@ class TestStorySerializer(TestCase):
         assert self.actual == self.expected
 
     def test_story_directions(self):
-        TestStorySerializer.test_db_setup()
-        self.story = Story.objects.latest('id')
         self.manuever = {'narrative': 'Turn left on Pecos St.', 'distance': 2}
         self.directions_obj = {
             'id': None,
@@ -111,7 +109,7 @@ class TestStorySerializer(TestCase):
     def test_coords_error_no_error(self):
         self.expected = {
             'messages': [],
-            'code': 0
+            'code': -400
         }
         self.actual = StorySerializer.coords_error({'latitude': 40.05506, 'longitude': -105.0066986})
 

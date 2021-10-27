@@ -32,15 +32,15 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 26 Oct 2021 22:49:57 GMT
+      - Wed, 27 Oct 2021 16:25:00 GMT
       Expires:
       - Mon, 20 Dec 1998 01:00:00 GMT
       Last-Modified:
-      - Tue, 26 Oct 2021 22:49:57 GMT
+      - Wed, 27 Oct 2021 16:25:00 GMT
       Pragma:
       - no-cache
       Set-Cookie:
-      - JSESSIONID=2C314783E74055837F4738091304EC35; Path=/directions; HttpOnly
+      - JSESSIONID=F648EF99C16BB4CE43A6B5D9B7856A97; Path=/directions; HttpOnly
       status:
       - success
       transactionWeight:

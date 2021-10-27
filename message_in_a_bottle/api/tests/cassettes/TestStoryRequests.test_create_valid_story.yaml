@@ -25,24 +25,24 @@ interactions:
       - '*'
       Cache-Control:
       - no-cache, must-revalidate
-      Content-Length:
-      - '871'
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 26 Oct 2021 22:49:56 GMT
+      - Wed, 27 Oct 2021 16:24:59 GMT
       Expires:
       - Mon, 20 Dec 1998 01:00:00 GMT
       GeocodeTransactionCount:
       - '0'
       Last-Modified:
-      - Tue, 26 Oct 2021 22:49:56 GMT
+      - Wed, 27 Oct 2021 16:24:59 GMT
       Pragma:
       - no-cache
       ReverseGeocodeTransactionCount:
       - '1'
       Set-Cookie:
-      - JSESSIONID=C0276CA51F7474F5AB6E20B165A576F0; Path=/; HttpOnly
+      - JSESSIONID=1BD22E4F63B61E46F7A65D2CD02048B0; Path=/; HttpOnly
+      Transfer-Encoding:
+      - chunked
       status:
       - success
       transactionWeight:

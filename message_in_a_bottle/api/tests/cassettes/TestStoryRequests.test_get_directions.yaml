@@ -16,7 +16,7 @@ interactions:
     uri: http://www.mapquestapi.com/directions/v2/route?from=34.134529719319424%2C-118.29851756023974&key=DUMMY&manMaps=False&to=39.757118942673%2C-105.003256157079
   response:
     body:
-      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-105.001808,\"lat\":34.120037},\"ul\":{\"lng\":-118.287804,\"lat\":39.76078}},\"distance\":1018.6821,\"hasTimedRestriction\":false,\"hasTunnel\":true,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"14:27:02\",\"sessionId\":\"61788615-0182-5f21-02b4-3503-02800b4e6beb\",\"hasAccessRestriction\":false,\"realTime\":61677,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":52.76,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
+      string: "{\"route\":{\"hasTollRoad\":false,\"hasBridge\":true,\"boundingBox\":{\"lr\":{\"lng\":-105.001808,\"lat\":34.120037},\"ul\":{\"lng\":-118.287804,\"lat\":39.76078}},\"distance\":1018.6821,\"hasTimedRestriction\":false,\"hasTunnel\":true,\"hasHighway\":true,\"computedWaypoints\":[],\"routeError\":{\"errorCode\":-400,\"message\":\"\"},\"formattedTime\":\"14:27:02\",\"sessionId\":\"61797d5c-00c5-6750-02b4-32d6-0e5162580b2f\",\"hasAccessRestriction\":false,\"realTime\":60733,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"fuelUsed\":52.76,\"legs\":[{\"hasTollRoad\":false,\"hasBridge\":true,\"destNarrative\":\"Proceed
         to 1783 BASSETT ST.\",\"distance\":1018.6821,\"hasTimedRestriction\":false,\"hasTunnel\":true,\"hasHighway\":true,\"index\":0,\"formattedTime\":\"14:27:02\",\"origIndex\":5,\"hasAccessRestriction\":false,\"hasSeasonalClosure\":false,\"hasCountryCross\":false,\"roadGradeStrategy\":[[]],\"destIndex\":12,\"time\":52022,\"hasUnpaved\":false,\"origNarrative\":\"Go
         east on CA-134 E.\",\"maneuvers\":[{\"distance\":0.12,\"streets\":[\"Griffith
         Park\"],\"narrative\":\"Start out going east on Griffith Park toward Griffith
@@ -58,15 +58,15 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 26 Oct 2021 22:49:57 GMT
+      - Wed, 27 Oct 2021 16:25:00 GMT
       Expires:
       - Mon, 20 Dec 1998 01:00:00 GMT
       Last-Modified:
-      - Tue, 26 Oct 2021 22:49:57 GMT
+      - Wed, 27 Oct 2021 16:25:00 GMT
       Pragma:
       - no-cache
       Set-Cookie:
-      - JSESSIONID=0808FCBE8FFEA016943A723F17FA72F6; Path=/directions; HttpOnly
+      - JSESSIONID=1035F1BEFCFE5CEE5546973244233D25; Path=/directions; HttpOnly
       Transfer-Encoding:
       - chunked
       status:
