@@ -59,7 +59,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# TODO: remove localhost once MVP is complete
 CORS_ALLOWED_ORIGINS = [
     # 'https://www.test-cors.org',
     'http://localhost:3000',
