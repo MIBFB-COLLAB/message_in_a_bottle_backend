@@ -93,7 +93,7 @@ $ python3 -V
   ```sh
   (venv) python -m pip install -r requirements.txt
   ```
-5. Setup the database
+5. Set up the database
   ```sh
   $ psql
 
@@ -125,10 +125,24 @@ $ python3 -V
   (venv) python manage.py migrate
   ```
 
+8. Change CORS allowed origins in `settings.py`. Domains currently allowed are:
+  ```python
+  CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://message-in-a-bottle-fe-app.herokuapp.com',
+    'https://app-message-in-a-bottle.herokuapp.com',
+  ]
+  ```
+
+9. Run your local Python server with:
+```sh
+(venv) python manage.py runserver
+```
+
 
 ## How To Use
 
-To experience the front-end UI, please visit the application [here](https://message-in-a-bottle-fe-app.herokuapp.com/). Otherwise, you can hit our endpoints through an API client, such as Postman or HTTPie.
+To experience the front-end UI, please visit the application [here](https://message-in-a-bottle-fe-app.herokuapp.com/). You can also hit our endpoints through an API client, such as Postman or HTTPie.
 
 
 
@@ -138,7 +152,7 @@ Domain: 'https://message-in-a-bottle-api.herokuapp.com'
 
 [Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
-The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
+The GET stories endpoint retrieves stories near you. You must supply valid `longitude` and `latitude` coordinates.
 
 | Query Params | Required? | Example | Notes |
 |   :----:     |   :----:  | :----:  | :----: |
@@ -161,7 +175,9 @@ Response:
         "title": "my cool story",
         "latitude": 13.201,
         "longitude": 9.2673,
-        "distance_in_miles": 1.2
+        "distance_in_miles": 1.2,
+        "created_at": "2021-10-27T03:45:34.165600Z",
+        "updated_at": "2021-10-27T03:45:36.855162Z"
         }
       },
       {
@@ -171,7 +187,9 @@ Response:
         "title": "story",
         "latitude": 13.563,
         "longitude": 10.2673,
-        "distance_in_miles": 3
+        "distance_in_miles": 3,
+        "created_at": "2021-10-27T04:45:34.165600Z",
+        "updated_at": "2021-10-27T04:45:36.855162Z"
         }
       }
     ]
@@ -196,9 +214,10 @@ Response:
       "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
-      "latitude": 13.201,
-      "longitude": 9.2673,
-      "distance_in_miles": 1.2
+      "latitude": 30.071945143440377,,
+      "longitude": 31.225164325479227,
+      "distance_in_miles": 1.2,
+      "location": "Cairo Governorate, EG"
       }
    }
 }
@@ -260,8 +279,9 @@ Response:
       "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
-      "latitude": 123.92,
-      "longitude": 29.758
+      "latitude": 27.717311514603534,
+      "longitude": 85.32098499247293,
+      "location": "Kathmandu, NP"
     }
   }
 }
@@ -293,8 +313,9 @@ Response:
       "name": "Sally",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-18T23:28:51.897746Z",
-      "latitude": 1239.2,
-      "longitude": 29.758
+      "latitude": 40.3830,
+      "longitude": 105.5190,
+      "location": "Estes Park, CO"
     }
   }
 }
@@ -306,9 +327,78 @@ Request:
 DELETE `/api/v1/stories/:id`
 
 
+**Error Handling**
+<br>
+Here are some examples of error messages you could receive if you send an invalid request:
+
+Bad Request URI: GET `/api/v1/stories/:id` or `/api/v1/stories/:id?latitude=&longitude=`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Latitude or longitude can't be blank."
+        ],
+        "code": 1
+    }
+}
+```
+
+Bad Request URI: GET `/api/v1/stories/:id?latitude=1000&longitude=1000`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Invalid latitude or longitude."
+        ],
+        "code": 1
+    }
+}
+```
+
+Bad Request URI: GET `/api/v1/stories/:id?latitude=0&longitude=0`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Impossible route."
+        ],
+        "code": 2
+    }
+}
+```
+
+POST `/api/v1/stories`
+Bad Request Body:
+```json
+{
+    "title":"Here's Johnny!",
+    "message": "allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy",
+    "name":"Jack Torrance",
+    "latitude":40.3830,
+    "longitude":105.5190
+}
+```
+
+Response:
+```json
+{
+    "errors": {
+        "message": [
+            "Ensure this field has no more than 1000 characters."
+        ],
+        "location": [
+            "This field may not be blank."
+        ]
+    }
+}
+```
+    
 
 ## Database Schema
-![MIAB DB Schema](https://user-images.githubusercontent.com/56685055/138749880-bccbafc1-3a32-43ac-8df3-5314dc65aa16.png)
+![Screen Shot 2021-10-27 at 17 33 14](https://user-images.githubusercontent.com/58891447/139162165-2312a560-e00c-43ab-9dfb-caadc0d8ad85.png)
 
 
 
