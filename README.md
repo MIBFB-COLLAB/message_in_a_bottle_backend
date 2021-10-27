@@ -8,24 +8,26 @@
 <h4 align="center">RESTful API for Message in a Bottle frontend application consumption.</h4>
 
 <p align="center">
-  <a href="https://github.com/marlitas/rails_engine/graphs/contributors">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="contributors_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/network/members">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/network/members">
     <img src="https://img.shields.io/github/forks/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="forks_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/stargazers">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/stargazers">
     <img src="https://img.shields.io/github/stars/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="stars_badge">
   </a>
-  <a href="https://github.com/marlitas/rails_engine/issues">
+  <a href="https://github.com/marlitas/message_in_a_bottle_backend/issues">
     <img src="https://img.shields.io/github/issues/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge" alt="issues_badge">
+  <img src="https://img.shields.io/circleci/build/github/MIBFB-COLLAB/message_in_a_bottle_backend?style=for-the-badge">
+  <img src="https://img.shields.io/badge/API_version-V1-or.svg?&style=for-the-badge&logoColor=white">
 
 
 <!-- CONTENTS -->
 <p align="center">
   <a href="#about-the-project">About The Project</a> •
   <a href="#tools-used">Tools Used</a> •
-  <a href="#set-up">Set Up</a> •
+  <a href="#local-set-up">Local Set Up</a> •
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#database-schema">Database Schema</a> •
@@ -42,19 +44,21 @@ Message in a Bottle is an application where users can discover stories about the
 ### Learning Goals
 
 * Building a RESTful API with a Django/Python backend
-* Collaborating with a Front End team
+* Collaborating with a Front-End dev team
 * Geolocation calls and tracking
-* Python TDD practices
+* Apply best practices learned during Turing to new language and framework
+  * e.g. TDD, OOP, REST, MVC(Rails) <--> MTV(Django)
+* Make use of the `git rebase` workflow
 
 
 ## Tools Used
 
 | Development | Testing       | Packages              |
 |   :----:    |    :----:     |    :----:             |
-| Python 3.9.7| Pytest Django | Django                |
+| Python 3.9.7| Pytest-Django | Django                |
 | Django      | Pytest-Cov    | Django CORS Headers   |
 | CircleCI    | Postman       | Django Heroku         |
-| PostgreSQL  |               | Django REST Framework |
+| PostgreSQL  | VCRPY         | Django REST Framework |
 | Git/Github  |               | Gunicorn              |
 | Heroku      |               | Psycopg2              |
 |             |               | Pycodestyle           |
@@ -63,70 +67,82 @@ Message in a Bottle is an application where users can discover stories about the
 |             |               | Requests              |
 
 
-## Set Up
+## Local Set Up
 
-1. To clone and run this application, you'll need Python 3.8.2 and Django. Using [rbenv](https://github.com/rbenv/rbenv) you can install Ruby 2.7.2 (if you don't have it already) with:
+1. To clone and run this application, you'll need Python 3.9.7 and Django 3.2.8. Using the official [Python docs](https://docs.python-guide.org/starting/installation/), follow instructions to install `python3` for your local OS.
+
+2. You can check for a successful installation using this command:
 ```sh
-rbenv install 2.7.2
+$ python3 -V
+> Python 3.9.7
 ```
-2. With rbenv you can set up your Ruby version for a directory and all subdirectories within it. Change into a directory that will eventually contain this repo and then run:
-```sh
-rbenv local 2.7.2
-```
-You can check that your Ruby version is correct with `ruby -v`
 
-3. Once you have verified your Ruby version is 2.7.2, check if you have Rails. From the command line:
-```sh
-rails -v
-```
-4. If you get a message saying rails is not installed or you do not have version 5.2.5, run
-```sh
-gem install rails --version 5.2.5
-```
-5. You may need to quit and restart your terminal session to see these changes show up
-
-
-
-## Run Locally
+## Installation
 
 1. Fork this repo
 2. Clone your new repo
-   ```sh
-   git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
-   ```
+  ```sh
+  git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
+  ```
 3. Create and Invoke your virtual environment
   ```sh
   python3 -m virtualenv venv
-
-  source <virtual env>/bin/activate
+  source venv/bin/activate
   ```
 4. Install dependencies
-   ```sh
-   python -m pip install -r requirements.txt
-   ```
-5. Setup the database
   ```sh
-  psql
+  (venv) python -m pip install -r requirements.txt
+  ```
+5. Set up the database
+  ```sh
+  $ psql
 
   CREATE DATABASE <project name>;
-
   CREATE USER <user name> WITH PASSWORD <password>;
-
-  ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
-  ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
-  ALTER ROLE myprojectuser SET timezone TO 'UTC';
-
-  GRANT ALL PRIVILEGES ON DATABASE <project name TO <user name>;
-
+  ALTER ROLE <user name> SET client_encoding TO 'utf8';
+  ALTER ROLE <user name> SET default_transaction_isolation TO 'read committed';
+  ALTER ROLE <user name> SET timezone TO 'UTC';
+  GRANT ALL PRIVILEGES ON DATABASE <project name> TO <user name>;
+  \q
   ```
 6. Add PostgreSQL database info to settings.py file
+  ```python
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<project name>',
+        'USER': '<user name>',
+        'PASSWORD': '<password>',
+        'HOST': '<host>',
+        'PORT': '<port>',
+    }
+  }
+  ```
 
-7. python manage.py migrate
+7. Migrate database:
+  ```sh
+  (venv) python manage.py makemigrations
+  (venv) python manage.py migrate
+  ```
+
+8. Change CORS allowed origins in `settings.py`. Domains currently allowed are:
+  ```python
+  CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://message-in-a-bottle-fe-app.herokuapp.com',
+    'https://app-message-in-a-bottle.herokuapp.com',
+  ]
+  ```
+
+9. Run your local Python server with:
+```sh
+(venv) python manage.py runserver
+```
 
 
 ## How To Use
 
-To experience the UI our frontend team built please [visit](link). Otherwise you may hit our endpoints through an http request helper such as Postman.
+To experience the front-end UI, please visit the application [here](https://message-in-a-bottle-fe-app.herokuapp.com/). You can also hit our endpoints through an API client, such as Postman or HTTPie.
 
 
 
@@ -136,7 +152,7 @@ Domain: 'https://message-in-a-bottle-api.herokuapp.com'
 
 [Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
 <br>
-The GET stories endpoint has two options for retrieving stories near you. You may either supply a City, State as a query param, or longitude and latitude.
+The GET stories endpoint retrieves stories near you. You must supply valid `longitude` and `latitude` coordinates.
 
 | Query Params | Required? | Example | Notes |
 |   :----:     |   :----:  | :----:  | :----: |
@@ -159,7 +175,9 @@ Response:
         "title": "my cool story",
         "latitude": 13.201,
         "longitude": 9.2673,
-        "distance_in_miles": 1.2
+        "distance_in_miles": 1.2,
+        "created_at": "2021-10-27T03:45:34.165600Z",
+        "updated_at": "2021-10-27T03:45:36.855162Z"
         }
       },
       {
@@ -169,7 +187,9 @@ Response:
         "title": "story",
         "latitude": 13.563,
         "longitude": 10.2673,
-        "distance_in_miles": 3
+        "distance_in_miles": 3,
+        "created_at": "2021-10-27T04:45:34.165600Z",
+        "updated_at": "2021-10-27T04:45:36.855162Z"
         }
       }
     ]
@@ -194,9 +214,10 @@ Response:
       "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
-      "latitude": 13.201,
-      "longitude": 9.2673,
-      "distance_in_miles": 1.2
+      "latitude": 30.071945143440377,,
+      "longitude": 31.225164325479227,
+      "distance_in_miles": 1.2,
+      "location": "Cairo Governorate, EG"
       }
    }
 }
@@ -258,8 +279,9 @@ Response:
       "name": "Anonymous",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-08T23:28:51.897746Z",
-      "latitude": 123.92,
-      "longitude": 29.758
+      "latitude": 27.717311514603534,
+      "longitude": 85.32098499247293,
+      "location": "Kathmandu, NP"
     }
   }
 }
@@ -291,8 +313,9 @@ Response:
       "name": "Sally",
       "created_at": "2021-10-08T23:28:51.897746Z",
       "updated_at": "2021-10-18T23:28:51.897746Z",
-      "latitude": 1239.2,
-      "longitude": 29.758
+      "latitude": 40.3830,
+      "longitude": 105.5190,
+      "location": "Estes Park, CO"
     }
   }
 }
@@ -304,9 +327,78 @@ Request:
 DELETE `/api/v1/stories/:id`
 
 
+**Error Handling**
+<br>
+Here are some examples of error messages you could receive if you send an invalid request:
+
+Bad Request URI: GET `/api/v1/stories/:id` or `/api/v1/stories/:id?latitude=&longitude=`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Latitude or longitude can't be blank."
+        ],
+        "code": 1
+    }
+}
+```
+
+Bad Request URI: GET `/api/v1/stories/:id?latitude=1000&longitude=1000`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Invalid latitude or longitude."
+        ],
+        "code": 1
+    }
+}
+```
+
+Bad Request URI: GET `/api/v1/stories/:id?latitude=0&longitude=0`
+Response:
+```json
+{
+    "errors": {
+        "messages": [
+            "Impossible route."
+        ],
+        "code": 2
+    }
+}
+```
+
+POST `/api/v1/stories`
+Bad Request Body:
+```json
+{
+    "title":"Here's Johnny!",
+    "message": "allworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboyallworkandnoplaymakesjackadullboy",
+    "name":"Jack Torrance",
+    "latitude":40.3830,
+    "longitude":105.5190
+}
+```
+
+Response:
+```json
+{
+    "errors": {
+        "message": [
+            "Ensure this field has no more than 1000 characters."
+        ],
+        "location": [
+            "This field may not be blank."
+        ]
+    }
+}
+```
+    
 
 ## Database Schema
-![MIAB DB Schema](https://user-images.githubusercontent.com/56685055/138749880-bccbafc1-3a32-43ac-8df3-5314dc65aa16.png)
+![Screen Shot 2021-10-27 at 17 33 14](https://user-images.githubusercontent.com/58891447/139162165-2312a560-e00c-43ab-9dfb-caadc0d8ad85.png)
 
 
 
