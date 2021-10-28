@@ -43,12 +43,12 @@ Message in a Bottle is an application where users can discover stories about the
 
 ### Learning Goals
 
-* Building a RESTful API with a Django/Python backend
+* Building a RESTful API with a Python Django backend
 * Collaborating with a Front-End dev team
 * Geolocation calls and tracking
-* Apply best practices learned during Turing to new language and framework
+* Applying best practices learned during Turing to a new language and framework
   * e.g. TDD, OOP, REST, MVC(Rails) <--> MTV(Django)
-* Make use of the `git rebase` workflow
+* Making use of the `git rebase` workflow
 
 
 ## Tools Used
@@ -80,20 +80,20 @@ $ python3 -V
 ## Installation
 
 1. Fork this repo
-2. Clone your new repo
+2. Clone your new repo:
   ```sh
   git clone https://github.com/MIBFB-COLLAB/message_in_a_bottle_backend.git
   ```
-3. Create and Invoke your virtual environment
+3. Create and Invoke your virtual environment:
   ```sh
   python3 -m virtualenv venv
   source venv/bin/activate
   ```
-4. Install dependencies
+4. Install dependencies:
   ```sh
   (venv) python -m pip install -r requirements.txt
   ```
-5. Set up the database
+5. Set up the database:
   ```sh
   $ psql
 
@@ -105,7 +105,7 @@ $ python3 -V
   GRANT ALL PRIVILEGES ON DATABASE <project name> TO <user name>;
   \q
   ```
-6. Add PostgreSQL database info to settings.py file
+6. Add PostgreSQL database info to `settings.py` file:
   ```python
   DATABASES = {
     'default': {
@@ -125,7 +125,7 @@ $ python3 -V
   (venv) python manage.py migrate
   ```
 
-8. Change CORS allowed origins in `settings.py`. Domains currently allowed are:
+8. Update CORS allowed origins in `settings.py`. Domains currently allowed are:
   ```python
   CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -148,9 +148,9 @@ To experience the front-end UI, please visit the application [here](https://mess
 
 ### Endpoint Documentation
 
-Domain: 'https://message-in-a-bottle-api.herokuapp.com'
+Domain: `https://message-in-a-bottle-api.herokuapp.com`
 
-[Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories)
+[Stories Index Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories?latitude=39.775506&longitude=-105.0066986)
 <br>
 The GET stories endpoint retrieves stories near you. You must supply valid `longitude` and `latitude` coordinates.
 
@@ -197,7 +197,7 @@ Response:
 }
 ```
 
-[Story Show Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166)
+[Story Show Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/166?latitude=39.775506&longitude=-105.0066986)
 <br>
     Request:
 GET `/api/v1/stories/:id?latitude=12.3456&longitude=-4.5968`
@@ -223,7 +223,7 @@ Response:
 }
 ```
 
-[Directions Endpoint](https://message-in-a-bottle.herokuapp.com/api/v1/stories/166/directions)
+[Directions Endpoint](https://message-in-a-bottle-api.herokuapp.com/api/v1/stories/166/directions?latitude=39.775506&longitude=-105.0066986)
 <br>
 Request:
 GET `/api/v1/stories/:id/directions?latitude=1230&longitude=1209.3`
@@ -262,8 +262,8 @@ Request Body:
 {
   "title": "A new title",
   "message": "I'm coming up",
-  "latitude": 123.92,
-  "longitude": 29.758
+  "latitude": 27.717311514603534,
+  "longitude": 85.32098499247293
 }
 ```
 
@@ -332,6 +332,7 @@ DELETE `/api/v1/stories/:id`
 Here are some examples of error messages you could receive if you send an invalid request:
 
 Bad Request URI: GET `/api/v1/stories/:id` or `/api/v1/stories/:id?latitude=&longitude=`
+
 Response:
 ```json
 {
@@ -345,6 +346,7 @@ Response:
 ```
 
 Bad Request URI: GET `/api/v1/stories/:id?latitude=1000&longitude=1000`
+
 Response:
 ```json
 {
@@ -358,6 +360,7 @@ Response:
 ```
 
 Bad Request URI: GET `/api/v1/stories/:id?latitude=0&longitude=0`
+
 Response:
 ```json
 {
@@ -433,3 +436,5 @@ Response:
 
 * [Turing School of Software and Design](https://turing.edu/)
   - Project created for completion towards Backend Engineering Program
+* [MapQuest API](https://developer.mapquest.com/documentation/)
+  - Radius Search, Route, and Reverse Geocoding APIs
