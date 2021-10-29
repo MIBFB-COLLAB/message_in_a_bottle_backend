@@ -134,7 +134,13 @@ $ python3 -V
   ]
   ```
 
-9. Run your local Python server with:
+9. Run the test suite with:
+```sh
+(venv) export DJANGO_SETTINGS_MODULE=message_in_a_bottle.settings
+(venv) pytest --cov
+```
+
+10. Run your local Python server with:
 ```sh
 (venv) python manage.py runserver
 ```
