@@ -16,10 +16,9 @@ class StoryList(APIView):
     def get(self, request, format=None):
         if StorySerializer.coords_error(request.query_params)['code'] == 1:
             return self.errors_response(request.query_params)
-        else:
-            results = MapFacade.get_stories(request.query_params)
-            serializer = StorySerializer.stories_index(*results)
-            return Response({'data':serializer}, status=status.HTTP_200_OK)
+        results = MapFacade.get_stories(request.query_params)
+        serializer = StorySerializer.stories_index(*results)
+        return Response({'data':serializer}, status=status.HTTP_200_OK)
 
     """
     Create a story.
@@ -27,13 +26,12 @@ class StoryList(APIView):
     def post(self, request, format=None):
         if StorySerializer.coords_error(request.data)['code'] == 1:
             return self.errors_response(request.data)
-        else:
-            request.data['location'] = MapFacade.get_city_state(request.data)
-            serializer = StorySerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
-            return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        request.data['location'] = MapFacade.get_city_state(request.data)
+        serializer = StorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'data':serializer.reformat(serializer.data)}, status=status.HTTP_201_CREATED)
+        return Response({'errors':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class StoryDetail(APIView):
     def errors_response(self, error):
@@ -53,9 +51,8 @@ class StoryDetail(APIView):
             distance = MapFacade.get_distance(request.query_params, story)
             if distance == 'Impossible route.':
                 return self.errors_response(distance)
-            else:
-                serializer = StorySerializer(story)
-                return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
+            serializer = StorySerializer(story)
+            return Response({'data':serializer.reformat(serializer.data, return_distance=distance)})
         return self.errors_response(request.query_params)
 
     """
