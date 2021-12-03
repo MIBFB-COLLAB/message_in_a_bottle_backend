@@ -64,6 +64,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://message-in-a-bottle-fe-app.herokuapp.com',
     'https://app-message-in-a-bottle.herokuapp.com',
+    'https://mib-reactapp.herokuapp.com',
 ]
 
 CORS_ALLOW_METHODS = [
