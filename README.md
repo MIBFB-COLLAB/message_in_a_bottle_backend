@@ -148,7 +148,7 @@ $ python3 -V
 
 ## How To Use
 
-To experience the front-end UI, please visit the application [here](https://message-in-a-bottle-fe-app.herokuapp.com/). You can also hit our endpoints through an API client, such as Postman or HTTPie.
+To experience the front-end UI, please visit the application [here](https://mib-reactapp.herokuapp.com/). You can also hit our endpoints through an API client, such as Postman or HTTPie.
 
 
 
